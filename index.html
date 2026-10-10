@@ -23,6 +23,7 @@
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 *,*::before,*::after{box-sizing:border-box}
 input,select,textarea{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%}
 select{background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:16px 50%,21px 50%;background-size:5px 5px;background-repeat:no-repeat;padding-left:32px}
@@ -350,6 +351,9 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 .cl-fb.g{border-color:rgba(69,211,154,.7)}.cl-fb.y{border-color:rgba(255,201,92,.7)}.cl-fb.r{border-color:rgba(255,84,112,.7)}.cl-fb.out{opacity:0;transform:translate(-50%,-8px);transition:all .3s}
 .cl-fb b{display:block;font-size:16px}.cl-fb span{font-size:13px;color:var(--mute)}
 @keyframes fbIn{from{opacity:0;transform:translate(-50%,14px) scale(.96)}}
+.kitg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.kitc{background:var(--s2);border:1px solid var(--line2);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:4px}.kitc.on{border-color:var(--good);background:linear-gradient(180deg,rgba(69,211,154,.12),transparent),var(--s2)}.kitc b{font-size:13.5px}
+.qb{margin-top:10px;border-color:rgba(255,201,92,.5);animation:fdIn .3s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -557,11 +561,11 @@ const SHOP=[
  {id:'pr',cat:'staff',n:'יחצ״ן',d:'חשיפה קבועה ברשתות',cost:70000},{id:'jet',cat:'staff',n:'שעות במטוס פרטי',d:'+3 אנרגיה ביום',cost:1500000},
  {id:'shoes',cat:'gear',n:'נעלי כדורסל מקצועיות',d:'+1 מהירות וניתור',cost:250},{id:'machine',cat:'gear',n:'מכונת זריקות לבית',d:'+25% באימוני קליעה',cost:12000},
  {id:'gym',cat:'gear',n:'חדר כושר ביתי',d:'+12% באימונים',cost:70000},{id:'cryo',cat:'gear',n:'תא קריותרפיה',d:'+2 אנרגיה ביום, פחות פציעות',cost:160000},
- {id:'car1',cat:'car',n:'מאזדה 3',d:'+2 מורל',cost:32000,mor:2},{id:'car2',cat:'car',n:'טסלה מודל S',d:'+4 מורל, +1 מוניטין',cost:95000,mor:4,fame:1},
- {id:'car3',cat:'car',n:'פורשה 911',d:'+6 מורל, +2 מוניטין, +2 אגו',cost:185000,mor:6,fame:2,ego:2},{id:'car4',cat:'car',n:'למבורגיני',d:'+8 מורל, +4 מוניטין, +5 אגו',cost:420000,mor:8,fame:4,ego:5},
- {id:'watch',cat:'lux',n:'שעון יוקרה',d:'+3 מורל, +1 מוניטין',cost:38000,mor:3,fame:1,ego:1},{id:'mom',cat:'lux',n:'בית להורים',d:'+15 מורל, המשפחה מאושרת',cost:900000,mor:15,fame:2,fam:25},
- {id:'h3',cat:'live',n:'פנטהאוז בתל אביב',d:'מגורים · חוסך שכירות',cost:2400000,live:1,mor:8,fame:3},{id:'h4',cat:'live',n:'וילה בהרצליה פיתוח',d:'מגורים · +10 מורל',cost:6000000,live:1,mor:10,fame:5},
- {id:'h5',cat:'live',n:'אחוזה במיאמי',d:'מגורים · +12 מורל',cost:15000000,live:1,mor:12,fame:7},
+ {id:'car1',cat:'car',n:'מאזדה 3',d:'נוחות +2 · רכב ראשון',cost:32000,mor:2,br:0},{id:'car2',cat:'car',n:'טסלה מודל S',d:'נוחות +4 · תדמית +3 · +1 מוניטין',cost:95000,mor:4,fame:1,br:3},
+ {id:'car3',cat:'car',n:'פורשה 911',d:'נוחות +6 · תדמית +6 · +2 מוניטין, +2 אגו',cost:185000,mor:6,fame:2,ego:2,br:6},{id:'car4',cat:'car',n:'למבורגיני',d:'נוחות +8 · תדמית +10 · +4 מוניטין, +5 אגו',cost:420000,mor:8,fame:4,ego:5,br:10},
+ {id:'watch',cat:'lux',n:'שעון יוקרה',d:'תדמית +2 · +1 מוניטין',cost:38000,mor:3,fame:1,ego:1,br:2},{id:'mom',cat:'lux',n:'בית להורים',d:'המשפחה מאושרת · תדמית +3',cost:900000,mor:15,fame:2,fam:25,br:3},
+ {id:'h3',cat:'live',n:'פנטהאוז בתל אביב',d:'מגורים · חוסך שכירות · נוחות +6 · תדמית +4',cost:2400000,live:1,mor:8,fame:3,br:4},{id:'h4',cat:'live',n:'וילה בהרצליה פיתוח',d:'מגורים · נוחות +6 · תדמית +7',cost:6000000,live:1,mor:10,fame:5,br:7},
+ {id:'h5',cat:'live',n:'אחוזה במיאמי',d:'מגורים · נוחות +6 · תדמית +12',cost:15000000,live:1,mor:12,fame:7,br:12},
  {id:'h1',cat:'prop',n:'דירה בבאר שבע',d:'שכירות 4.5% בשנה',cost:260000,yld:.045},{id:'h2',cat:'prop',n:'דירה בחיפה',d:'שכירות 3.8% בשנה',cost:430000,yld:.038},
  {id:'p1',cat:'prop',n:'חנות ברחוב דיזנגוף',d:'נכס מסחרי · 6% בשנה',cost:1100000,yld:.06},{id:'p2',cat:'prop',n:'קומת משרדים בהרצליה',d:'נכס מסחרי · 6.5% בשנה',cost:3800000,yld:.065},
  {id:'p3',cat:'prop',n:'מרכז מסחרי במודיעין',d:'נכס מסחרי · 7% בשנה',cost:12000000,yld:.07}];
@@ -590,7 +594,7 @@ function tS(n){if(S.team&&n===S.team.n)return S.team.s;const t=W().teams[short(n
 function tC(n){const t=W().teams[short(n)];return t?t.c:'#888'}
 const has=id=>!!(S.staff[id]||S.items.includes(id));
 const spPerk=k=>S.spons.reduce((s,x)=>s+((BR[x.id].perk||{})[k]||0),0);
-function ea(){const a={...S.p.attr};const b=spPerk('ath')+(S.items.includes('shoes')?1:0);a.spd+=b;a.jmp+=b;const ar=S.p.arch.active;if(ar)a[ARCH[ar].k]+=3;for(const k in a)a[k]=Math.min(99,a[k]);return a}
+function ea(){const a={...S.p.attr};const b=spPerk('ath')+(S.items.includes('shoes')?1:0);a.spd+=b;a.jmp+=b;const ar=S.p.arch.active;if(ar)a[ARCH[ar].k]+=3;if(S.kit)for(const k in a)a[k]+=kitB(k);for(const k in a)a[k]=Math.min(99,a[k]);return a}
 function ovr(){const a=ea(),w=POS[S.p.pos].w;let s=0;for(const k in w)s+=w[k]*a[k];return Math.round(s)}
 const catAvg=(c,a)=>{a=a||ea();const ks=AT.filter(x=>x[2]===c).map(x=>x[0]);return Math.round(ks.reduce((s,k)=>s+a[k],0)/ks.length)};
 const followers=f=>Math.round(120*Math.pow(1.137,f));
@@ -808,7 +812,7 @@ function monthAwards(mo){const sea=S.season;if(!sea||!sea.ps)return;sea.mvps=sea
   else{const my=T.ME&&T.ME.m[mo];if(my&&my[0]>=need){const rk=C.findIndex(x=>x.k==='ME')+1;if(rk>0&&rk<=10)news(`MVP חודש ${HMON[mo]} ב${compName(c)}: ${w.r.n} (${short(w.r.t)}), ציון ${f1(w.v)}. אתה במקום ${rk} עם ${f1(my[1]/Math.max(1,my[2]??my[0]))}.`)}}}}
 
 /* ======== days, plan, training ======== */
-const dayRegen=()=>5+(has('nutri')?1.5:0)+(has('cryo')?2:0)+(S.staff.jet?3:0)+spPerk('en');
+const dayRegen=()=>5+(has('nutri')?1.5:0)+(has('cryo')?2:0)+(S.staff.jet?3:0)+spPerk('en')+(S.kit?kitEn():0);
 // גיל השיא נקבע לכל שחקן בין 26 ל-31. לפני השיא יש תקרה שנפתחת בהדרגה
 // תקרת הכושר תלויה בסיבולת
 const fitCap=()=>clamp(62+ea().sta*.4,70,100);
@@ -887,8 +891,10 @@ function doPost(id){const p=S.p,fx=curFx();let txt='',m='';
  if(id==='spon'){if(!S.spons.length){toast('אין לך ספונסר עדיין');return}const s=pick(S.spons),b=Math.round(s.pay*.02);p.cash+=b;fameD(.5);txt=`לא יוצא לאימון בלי ${BR[s.id].n}.`;m=` ${BR[s.id].n} שילמו ${money(b)}.`}
  if(id==='life'){fameD(rnd(1.5,3));egoD(3);coachD(-2);txt=pick(['ערב שישי. מגיע לי.','סטייל זה לא דבר שקונים.'])}
  S.posted=true;wirePost('me',txt,p.name);for(let i=0;i<ri(1,2);i++)wirePost('fan',pick(['🔥🔥🔥','האיש שלנו!','תמשיך ככה, אחי',`${p.name.split(' ')[0]} למדינה!`,'מחכה למשחק!']));closeModal();toast('פרסמת.'+m);save();render()}
-const INVT=[{k:'pod',n:'פודקאסט ״השלשה״',d:'שעה על הקריירה שלך',f:0,pay:f=>800+f*500,fame:2},{k:'gala',n:'ערב התרמה לבית חולים',d:'צילומים, תרומה למען ילדים',f:8,pay:()=>0,fame:3,mor:4},{k:'camp',n:'מחנה כדורסל לילדים',d:'יום הדרכה בשכונה',f:0,pay:f=>400+f*200,fame:1.5,mor:5},{k:'tv',n:'אורח בתוכנית ספורט',d:'שידור חי בפריים טיים',f:20,pay:f=>2000+f*900,fame:4},{k:'launch',n:'אירוע השקה של מותג',d:'הופעה של שעה, תשלום טוב',f:35,pay:f=>8000+f*2500,fame:2,ego:2},{k:'club',n:'הזמנה למועדון VIP',d:'בקבוקים, DJ, צלמים',f:15,pay:()=>0,fame:2,mor:6,ego:3,risk:1}];
-function genInvites(){S.invites=shuffle(INVT.filter(i=>S.p.fame>=i.f)).slice(0,ri(1,3)).map(i=>({k:i.k,pay:Math.round(i.pay(S.p.fame)/100)*100}))}
+const INVT=[{k:'pod',n:'פודקאסט ״השלשה״',d:'שעה על הקריירה שלך',f:0,pay:f=>(150+f*45)*invLvl(),fame:2},{k:'gala',n:'ערב התרמה לבית חולים',d:'צילומים, תרומה למען ילדים',f:8,pay:()=>0,fame:3,mor:4},{k:'camp',n:'מחנה כדורסל לילדים',d:'יום הדרכה בשכונה',f:0,pay:f=>(80+f*25)*invLvl(),fame:1.5,mor:5},{k:'tv',n:'אורח בתוכנית ספורט',d:'שידור חי בפריים טיים',f:20,pay:f=>(600+f*90)*invLvl(),fame:4},{k:'launch',n:'אירוע השקה של מותג',d:'הופעה של שעה, תשלום טוב',f:35,pay:f=>(2500+f*300)*invLvl(),fame:2,ego:2},{k:'club',n:'הזמנה למועדון VIP',d:'בקבוקים, DJ, צלמים',f:15,pay:()=>0,fame:2,mor:6,ego:3,risk:1}];
+// הזמנות לא מגיעות כל שבוע: הסיכוי והתשלום תלויים במוניטין ובליגה. שחקן נוער כמעט לא מקבל כסף על הופעות
+const invLvl=()=>{const c=S.team?S.team.comp:'YTH';return c==='YTH'?.15:c==='NBA'?4:LG[c]&&LG[c].t===1?(LG[c].cc==='ישראל'?.8:1.3):.4};
+function genInvites(){const ch=.18+S.p.fame/220;S.invites=R()<ch?shuffle(INVT.filter(i=>S.p.fame>=i.f)).slice(0,S.p.fame>60?2:1).map(i=>({k:i.k,pay:Math.round(i.pay(S.p.fame)/50)*50})):[]}
 function acceptInv(k,log){const ix=S.invites.findIndex(i=>i.k===k);if(ix<0){log.n.rest++;return}const d=INVT.find(x=>x.k===k),v=S.invites[ix];
  S.p.cash+=v.pay;fameD(d.fame||0);S.p.morale=clamp(S.p.morale+(d.mor||0),0,100);egoD(d.ego||0);S.p.energy=clamp(S.p.energy-6,0,100);let m=`${d.n}${v.pay?' ('+money(v.pay)+')':''}`;
  if(d.risk&&R()<.3){coachD(-6);m+=' · התמונות הגיעו לעיתונות';wirePost('news',`${S.p.name} במועדון VIP באמצע השבוע.`)}S.invites.splice(ix,1);log.n.act++;log.msgs.push(m);news(m)}
@@ -909,12 +915,21 @@ function dailyMoney(){const p=S.p,tax=taxOf(),ag=S.team.comp==='YTH'?0:.05,gross
  const net=gross*(1-tax-ag)-annualExp().total/365+rentYr()/365+bz*(1-tax*.6);p.cash+=net;S.earned+=gross+bz;S.wk=(S.wk||0)+net;
  for(const a of ASSETS){let x=S.inv.px[a.id];const dt=1/365;if(!a.sig)x*=1+a.mu*dt;else x*=Math.exp((a.mu-.5*a.sig*a.sig)*dt+a.sig*Math.sqrt(dt)*gauss());if(a.id==='hoop'){if(R()<.004)x*=rnd(2,4);if(R()<.0009){x*=.03;if(S.inv.u.hoop)news('HOOPCOIN קרס ב-97%. המפתחים נעלמו.',1)}x=Math.max(x,.0001)}S.inv.px[a.id]=x}
  S.homes.forEach(h=>h.value*=Math.exp(.035/365+.05*Math.sqrt(1/365)*gauss()))}
+/* ======== ביטחון ומורל: יעד שמשתנה לפי מה שקורה בקריירה ======== */
+// הביטחון נמשך כל שבוע לעבר יעד: כושר במשחקים האחרונים, תפקיד ודקות, מצטיין משחק, פרסים ותארים. המורל: דקות מול הציפיות, ניצחונות, משפחה, נוחות (בית, רכב) ומצב כספי
+function confTarget(){const sea=S.season,gs=(sea?sea.games:[]).filter(g=>g.k!=='pre'&&!g.dnp&&g.rt!=null&&g.exp!=null).slice(-6),f=gs.length?gs.reduce((a,g)=>a+(g.rt-g.exp),0)/gs.length:0,D=S.team?depth():{rank:1},pg=gs.filter(g=>g.potg).length,dnp=(sea?sea.games:[]).slice(-4).filter(g=>g.dnp&&!g.inj).length;
+ return clamp(56+f*10+[8,4,-2,-7][D.rank]+pg*2+Math.min(8,S.titles.length*1.5)+Math.min(6,(S.awards||[]).length*.5)+(has('mental')?5:0)-dnp*3+((S.mom||0)*.4),25,94)}
+function comfort(){let c=0;if(S.homes.some(h=>SH[h.id]&&SH[h.id].live))c+=6;const cars=S.items.filter(i=>SH[i]&&SH[i].cat==='car').map(i=>SH[i].mor||0);c+=cars.length?Math.max(...cars):0;S.items.filter(i=>SH[i]&&SH[i].cat==='lux').forEach(i=>c+=Math.min(4,(SH[i].mor||0)*.5));return Math.min(14,c)}
+function moraleTarget(){const D=S.team?depth():{mins:20},sea=S.season,want=S.p.ego>70?28:S.p.ego>50?22:16,mins=(D.mins-want)*.5,gs=(sea?sea.games:[]).filter(g=>g.k!=='pre').slice(-8),wp=gs.length?gs.filter(g=>g.won).length/gs.length:.5;
+ return clamp(58+clamp(mins,-12,8)+(wp-.5)*18+(S.family.rel-50)/6+comfort()+(S.p.cash<0?-15:0)+spPerk('mor')*4,15,98)}
+// תדמית: רכבים, יוקרה ובתים מגדילים את שווי החסויות ואת התדירות שלהן
+const brandPts=()=>Math.min(30,S.items.reduce((a,i)=>a+((SH[i]&&SH[i].br)||0),0)+S.homes.reduce((a,h)=>a+((SH[h.id]&&SH[h.id].br)||0),0));
 function weekly(){const p=S.p;S.lastWeek=S.wk||0;S.wk=0;if(p.cash<0){p.cash*=1+.12/52;p.morale=clamp(p.morale-1.5,0,100)}
  ASSETS.forEach(a=>{const h=S.inv.h[a.id];h.push(S.inv.px[a.id]);if(h.length>40)h.shift()});
  if(S.biz.app&&R()<.01){S.biz.app.mult*=R()<.5?6:.1;news(S.biz.app.mult>1?'אפליקציית האימונים שלך פרצה! השווי זינק.':'אפליקציית האימונים נכשלה.',1)}
- p.morale=clamp(p.morale+(58-p.morale)*.08+spPerk('mor')+(S.family.rel-50)/50,0,100);fameD(-.12+(S.staff.pr?.35:0)+spPerk('fame'));confD((50-p.conf)*.03);if(p.ego>70){matesD(-.6);coachD(-.3)}egoD(-.4);
- if(!S.spOffer&&R()<.09){const o=sponsorOffer();if(o){S.spOffer=o;S.queue.push('sp')}}S.posted=false;S.yoga=false;genInvites()}
-function sponsorOffer(){const el=BRANDS.filter(b=>S.p.fame>=b.f&&!S.spons.some(s=>s.id===b.id));if(!el.length)return null;const b=R()<.6?el[el.length-1]:pick(el),m=S.team.comp==='NBA'?4:S.team.comp==='YTH'?.25:LG[S.team.comp].fm;return {id:b.id,pay:Math.round(b.base*m*(.8+S.p.fame/80)/100)*100,yrs:ri(1,3),asked:false}}
+ p.morale=clamp(p.morale+(moraleTarget()-p.morale)*.2,0,100);fameD(-.12+(S.staff.pr?.35:0)+spPerk('fame'));p.conf=clamp(p.conf+(confTarget()-p.conf)*.18,Math.min(70,20+S.titles.length*3),100);if(p.ego>70){matesD(-.6);coachD(-.3)}egoD(-.4);
+ if(!S.spOffer&&R()<.09+brandPts()*.004){const o=sponsorOffer();if(o){S.spOffer=o;S.queue.push('sp')}}S.posted=false;S.yoga=false;genInvites()}
+function sponsorOffer(){const el=BRANDS.filter(b=>S.p.fame>=b.f&&!S.spons.some(s=>s.id===b.id));if(!el.length)return null;const b=R()<.6?el[el.length-1]:pick(el),m=S.team.comp==='NBA'?4:S.team.comp==='YTH'?.25:LG[S.team.comp].fm;return {id:b.id,pay:Math.round(b.base*m*(.8+S.p.fame/80)*(1+brandPts()/50)/100)*100,yrs:ri(1,3),asked:false}}
 
 /* ======== events ======== */
 const stake=()=>Math.max(2000,Math.round(S.p.cash*.15/100)*100);
@@ -938,21 +953,23 @@ const pickEvent=()=>pick(Object.keys(EV).filter(k=>!EV[k].c||EV[k].c()));
 const QL=()=>S.team.comp==='NBA'?720:600;
 /* ======== היכולות במשחק ======== */
 // כל תכונה מתורגמת ישירות לאחוזים במשחק: הפער בין התכונה שלך להגנה של היריבה. ממוצעי יורוליג 2021–26: 35% משלוש, 54% משתיים, 76% מהקו, 15% איבודים
-const SOFT=d=>clamp(d>12?12+(d-12)*.5:d<-15?-15+(d+15)*.6:d,-30,24);
+const SOFT=d=>clamp(d,-30,34);
+// יתרון קליעה לפי הפער בנקודות תכונה: עד 10 = 0.45% לנקודה, 10–22 תלול יותר (היריבים כבר לא יודעים לשמור עליך), מעל 22 מתמתן
+const ADV=d=>d<=0?Math.max(-.15,d*.0045):d<=10?d*.006:d<=22?.06+(d-10)*.0072:Math.min(.18,.1464+(d-22)*.0025);
 // פרופיל הגנה קבוע לכל קבוצה: הגנה על הקשת, הגנת צבע, ריבאונד, לחץ על הכדור (±4)
 function tdef(n){const h=k=>(hash(n+k)%9)-4;return {per:h('p'),int:h('i'),reb:h('r'),prs:h('x')}}
 const TDN={per:'הגנה על הקשת',int:'הגנת הצבע',reb:'ריבאונד',prs:'לחץ על הכדור'};
 function lgOpp(){const sea=S.season,L=sea&&sea.teams&&sea.teams[sea.lg]?sea.teams[sea.lg].filter(n=>n!==S.team.n):[];return L.length?L.reduce((a,n)=>a+tS(n),0)/L.length:S.team.s}
-function skillTab(a){a=a||ea();const o=lgOpp(),la=((CBASE[S.team.comp]||84)-84)*.0045*.6+clamp((S.p.morale-50)/1200+(S.p.conf-50)/1000,-.04,.04),v=x=>o+SOFT(x-o),pos=S.p.pos,y=sty();
- const p3=clamp(.29+(v(a.thr)-o)*.0045+la,.14,.5),pm=clamp(.41+(v(a.mid)-o)*.0045+la,.2,.66),pd=clamp(.5+((v(a.fin)*.55+v(a.spd)*.2+v(a.jmp)*.25)-o)*.0045+la,.24,.78),pf=clamp(.4+a.ft*.0055,.4,.93),pp=clamp(.56+((v(a.pas)+v(a.iq))/2-o)*.003,.3,.8),
+function skillTab(a){a=a||ea();const o=lgOpp(),la=((CBASE[S.team.comp]||84)-84)*.0045*.3+clamp((S.p.morale-50)/1200+(S.p.conf-50)/1000,-.04,.04),v=x=>o+SOFT(x-o),pos=S.p.pos,y=sty();
+ const p3=clamp(.32+ADV(a.thr-o)+la,.14,.58),pm=clamp(.42+ADV(a.mid-o)+la,.2,.68),pd=clamp(.52+ADV((a.fin*.55+a.spd*.2+a.jmp*.25)-o)+la,.26,.8),pf=clamp(.4+a.ft*.0055,.4,.93),pp=clamp(.56+((v(a.pas)+v(a.iq))/2-o)*.003,.3,.8),
   tov=clamp((1.6-(a.hnd+a.iq)/150),.4,1.6),rr=a.reb*.7+a.jmp*.15+a.str*.15,stl=56*(.016*a.pdef/60*(y.stl||1)+{PG:.008,SG:.006,SF:.004,PF:.002,C:.001}[pos]),blk=56*.63*(.028*(a.idef+a.jmp)/120*BLKM[pos]*(y.blk||1)),reb=56*.45*(.12*rr/60*REBM[pos]*(y.reb||1))+56*.3*.045*rr/60*REBM[pos];
  return {o,rows:[['thr','שלשות',a.thr,`${Math.round(p3*100)}% משלוש`,.0045],['mid','חצי מרחק',a.mid,`${Math.round(pm*100)}% מחצי מרחק`,.0045],['fin','סיום ליד הסל',a.fin,`${Math.round(pd*100)}% בחדירות`,.0045*.55],['ft','זריקות עונשין',a.ft,`${Math.round(pf*100)}% מהקו`,.0055],['pas','מסירה',a.pas,`${Math.round(pp*100)}% מהמסירות שלך מסתיימות בסל`,.0015],['hnd','כדרור',a.hnd,tov<=.9?'מעט איבודים':tov<=1.15?'איבודים בממוצע':'הרבה איבודים',0],['reb','ריבאונד',a.reb,`~${f1(reb)} ריבאונדים ל-30 דקות`,0],['pdef','הגנה היקפית',a.pdef,`~${f1(stl)} חטיפות ל-30 דקות`,0],['idef','הגנת צבע',a.idef,`~${f1(blk)} חסימות ל-30 דקות`,0]]}}
-function skillDelta(k,d){const c={thr:.0045,mid:.0045,fin:.0045*.55,ft:.0055,pas:.0015}[k];return c?`≈${d>0?'+':''}${f1(d*c*100)}%`:''}
+function skillDelta(k,d){const a=ea(),o=S.team?lgOpp():60,M={thr:x=>ADV(x-o),mid:x=>ADV(x-o),fin:x=>ADV((x*.55+a.spd*.2+a.jmp*.25)-o),ft:x=>x*.0055,pas:x=>x*.0015}[k];if(!M)return '';const v=a[k],dd=(M(v+d)-M(v))*100;return `≈${dd>=0?'+':''}${f1(dd)}%`}
 function focusImpact(){const f=S.plan.focus,T=skillTab(),r=f&&!f.startsWith('cat:')?T.rows.find(x=>x[0]===f):null;if(!r)return '';return `<div class="card" style="padding:10px 12px;margin-top:10px;font-size:13px"><span class="mute">במשחק:</span> <b>${AN[f]} ${Math.floor(r[2])}</b> מול הגנה ממוצעת בליגה (${Math.round(T.o)}) = <b class="cyan">${r[3]}</b>${r[4]?`<span class="mute"> · כל 5 נקודות <span dir="ltr">${skillDelta(f,5)}</span></span>`:''}</div>`}
 function skillView(){const T=skillTab();return `<div class="sec"><b>מה זה נותן במשחק</b><span>מול ממוצע הליגה (${Math.round(T.o)})</span></div><section class="card" style="padding:6px 12px">${T.rows.map(([k,n,v,t,c])=>`<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px"><span>${n} <b class="num">${Math.floor(v)}</b></span><span class="${c?'cyan':'mute'}">${t}</span></div>`).join('')}<div class="dim" style="font-size:12px;padding:8px 0 4px">אותה נוסחה שהמשחק משתמש בה. מול יריבה חזקה או חלשה האחוזים זזים, וכל קבוצה חזקה או חלשה יותר בהגנה על הקשת ובצבע.</div></section>`}
-function pAct(k){const fS=G.fS||0,a0=ea(),om=G.om??G.opStr,a=new Proxy(a0,{get:(t,k)=>typeof t[k]==='number'?om+SOFT(t[k]-om):t[k]}),TD=G.td||{per:0,int:0},o=om,en=(S.p.energy<35?-.05:0)+((S.p.fit??70)-70)/1400+(G.lgAdj||0)*.6+fS,mo=clamp((S.p.morale-50)/1200+(S.p.conf-50)/1000+(S.mom||0)*.003,-.04,.04);
- if(k==='3')return clamp(.29+(a.thr-o-TD.per)*.0045+en+mo,.14,.5);if(k==='mid')return clamp(.41+(a.mid-o-TD.per*.6)*.0045+en+mo,.2,.66);
- if(k==='drive')return clamp(.5+((a.fin*.55+a.spd*.2+a.jmp*.25)-o-TD.int)*.0045+en+mo,.24,.78);if(k==='ft')return clamp(.4+a.ft*.0055+mo/2,.4,.93);
+function pAct(k){const fS=G.fS||0,a0=ea(),om=G.om??G.opStr,a=new Proxy(a0,{get:(t,k)=>typeof t[k]==='number'?om+SOFT(t[k]-om):t[k]}),TD=G.td||{per:0,int:0},o=om,en=(S.p.energy<35?-.05:0)+((S.p.fit??70)-70)/1400+(G.lgAdj||0)*(S.team.comp==='YTH'?.6:.3)+fS,mo=clamp((S.p.morale-50)/1200+(S.p.conf-50)/1000+(S.mom||0)*.003,-.04,.04);
+ if(k==='3')return clamp(.285+ADV(a.thr-o-TD.per)+en+mo,.14,.58);if(k==='mid')return clamp(.42+ADV(a.mid-o-TD.per*.6)+en+mo,.2,.68);
+ if(k==='drive')return clamp(.52+ADV((a.fin*.55+a.spd*.2+a.jmp*.25)-o-TD.int)+en+mo,.26,.8);if(k==='ft')return clamp(.4+a.ft*.0055+mo/2,.4,.93);
  return clamp(.5+(G.myStr-G.opStr)*.004+((a.pas+a.iq)/2-o)*.003+.06,.3,.8)}
 // מאץ׳-אפ: הרמה שלך מול השחקן שמולך בעמדה (60%) ומול רמת הקבוצה היריבה (40%). משפיע על אחוזים, נפח זריקות, ריבאונדים, אסיסטים, חטיפות, חסימות ואיבודים
 function matchup(fx,opS){const R0=oppRoster(fx.opp,fx.comp),pos=S.p.pos,c=R0.filter(x=>x.pos===pos).sort((a,b)=>b.ovr-a.ovr)[0]||R0.slice().sort((a,b)=>b.ovr-a.ovr)[0],om=c?c.ovr*.6+opS*.4:opS;return {om,rel:clamp(ovr()-om,-25,25),mu:c?{n:c.n,ovr:c.ovr}:null}}
@@ -986,7 +1003,7 @@ function playerAction(k){const ev={side:'me',slot:G.mySlot,mine:true};
  else if(foul){const n=three?3:2;let f=0;for(let i=0;i<n;i++)f+=ftShot();ev.kind='ft';ev.pts=f;ev.made=f>0;ev.txt=`סחטת עבירה, ${f}/${n} מהקו`}
  else if(!three&&R()<.12){G.st.fga++;G.st.blka++;ev.txt='הזריקה שלך נחסמה';rebAfter(ev,true,'me')}
  else{G.st.fga++;if(three)G.st.tpa++;ev.txt=three?'השלשה שלך מחוץ לטבעת':k==='drive'?'הלייאפ שלך מתגלגל החוצה':'החטאת מחצי מרחק';rebAfter(ev,true,'me')}return ev}
-function myPoss(on){if(on&&R()<Math.min(.55,G.usage*1.25*MU(.006,.9,1.18)*(G.fU||1)))return playerAction(chooseAct());
+function myPoss(on){if(on&&R()<Math.min(G.fU>1.3?.5:.42,G.usage*1.25*MU(.006,.9,1.12)*(G.fU||1)))return playerAction(chooseAct());
  const ev={side:'me',slot:mateSlot(on)},d=G.myStr-G.opStr,n=nm(ev.slot);
  if(R()<.11){ev.kind='to';ev.txt=`${n} איבד את הכדור`;return ev}
  if(R()<.13){const m=(R()<.76)+(R()<.76);G.me+=m;ev.kind='ft';ev.pts=m;ev.made=m>0;ev.txt=`${n} ${m}/2 מהקו`;return ev}
@@ -1046,7 +1063,7 @@ function teamBox(players,pts,tot,margin,uIdx,ust,tS0,oS){// players:[{n,pos,ovr,
  let guard=0;while(pool>0&&twu>0&&guard++<400){let r=R()*twu,j=0;for(;j<wu.length;j++){r-=wu[j];if(r<=0)break}j=Math.min(j,wu.length-1);const x=L[idx[j]],q=R();
   if(R()<.27){const m=Math.min(pool,(R()<.76)+(R()<.76));x.fta+=2;x.ftm+=m;x.pts+=m;pool-=m}else if(pool>=3&&q<B_P3[x.pos]*1.12){x.tpm++;x.fgm++;x.pts+=3;pool-=3}else if(pool>=2){x.fgm++;x.pts+=2;pool-=2}else{x.fta+=2;x.ftm+=1;x.pts+=1;pool-=1}}
  // אחוזי הקליעה של שחקני המחשב תלויים ברמה שלהם מול היריבה, באותו שיפוע כמו אצלך (כך שחקן ברמה שלך לא קולע ביעילות גבוהה יותר רק כי הוא לא אתה)
- for(const i of idx){const x=L[i],p3=B_P3[x.pos],rl=clamp((players[i].ovr||tS0)-(oS??tS0),-15,15),fm=gauss()*.035,q3=clamp(.33+rl*.004+fm+gauss()*.03,.2,.5),q2=clamp(.52+rl*.0045+fm,.38,.66);x.tpa=Math.max(x.tpm,Math.round(x.tpm/q3))+(x.tpm===0&&p3>.2&&R()<.5?1:0);const f2=x.fgm-x.tpm;x.fga=x.tpa+Math.max(f2,Math.round(f2/q2))+(x.min>8&&R()<.15?1:0)}
+ for(const i of idx){const x=L[i],p3=B_P3[x.pos],rl=clamp((players[i].ovr||tS0)-(oS??tS0),-20,25),fm=gauss()*.035,q3=clamp(.34+ADV(rl)*.9+fm+gauss()*.03,.2,.55),q2=clamp(.52+ADV(rl)*.85+fm,.38,.68);x.tpa=Math.max(x.tpm,Math.round(x.tpm/q3))+(x.tpm===0&&p3>.2&&R()<.5?1:0);const f2=x.fgm-x.tpm;x.fga=x.tpa+Math.max(f2,Math.round(f2/q2))+(x.min>8&&R()<.15?1:0)}
  const add=(k,total,w,cap)=>{const u=uIdx>=0?(ust[k]||0):0,d=distN(total-u,w,cap);idx.forEach((i,j)=>L[i][k]+=d[j])};
  const tfgm=L.reduce((a,x)=>a+x.fgm,0);
  add('reb',ri(32,39),W(p=>B_RB[p.pos]*(.8+p.ovr/250)));idx.forEach(i=>L[i].oreb=Math.round(L[i].reb*rnd(.15,.35)));
@@ -1090,7 +1107,7 @@ function renderGame(){const fx=G.fx,t=S.team,oc=tC(fx.opp);let mc=t.c;if(Math.ab
  <div class="tm op">${crest(fx.opp,oc,34)}<div style="min-width:0;text-align:left"><div class="tn2">${esc(short(fx.opp))}</div><b class="led" id="sOp">0</b></div></div></div></div>
  <div class="court" id="court">${courtSVG(mc,oc)}</div><div class="pline">${avatar(t.c,S.p.num,38)}<div class="st" id="pst"></div><span class="onc" id="onc"></span></div>${G.mu?`<div class="mute" style="font-size:12px;margin:6px 4px 8px">מולך: <b style="color:#fff">${esc(G.mu.n)}</b> (${G.mu.ovr}) · ${G.rel>=6?'<span class="good">יתרון ברור</span>':G.rel>=2?'<span class="good">יתרון קל</span>':G.rel<=-6?'<span class="bad">מאץ׳-אפ קשה</span>':G.rel<=-2?'<span class="bad">קצת קשה</span>':'שקול'}${(()=>{const T=G.td||{},k=Object.keys(TDN).sort((x,y)=>Math.abs(T[y]||0)-Math.abs(T[x]||0))[0];return T[k]&&Math.abs(T[k])>=3?` · ${TDN[k]} שלהם <span class="${T[k]>0?'bad':'good'}">${T[k]>0?'חזקה':'חלשה'}</span>`:''})()}</div>`:''}
  <div class="feed" id="feed" aria-live="polite"></div>
- <div class="ctrl"><div class="spd" role="group" aria-label="מהירות">${[1,2,4].map(s=>`<button data-a="spd" data-v="${s}" aria-pressed="${G.speed===s}">×${s}</button>`).join('')}</div><button class="btn soft sm" data-a="gauto" style="margin-inline-start:auto">${ico('fwd',null,16)} לסיום</button></div>`;
+ <div class="ctrl"><div class="spd" role="group" aria-label="מהירות">${[1,2,4].map(s=>`<button data-a="spd" data-v="${s}" aria-pressed="${G.speed===s}">×${s}</button>`).join('')}</div><button class="btn soft sm" data-a="gpause" id="gpb" style="margin-inline-start:auto">⏸ עצירה</button><button class="btn soft sm" data-a="gauto">${ico('fwd',null,16)} לסיום</button></div><div id="qbrk"></div>`;
  $('#court').style.setProperty('--mv',(320/spf())+'ms');setFormation(G.poss);setBall(G.pm[0]);hud();
  addFeed({txt:G.plan<=0?(G.dnp?'אתה פצוע וצופה מהיציע.':'המאמן משאיר אותך על הספסל הערב.'):G.starter?`אתה בחמישייה. צפי: ${G.plan} דקות.`:`מתחיל על הספסל. צפי: ${G.plan} דקות.`,mine:true})}
 function placeDot(t,i,p){(t==='m'?G.pm:G.po)[i]=p;const el=document.getElementById(t+i);if(el)el.style.transform=`translate(${p[0]}px,${p[1]}px)`}
@@ -1119,9 +1136,14 @@ function hud(){const sm=$('#sMe'),so=$('#sOp');if(!sm)return;
  $('#pst').innerHTML=`<b>${s.pts}</b> נק׳ · ${s.reb} ריב׳ · ${s.ast} אס׳ · ${s.fgm}/${s.fga} · ${Math.round(G.sec/60)} דק׳ ${lr!=null?'ציון '+rtChip(lr):''} <span class="${s.pm>=0?'good':'bad'}">${pmTxt(s.pm)}</span>`;
  const o=$('#onc');o.className='onc '+(on?'on':'off');o.textContent=G.fouledOut?'הודח':on?'על הפרקט':'על הספסל';
  const d=document.getElementById('m'+G.mySlot);if(d){d.style.opacity=on?1:.55;const tx=d.querySelector('.dn');if(tx)tx.textContent=on?S.p.num:G.subNum;const rg=d.querySelector('.ring2');if(rg)rg.style.display=on?'':'none'}}
+
+// בין רבעים: המשחק עוצר. ממשיכים לרבע הבא או מסמלצים לסוף
+function qBreak(q){return new Promise(res=>{const el=document.getElementById('qbrk');if(!el){res();return}const s=G.st,nx=q>=4?'הארכה':qName(q+1);
+ el.innerHTML=`<div class="card qb"><div class="row between"><div><div class="lab">סוף ${qName(q)}</div><div class="row num" style="gap:8px;font-size:24px;font-weight:700;justify-content:flex-start"><span>${G.me}</span><span class="dim">-</span><span>${G.op}</span></div></div><div class="mute" style="font-size:13px;text-align:left">${s.pts} נק׳ · ${s.reb} ריב׳ · ${s.ast} אס׳<br>${Math.round(G.sec/60)} דק׳ · ${s.fgm}/${s.fga} מהשדה</div></div><div class="row" style="margin-top:10px"><button class="btn pri" style="flex:2" id="qgo">▶ ${nx}</button><button class="btn soft" style="flex:1" id="qsim">⏭ סמלץ לסוף</button></div></div>`;
+ const done=()=>{el.innerHTML='';res()};el.querySelector('#qgo').onclick=done;el.querySelector('#qsim').onclick=()=>{G.auto=true;done()}})}
 async function loop(){const tok=++G.tok;
- while(G&&!G.over&&tok===G.tok){let ev;const cm=clutchCheck();if(cm&&!G.auto){hud();const i=await clutchUI(cm);if(!G||tok!==G.tok)return;ev=G.auto?clutchResolve(cm,clutchAuto(cm),cm.d>=0?'slow':'fast'):clutchResolve(cm,i,G.clPace||'fast');await animate(ev);if(!G||tok!==G.tok)return;addFeed(ev);hud();if(!G.auto)clutchFbShow(ev.fb,2600);await sleep(G.auto?300:1900);if(ev.qEnd&&!G.over)await banner('סוף '+qName(ev.qEnd),800/spf());continue}ev=G.auto?simStep():stepPoss();if(G.clutchLead&&G.op>=G.me)G.clutchLead=null;
-  if(!G.auto){const fast=!ev.mine&&(G.speed>=3||!ev.on);if(fast){addFeed(ev);hud();await sleep(G.speed>=4?16:G.speed===3?40:110)}else{await animate(ev);if(!G||tok!==G.tok)return;addFeed(ev);hud();await sleep(60/spf())}if(!G||tok!==G.tok)return;if(ev.qEnd&&!G.over)await banner('סוף '+qName(ev.qEnd),800/spf())}}
+ while(G&&!G.over&&tok===G.tok){while(G&&G.pause&&!G.auto&&tok===G.tok)await sleep(150);if(!G||tok!==G.tok)return;let ev;const cm=clutchCheck();if(cm&&!G.auto){hud();const i=await clutchUI(cm);if(!G||tok!==G.tok)return;ev=G.auto?clutchResolve(cm,clutchAuto(cm),cm.d>=0?'slow':'fast'):clutchResolve(cm,i,G.clPace||'fast');await animate(ev);if(!G||tok!==G.tok)return;addFeed(ev);hud();if(!G.auto)clutchFbShow(ev.fb,2600);await sleep(G.auto?300:1900);if(ev.qEnd&&!G.over)await banner('סוף '+qName(ev.qEnd),800/spf());continue}ev=G.auto?simStep():stepPoss();if(G.clutchLead&&G.op>=G.me)G.clutchLead=null;
+  if(!G.auto){const fast=!ev.mine&&(G.speed>=3||!ev.on);if(fast){addFeed(ev);hud();await sleep(G.speed>=4?16:G.speed===3?40:110)}else{await animate(ev);if(!G||tok!==G.tok)return;addFeed(ev);hud();await sleep(60/spf())}if(!G||tok!==G.tok)return;if(ev.qEnd&&!G.over){await banner('סוף '+qName(ev.qEnd),800/spf());if(G&&!G.auto&&tok===G.tok)await qBreak(ev.qEnd)}}}
  if(G&&G.over&&tok===G.tok&&!G.done){G.done=true;if(!G.sim){hud();await banner('סיום המשחק',G.auto?300:1000)}finishGame()}}
 
 /* ======== רגעי הכרעה ======== */
@@ -1218,8 +1240,8 @@ function finishGame(){const sea=S.season,fx=sea.fx[sea.i],st={...G.st},p=S.p,min
  const fm=(EU[fx.comp]?EU[fx.comp].fm:LG[sea.lg]?LG[sea.lg].fm:1)*(pre?.3:1);let dF=0,dC=0,dM=pre?0:won?2:-1,dK=pre?0:won?.5:0;const e0=p.energy,f0=p.fit??70;
  if(g&&!pre){dF=(st.pts*.03+st.ast*.025+st.reb*.015+Math.max(0,rt-6.1)*.21+(won?.3:0)+(potg?1.2:0)+(fx.po?.8:0))*fm*(1-p.fame/125);dC=g[2];dM+=g[3];dK+=g[4]}else if(dnp&&!G.dnp&&!pre)dM-=2;
  coachD(dC);fameD(dF);confD(dK);if(potg)egoD(1);p.morale=clamp(p.morale+dM,0,100);p.energy=clamp(p.energy-min*.85*(1.25-ea().sta/200)*(1.3-(p.fit??70)/250)-(dnp?0:4),0,100);p.fit=clamp((p.fit??70)+min*.02,20,fitCap());
- const gg=dnp?{}:gameGrowth(st,km);const min1=depth().mins;
- let inj='';if(!dnp&&p.injury===0){let r=.012+(p.energy<30?.04:0)+((p.fit??70)<50?.012:0);if(has('physio'))r*=.5;if(has('cryo'))r*=.8;if(S.yoga)r*=.7;if(R()<r){p.injury=ri(5,35);inj=`נפצעת: ${pick(['נקע בקרסול','מתיחה בירך האחורית','מכה בברך','שבר באצבע'])}. בחוץ ל-${p.injury} ימים.`;news(inj,1)}}
+ const gg=dnp?{}:gameGrowth(st,km);if(!dnp)kitWear();const min1=depth().mins;
+ let inj='';if(!dnp&&p.injury===0){let r=.012+(p.energy<30?.04:0)+((p.fit??70)<50?.012:0);if(has('physio'))r*=.5;if(has('cryo'))r*=.8;r*=S.kit?kitInj():1;if(S.yoga)r*=.7;if(R()<r){p.injury=ri(5,35);inj=`נפצעת: ${pick(['נקע בקרסול','מתיחה בירך האחורית','מכה בברך','שבר באצבע'])}. בחוץ ל-${p.injury} ימים.`;news(inj,1)}}
  if(potg)news(`מצטיין המשחק מול ${short(fx.opp)}: ${st.pts} נק׳, ${st.reb} ריב׳, ${st.ast} אס׳, ציון ${rt}.`,1);
  const CL=pre?null:clutchAfter(won,fx,fm);if(CL&&CL.gw)sea.games[sea.games.length-1].gw=1;achCount(sea.games[sea.games.length-1],won,rt);achCheck();if(!pre&&!dnp&&rt!=null)try{startEval()}catch(e){}wireAfterGame(won,st,rt,fx,potg);
  if(fx.k==='cup')cupStep(won);if(fx.k==='po')afterPo(won);
@@ -1356,16 +1378,39 @@ function openTrade(id){const a=AS[id],u=S.inv.u[id]||0,v=u*S.inv.px[id],cost=S.i
  ${u?`<div class="lab">מכירה</div><div class="chips"><button class="btn soft sm" data-a="sell" data-v="${id}|.25">25%</button><button class="btn soft sm" data-a="sell" data-v="${id}|.5">50%</button><button class="btn gold sm" data-a="sell" data-v="${id}|1">הכל</button></div>`:''}
  <p class="dim" style="font-size:12px;margin:0">המחירים במשחק מדומים ומתעדכנים כל יום.</p><button class="btn ghost" data-a="sheet" data-v="${a.g==='c'?'crypto':'market'}">חזרה</button></div>`)}
 function shopAct(id){const it=SH[id],p=S.p;
- if(it.cat==='staff'){S.staff[id]=!S.staff[id];toast(S.staff[id]?`${it.n} הצטרף לצוות`:`${it.n} שוחרר`);save();reopen();return}
+ if(it.cat==='staff'){if(!S.staff[id]&&p.cash<it.cost/4){toast(`צריך לפחות ${money(it.cost/4)} במזומן כדי להעסיק`);return}S.staff[id]=!S.staff[id];toast(S.staff[id]?`${it.n} הצטרף לצוות`:`${it.n} שוחרר`);save();reopen();return}
  if(it.cat==='prop'||it.cat==='live'){const i=S.homes.findIndex(h=>h.id===id);if(i>=0){const v=S.homes[i].value*.95;p.cash+=v;S.homes.splice(i,1);toast(`נמכר ב-${money(v)}`)}else{if(p.cash<it.cost){toast('אין מספיק מזומן');return}p.cash-=it.cost;S.homes.push({id,value:it.cost});p.morale=clamp(p.morale+(it.mor||0),0,100);fameD(it.fame||0);toast(`קנית ${it.n}`);news(`קנית ${it.n}.`,1)}save();reopen();return}
  if(S.items.includes(id)){if(it.cat==='car'){p.cash+=it.cost*.6;S.items=S.items.filter(x=>x!==id);toast(`נמכר ב-${money(it.cost*.6)}`);save();reopen()}return}
- if(p.cash<it.cost){toast('אין מספיק מזומן');return}p.cash-=it.cost;S.items.push(id);p.morale=clamp(p.morale+(it.mor||0),0,100);fameD(it.fame||0);egoD(it.ego||0);if(it.fam)S.family.rel=clamp(S.family.rel+it.fam,0,100);toast(`קנית ${it.n}`);
+ if(p.cash<it.cost){toast('אין מספיק מזומן');return}p.cash-=it.cost;S.items.push(id);p.morale=clamp(p.morale+Math.min(3,it.mor||0),0,100);fameD(it.fame||0);egoD(it.ego||0);if(it.fam)S.family.rel=clamp(S.family.rel+it.fam,0,100);toast(`קנית ${it.n}`);
  if(it.cost>=30000){news(`קנית ${it.n}.`);wirePost('fan',pick([`${S.p.name.split(' ')[0]} עם ה${it.n} החדש 👀`,'מישהו פה מרוויח טוב 💸']))}save();reopen()}
 function bizAct(id){const b=BZ[id];if(S.biz[id]){const v=b.cost*S.biz[id].mult*.8;S.p.cash+=v;delete S.biz[id];toast(`מכרת את העסק ב-${money(v)}`)}else{if(S.p.cash<b.cost){toast('אין מספיק מזומן');return}if(S.p.fame<b.f){toast(`צריך לפחות ${b.f} מוניטין`);return}S.p.cash-=b.cost;S.biz[id]={mult:1};fameD(1);news(`השקת ${b.n}!`,1);wirePost('news',`${S.p.name} משיק ${b.n}.`)}save();reopen()}
 let SHEET=null;function reopen(){const k=SHEET;if(S.view==='hub')renderHub();if(k)openSheet(k)}
 
 /* ======== sheets ======== */
 const li=(t,s,right)=>`<div class="li"><div style="min-width:0"><div class="t">${t}</div><div class="s">${s||''}</div></div><div class="row">${right}</div></div>`;
+/* ======== ציוד משחק ======== */
+// שני מקומות: נעליים ואביזר. הבונוס נכנס ישר לתכונות במשחק (ולאחוזים), והציוד נשחק אחרי מספר משחקים
+const KIT=[{id:'k1',s:'shoe',n:'נעלי אימון בסיסיות',b:{spd:2},g:15,c:350},{id:'k2',s:'shoe',n:'קורט ראנר',b:{fin:3,spd:2},g:20,c:1500},{id:'k3',s:'shoe',n:'פליימייקר',b:{hnd:3,spd:2,jmp:2},g:20,c:2800},{id:'k4',s:'shoe',n:'ביג מן',b:{reb:3,str:2,jmp:2},g:20,c:2500},
+ {id:'k5',s:'shoe',n:'סופרסוניק',b:{spd:4,jmp:4,fin:3},g:30,c:14000},{id:'k6',s:'shoe',n:'פרו אליט',b:{spd:5,jmp:5,fin:4,hnd:3},g:40,c:48000},
+ {id:'a1',s:'acc',n:'שרוול קליעה',b:{thr:2,mid:1},g:25,c:600},{id:'a2',s:'acc',n:'מגני ברכיים',b:{str:1},g:30,c:900,inj:.75,x:'רבע פחות פציעות'},{id:'a3',s:'acc',n:'רצועות יד מקצועיות',b:{pas:2,hnd:1},g:25,c:700},
+ {id:'a4',s:'acc',n:'שעון כושר חכם',b:{},g:60,c:3500,en:1,x:'+1 אנרגיה ביום'},{id:'a5',s:'acc',n:'מגפי התאוששות',b:{sta:1},g:40,c:9000,en:2,x:'+2 אנרגיה ביום'}];
+const KT=Object.fromEntries(KIT.map(k=>[k.id,k]));
+const kitOn=()=>{const K=S.kit||{};return ['shoe','acc'].map(s=>K[s]&&KT[K[s].id]?{...KT[K[s].id],left:K[s].left}:null).filter(Boolean)};
+const kitB=k=>kitOn().reduce((a,x)=>a+(x.b[k]||0),0),kitEn=()=>kitOn().reduce((a,x)=>a+(x.en||0),0),kitInj=()=>kitOn().reduce((a,x)=>a*(x.inj||1),1);
+function kitWear(){const K=S.kit;if(!K)return;for(const s of ['shoe','acc']){if(!K[s])continue;K[s].left--;if(K[s].left<=0){const n=KT[K[s].id].n;delete K[s];news(`${n} נשחקו לגמרי. הגיע הזמן לחדשים.`,1);toast(`${n} נשחקו`)}}}
+function kitBuy(id){const k=KT[id];if(!k)return;if(S.p.cash<k.c){toast('אין מספיק מזומן');return}S.p.cash-=k.c;S.kit=S.kit||{};S.kit[k.s]={id,left:k.g};toast(`${k.n}: מוכן למשחק הבא`);news(`קנית ${k.n} (${money(k.c)}).`);save();reopen()}
+const bTxt=b=>Object.entries(b).map(([k,v])=>`<span class="pill good" style="font-size:11px">+${v} ${AN[k]}</span>`).join('');
+function staffInfo(id){const g=growth()*teamDev()*.15*5,lvl=S.team.comp;return {trainer:`+35% לכל אימון · בערך +${f1(g*4*4*.35)} נקודות תכונה נוספות בחודש אצלך`,nutri:'+1.5 אנרגיה ביום · שחקן רענן קולע טוב יותר וקל לו לשמור על דקות',physio:`סיכון הפציעה במשחק יורד בחצי (מ-${f1((.012+(S.p.energy<30?.04:0))*100)}% לחצי מזה)`,mental:'+5 ליעד הביטחון, ונפילות ביטחון קטנות ב-40%',pr:'+0.35 מוניטין בכל שבוע · מגדיל את סיכויי החסויות',jet:'+3 אנרגיה ביום · לשחקנים שעפים הרבה'}[id]||''}
+function gearSheet(){const p=S.p,K=S.kit||{},wk=c=>money(c/52),on=kitOn();
+ const card=k=>{const eq=K[k.s]&&K[k.s].id===k.id,cant=p.cash<k.c;return `<div class="kitc ${eq?'on':''}"><div class="row between"><b>${k.n}</b><span class="mute" style="font-size:12px">${k.g} משחקים</span></div><div class="row wrap" style="gap:4px;margin:6px 0">${bTxt(k.b)}${k.x?`<span class="pill cyan" style="font-size:11px">${k.x}</span>`:''}</div>
+  ${eq?`<div class="bar g" style="height:5px"><i style="width:${Math.round(K[k.s].left/k.g*100)}%"></i></div><div class="mute" style="font-size:12px;margin-top:4px">בשימוש · עוד ${K[k.s].left} משחקים</div>`:`<button class="btn ${cant?'ghost':'pri'} sm" style="width:100%" data-a="kitbuy" data-v="${k.id}" ${cant?'disabled':''}>${money(k.c)}${K[k.s]?' · מחליף את הנוכחי':''}</button>`}</div>`};
+ const st=SHOP.filter(x=>x.cat==='staff').map(it=>{const own=!!S.staff[it.id];return `<div class="li"><div style="min-width:0"><div class="t">${it.n}</div><div class="s">${staffInfo(it.id)}</div><div class="s" style="color:var(--gold)">${wk(it.cost)} לשבוע (${money(it.cost)} לשנה)</div></div><button class="btn sm ${own?'ghost':'pri'}" data-a="shop" data-v="${it.id}">${own?'לשחרר':'להעסיק'}</button></div>`}).join('');
+ const g2=SHOP.filter(x=>x.cat==='gear'&&x.id!=='shoes').map(it=>{const own=S.items.includes(it.id);return li(it.n,it.d,own?'<span class="pill good">ברשותך</span>':`<button class="btn pri sm" data-a="shop" data-v="${it.id}" ${p.cash<it.cost?'disabled':''}>${money(it.cost)}</button>`)}).join('');
+ return `<h3 class="h2">ציוד וצוות</h3><p class="mute" style="margin:6px 0">מזומן: <b class="gold">${money(p.cash)}</b>. הציוד מוסיף לתכונות ישירות, וזה נראה מיד באחוזים במשחק.</p>
+ ${on.length?`<div class="card" style="padding:10px 12px;margin-top:8px"><div class="lab" style="margin-bottom:6px">עכשיו עליך</div>${on.map(x=>`<div class="row between" style="font-size:13px;padding:2px 0"><span>${x.n}</span><span class="mute">עוד ${x.left} משחקים</span></div>`).join('')}</div>`:''}
+ <div class="lab" style="margin-top:14px">נעליים</div><div class="kitg">${KIT.filter(k=>k.s==='shoe').map(card).join('')}</div>
+ <div class="lab" style="margin-top:14px">אביזרים</div><div class="kitg">${KIT.filter(k=>k.s==='acc').map(card).join('')}</div>
+ <div class="lab" style="margin-top:14px">צוות אישי</div>${st}<div class="lab" style="margin-top:14px">ציוד לבית</div>${g2}`}
 function shopRows(cat){return SHOP.filter(x=>x.cat===cat).map(it=>{const isH=it.cat==='prop'||it.cat==='live',owned=it.cat==='staff'?S.staff[it.id]:isH?S.homes.some(h=>h.id===it.id):S.items.includes(it.id);let btn;
  if(it.cat==='staff')btn=`<button class="btn sm ${owned?'ghost':'pri'}" data-a="shop" data-v="${it.id}">${owned?'לשחרר':'להעסיק'}</button>`;else if(owned)btn=(isH||it.cat==='car')?`<button class="btn ghost sm" data-a="shop" data-v="${it.id}">מכירה</button>`:'<span class="pill good">ברשותך</span>';else btn=`<button class="btn pri sm" data-a="shop" data-v="${it.id}" ${S.p.cash<it.cost?'disabled':''}>${money(it.cost)}</button>`;
  const hv=owned&&isH?S.homes.find(h=>h.id===it.id).value:0;return li(it.n,`${it.d}${it.cat==='staff'?' · '+money(it.cost)+' לשנה':''}${hv?' · שווי '+money(hv):''}`,btn)}).join('')}
@@ -1384,7 +1429,8 @@ function openSheet(k,arg){let h='';const p=S.p;
   ${op('auto','אוטומטי','אימון בפוקוס, או מנוחה אם האנרגיה נמוכה')}${op('train','אימון: '+focusName(S.plan.focus),'−12 אנרגיה, התקדמות בתכונה')}${op('rest','מנוחה וטיפול','+18 אנרגיה, +מורל')}
   <div class="lab" style="margin-top:6px">פעילויות</div>${['video','yoga','bond','talk','family','out','volun'].map(x=>op(x,ACT[x].n,ACT[x].d)).join('')}
   ${S.invites.length?`<div class="lab" style="margin-top:6px">הזמנות השבוע</div>${S.invites.map(v=>{const d2=INVT.find(x=>x.k===v.k);return op('inv:'+v.k,d2.n+(v.pay?' · '+money(v.pay):''),d2.d)}).join('')}`:''}</div>`}
- if(k==='store')h=`<h3 class="h2">לייף-סטייל</h3><p class="mute" style="margin:6px 0">מזומן: <b class="gold">${money(p.cash)}</b></p><div class="lab" style="margin-top:12px">צוות אישי</div>${shopRows('staff')}<div class="lab" style="margin-top:12px">ציוד אימון</div>${shopRows('gear')}<div class="lab" style="margin-top:12px">רכבים</div>${shopRows('car')}<div class="lab" style="margin-top:12px">פינוקים</div>${shopRows('lux')}<div class="lab" style="margin-top:12px">בית למגורים</div>${shopRows('live')}`;
+ if(k==='gear')h=gearSheet();
+ if(k==='store')h=`<h3 class="h2">לייף-סטייל</h3><p class="mute" style="margin:6px 0">מזומן: <b class="gold">${money(p.cash)}</b> · תדמית <b>${brandPts()}</b> (חסויות שוות +${Math.round(brandPts()*2)}%) · נוחות <b>+${comfort()}</b> ליעד המורל</p><div class="lab" style="margin-top:12px">רכבים</div>${shopRows('car')}<div class="lab" style="margin-top:12px">פינוקים</div>${shopRows('lux')}<div class="lab" style="margin-top:12px">בית למגורים</div>${shopRows('live')}`;
  if(k==='rel'){const t=S.team,row=(n,s,v,cls,act)=>`<div class="li"><div style="min-width:0"><div class="t">${n}</div><div class="s">${s}</div><div class="bar ${cls}" style="margin-top:6px"><i style="width:${v}%"></i></div></div><div class="row">${act||''}</div></div>`;
   h=`<h3 class="h2">המעגל הקרוב</h3><p class="mute" style="margin:6px 0">יחסים טובים עם המאמן מביאים דקות. כימיה עם השחקנים מחזקת את הקבוצה. הסוכן משפר חוזים. המשפחה מחזיקה את המורל. שיחה עם המאמן ויום עם המשפחה משבצים מהיומן.</p>
   ${row(esc(t.coach.n),`מאמן · ${t.coach.style}`,t.coach.rel,'v')}${t.mates.map((m,i)=>row(esc(m.n),`#${m.num} · ${m.tr}`,m.rel,m.rel>=65?'g':m.rel<35?'r':'y',`<button class="btn soft sm" data-a="gift" data-v="${i}">מתנה ${t.comp==='YTH'?'$50':'$500'}</button>`)).join('')}
@@ -1470,7 +1516,7 @@ function rosterView(){const t=S.team,D=depth(),scale=t.comp==='NBA'?48/40:1,DEF=
  const rows=['PG','SG','SF','PF','C'].map(pos=>{let L=t.roster.filter(r=>r.pos===pos).map(r=>({...r,v:r.ovr}));if(pos===S.p.pos)L.push({n:S.p.name,pos,ovr:ovr(),age:S.p.age,num:S.p.num,me:1,v:D.val});L.sort((a,b)=>b.v-a.v);
   const sh=posShares(L.map(x=>x.v),t.comp==='YTH');L.forEach((x,i)=>{x.m=x.me?D.mins:Math.round(sh[i]*scale)});return [pos,L]});
  const starter=rows.find(r=>r[0]===S.p.pos)[1].find(x=>!x.me);
- return `<div class="mute" style="font-size:12.5px;margin:0 2px 8px">תקציב שכר הקבוצה: <b style="color:var(--gold)">${payTxt(W().teams[short(t.n)])}</b>${t.comp!=='YTH'&&W().lg[t.comp]?` · מקום ${W().lg[t.comp].slice().sort((a,b)=>(W().teams[b].pay||0)-(W().teams[a].pay||0)).indexOf(short(t.n))+1} בליגה`:''}</div><section class="card arc"><div class="lab">המקום שלך ברוטציה</div><div class="row between" style="margin-top:6px"><b style="font-family:var(--cond);font-size:28px">${roleLabel()}</b><span class="num" style="font-size:28px;color:var(--coral)">${D.mins}<span class="mute" style="font-size:13px"> דק׳</span></span></div>
+ return `<div class="mute" style="font-size:12.5px;margin:0 2px 8px">${t.comp==='YTH'?'תקציב מחלקת הנוער':'תקציב שכר הקבוצה'}: <b style="color:var(--gold)">${t.comp==='YTH'?money(Math.round((W().teams[short(t.n)].pay||1)*1e6*.012/1000)*1000):payTxt(W().teams[short(t.n)])}</b>${t.comp!=='YTH'&&W().lg[t.comp]?` · מקום ${W().lg[t.comp].slice().sort((a,b)=>(W().teams[b].pay||0)-(W().teams[a].pay||0)).indexOf(short(t.n))+1} בליגה`:''}</div><section class="card arc"><div class="lab">המקום שלך ברוטציה</div><div class="row between" style="margin-top:6px"><b style="font-family:var(--cond);font-size:28px">${roleLabel()}</b><span class="num" style="font-size:28px;color:var(--coral)">${D.mins}<span class="mute" style="font-size:13px"> דק׳</span></span></div>
  ${(()=>{const pure=t.roster.filter(r=>r.pos===S.p.pos&&r.ovr>ovr()).length,b=D.val-ovr();return pure!==D.rank?`<div class="mute" style="font-size:12.5px;margin-top:4px">${pure>D.rank?`לפי הדירוג אתה במקום ${pure+1}, אבל המאמן שם אותך לפני ${pure-D.rank===1?'שחקן אחד':(pure-D.rank)+' שחקנים'} בזכות אמון, כושר ויחסים (${b>=0?'+':''}${f1(b)}).`:`לפי הדירוג היית במקום ${pure+1}, אבל אמון נמוך ויחסים עם המאמן מורידים אותך (${f1(b)}).`}</div>`:''})()}<div class="mute" style="font-size:13.5px;margin-top:4px">${D.rank===0?`אתה הפותח. הבא בתור: ${esc(rows.find(r=>r[0]===S.p.pos)[1].filter(x=>!x.me)[0].n)}`:`הפותח בעמדה: ${esc(starter.n)} (${starter.ovr}) · ~${starter.m} דק׳`}</div>
  <div class="mtr" style="margin-top:12px"><div class="row"><span>אמון המאמן</span><b class="tn ${(t.trust||0)>=0?'good':'bad'}">${(t.trust||0)>=0?'+':''}${f1(t.trust||0)}</b></div><div class="bar v"><i style="width:${((t.trust||0)+15)/30*100}%"></i></div></div>${startCard()}
  <p class="dim" style="font-size:12.5px;margin:10px 0 0">הדקות לא מובטחות. ציון מעל היעד של התפקיד ו-+/- חיובי מעלים את האמון, ומשחק חלש באמת מוריד. משחק טוב מול קבוצה חזקה או במשחק מפתח שווה יותר.</p></section>
@@ -1603,13 +1649,13 @@ function openDrawer(){closeDrawer();const k=S.seg.car,d=document.createElement('
  d.innerHTML=`<nav class="drw" aria-label="עוד"><div class="lab" style="margin:0 6px 10px">קריירה</div>${CARSEC.map(([x,n,ic,ds])=>`<button data-a="carsec" data-v="${x}" aria-pressed="${k===x}">${ico(ic,'#ffc95c',20)}<span><b>${n}</b><small>${ds}</small></span></button>`).join('')}</nav>`;
  d.addEventListener('click',e=>{if(e.target===d)closeDrawer()});document.body.appendChild(d)}
 function closeDrawer(){const d=document.getElementById('drw');if(d)d.remove()}
-function ventArt(k){const A={realestate:`<rect width="200" height="96" fill="#1c1a38"/><g fill="#2f2b5a">${[10,40,70,105,140,170].map((x,i)=>`<rect x="${x}" y="${30+(i%3)*12}" width="26" height="${70-(i%3)*12}"/>`).join('')}</g><g fill="#ffc95c" fill-opacity=".8">${Array.from({length:22},(_,i)=>`<rect x="${14+(i%11)*17}" y="${48+Math.floor(i/11)*16}" width="4" height="5"/>`).join('')}</g>`,
+function ventArt(k){const A={gear:`<rect width="200" height="96" fill="#1c1a38"/><path d="M40 66c10-2 22-14 30-26l12 6c8 4 18 6 30 6h26c10 0 18 6 18 14v4H40z" fill="#ff6a4d"/><path d="M40 70h116v8H40z" fill="#f2f1fb"/><path d="M78 46l6 10M88 50l5 9M98 52l4 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,realestate:`<rect width="200" height="96" fill="#1c1a38"/><g fill="#2f2b5a">${[10,40,70,105,140,170].map((x,i)=>`<rect x="${x}" y="${30+(i%3)*12}" width="26" height="${70-(i%3)*12}"/>`).join('')}</g><g fill="#ffc95c" fill-opacity=".8">${Array.from({length:22},(_,i)=>`<rect x="${14+(i%11)*17}" y="${48+Math.floor(i/11)*16}" width="4" height="5"/>`).join('')}</g>`,
  market:`<rect width="200" height="96" fill="#14203a"/>${Array.from({length:14},(_,i)=>{const y=60-i*2.5+Math.sin(i)*12,up=Math.sin(i*1.7)>0;return `<line x1="${12+i*13}" x2="${12+i*13}" y1="${y-14}" y2="${y+14}" stroke="${up?'#45d39a':'#ff5470'}"/><rect x="${8+i*13}" y="${y-7}" width="8" height="14" fill="${up?'#45d39a':'#ff5470'}"/>`}).join('')}`,
  crypto:`<rect width="200" height="96" fill="#211638"/><circle cx="70" cy="58" r="30" fill="#ffc95c"/><circle cx="70" cy="58" r="22" fill="none" stroke="#9a6d10" stroke-width="3"/><text x="70" y="67" text-anchor="middle" font-size="26" font-weight="900" fill="#9a6d10" font-family="Rubik">₿</text><circle cx="130" cy="48" r="20" fill="#a78bfa"/><circle cx="160" cy="70" r="14" fill="#4cc9f0"/>`,
  store:`<rect width="200" height="96" fill="#26182a"/><path d="M30 70h140l-12-18c-4-6-10-9-17-9H72c-8 0-14 3-19 8z" fill="#ff6a4d" fill-opacity=".75"/><circle cx="62" cy="72" r="10" fill="#0c0b17" stroke="#9d9abb" stroke-width="3"/><circle cx="140" cy="72" r="10" fill="#0c0b17" stroke="#9d9abb" stroke-width="3"/><path d="M78 50h46l8 12H70z" fill="#4cc9f0" fill-opacity=".5"/>`,
  brand:`<rect width="200" height="96" fill="#2a1d14"/><path d="M60 72h80l-6-30-14 8-20-18-20 18-14-8z" fill="#ffc95c"/><circle cx="100" cy="30" r="5" fill="#ffc95c"/><circle cx="66" cy="40" r="4" fill="#ffc95c"/><circle cx="134" cy="40" r="4" fill="#ffc95c"/>`};
  return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#141327" stop-opacity=".9"/></linearGradient></defs>${A[k]}<rect width="200" height="96" fill="url(#vg)"/></svg>`}
-function tabMoney(){const p=S.p,c=S.team.comp,tax=taxOf(),nb=BRANDS.find(b=>p.fame<b.f);const V=[['realestate','נדל״ן','דירות ונכסים מסחריים'],['market','שוק ההון','מניות, קרנות, אג״ח'],['crypto','קריפטו','מסחר במטבעות'],['store','לייף-סטייל','רכבים, בתים, צוות'],['brand','מותג אישי','עסקים על השם שלך']];
+function tabMoney(){const p=S.p,c=S.team.comp,tax=taxOf(),nb=BRANDS.find(b=>p.fame<b.f);const V=[['realestate','נדל״ן','דירות ונכסים מסחריים'],['market','שוק ההון','מניות, קרנות, אג״ח'],['crypto','קריפטו','מסחר במטבעות'],['gear','ציוד וצוות','נעליים, אביזרים, מאמן אישי'],['store','לייף-סטייל','רכבים, בתים, יוקרה'],['brand','מותג אישי','עסקים על השם שלך']];
  return `<section class="card port arc"><div class="lab">שווי נקי</div><b class="big" style="display:block;margin-top:6px">${money(netWorth())}</b>
  <div class="g3"><div><b class="gold">${money(p.cash)}</b><span>מזומן</span></div><div><b>${money(portVal())}</b><span>השקעות</span></div><div><b>${money(homesVal()+bizVal())}</b><span>נכסים ועסקים</span></div></div>
  <div class="g3" style="margin-top:10px"><div><b>${money(S.contract.sal/52)}</b><span>שכר / שבוע</span></div><div><b class="${(S.lastWeek||0)>=0?'good':'bad'}">${money(S.lastWeek||0)}</b><span>נטו שבוע שעבר</span></div><div><b>${S.spons.length}</b><span>חסויות</span></div></div></section>
@@ -1910,7 +1956,7 @@ const A={
  arch:v=>{S.p.arch.active=S.p.arch.active===v?null:v;toast(S.p.arch.active?`ארכיטיפ פעיל: ${ARCH[v].n}`:'הארכיטיפ בוטל');save();renderHub()},
  defspd:v=>{S.set.speed=+v;save();openSheet('settings')},
  spd:v=>{if(!G)return;G.speed=+v;S.set.speed=+v;document.querySelectorAll('.ctrl .spd button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));const c=$('#court');if(c)c.style.setProperty('--mv',(320/spf())+'ms')},
- gauto:()=>{if(G){G.auto=true;if(G.clutchRes)G.clutchRes(0)}},clutch:v=>{if(G&&G.clutchRes)G.clutchRes(+v)},clpace:v=>{if(!G)return;G.clPace=v;document.querySelectorAll('#clov [data-a=clpace]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))},
+ gpause:()=>{if(!G)return;G.pause=!G.pause;const b=document.getElementById('gpb');if(b)b.textContent=G.pause?'▶ המשך':'⏸ עצירה'},gauto:()=>{if(G){G.auto=true;G.pause=false;const q=document.querySelector('#qgo');if(q)q.click();if(G.clutchRes)G.clutchRes(0)}},clutch:v=>{if(G&&G.clutchRes)G.clutchRes(+v)},clpace:v=>{if(!G)return;G.clPace=v;document.querySelectorAll('#clov [data-a=clpace]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))},
  cont:()=>{closeModal();flush()},evo:v=>onEvo(v),
  spYes:()=>{const o=S.spOffer;S.spons.push({id:o.id,pay:o.pay,yrs:o.yrs});news(`חוזה חסות עם ${BR[o.id].n}: ${money(o.pay)} לשנה.`,1);wirePost('news',`${BR[o.id].n} חותמת עם ${S.p.name}.`);S.spOffer=null;S.p.morale=clamp(S.p.morale+4,0,100);save();flush()},
  spNo:()=>{S.spOffer=null;save();flush()},
@@ -1919,7 +1965,7 @@ const A={
  buy:v=>{const [id,a]=v.split('|');if(buy(id,+a)){toast(`קנית ${AS[id].n} ב-${money(+a)}`);save();renderHub();openTrade(id)}},
  sell:v=>{const [id,f]=v.split('|');const val=sell(id,+f);if(val!=null)toast(`מכרת ב-${money(val)}`);save();renderHub();openTrade(id)},
  shop:v=>shopAct(v),biz:v=>bizAct(v),sign:v=>sign(+v),
- recap:()=>recapOpen(),recapsave:()=>recapSave(),natgo:()=>natGo(),natskip:()=>natSkip(),neg:v=>negOpen(v),negx:()=>closeModal(),negsub:v=>negSubmit(+v),negs:v=>{const [i,d]=v.split('|').map(Number),o=S.off.offers[i];o.neg.T.sal=d===0?o.sal:Math.round(o.neg.T.sal*(1+d/100)/1000)*1000;negRender(i)},negy:v=>{const [i,y]=v.split('|').map(Number);S.off.offers[i].neg.T.yrs=y;negRender(i)},negt:v=>{const [i,k]=v.split('|');const T=S.off.offers[+i].neg.T;T[k]=!T[k];negRender(+i)},ask:v=>{const o=S.off.offers[+v];o.asked=true;const pr=clamp(.35+(o.cur?.2:0)+S.off.diff*.04+(S.agent.rel-50)/200,.2,.88);if(R()<pr){o.sal=Math.round(o.sal*rnd(1.1,1.25)/1000)*1000;S.off.msg=`${o.n} שיפרה את ההצעה ל-${money(o.sal)} לשנה.`}else{S.off.offers.splice(+v,1);S.off.msg=`${o.n} סגרה את המשא ומתן.`}save();renderOff()},
+ recap:()=>recapOpen(),kitbuy:v=>kitBuy(v),recapsave:()=>recapSave(),natgo:()=>natGo(),natskip:()=>natSkip(),neg:v=>negOpen(v),negx:()=>closeModal(),negsub:v=>negSubmit(+v),negs:v=>{const [i,d]=v.split('|').map(Number),o=S.off.offers[i];o.neg.T.sal=d===0?o.sal:Math.round(o.neg.T.sal*(1+d/100)/1000)*1000;negRender(i)},negy:v=>{const [i,y]=v.split('|').map(Number);S.off.offers[i].neg.T.yrs=y;negRender(i)},negt:v=>{const [i,k]=v.split('|');const T=S.off.offers[+i].neg.T;T[k]=!T[k];negRender(+i)},ask:v=>{const o=S.off.offers[+v];o.asked=true;const pr=clamp(.35+(o.cur?.2:0)+S.off.diff*.04+(S.agent.rel-50)/200,.2,.88);if(R()<pr){o.sal=Math.round(o.sal*rnd(1.1,1.25)/1000)*1000;S.off.msg=`${o.n} שיפרה את ההצעה ל-${money(o.sal)} לשנה.`}else{S.off.offers.splice(+v,1);S.off.msg=`${o.n} סגרה את המשא ומתן.`}save();renderOff()},
  stay:()=>nextSeason(),retire:()=>{S.view='over';save();render()},
  reset:()=>showModal(`<div class="stack"><h3 class="h2">להתחיל קריירה חדשה?</h3><p style="margin:0" class="mute">הקריירה הנוכחית תימחק.</p><button class="btn pri" data-a="newgame">כן, מתחילים מחדש</button><button class="btn ghost" data-a="close">ביטול</button></div>`),
  newgame:()=>{closeModal();wipe();S=null;G=null;render();window.scrollTo(0,0)},
