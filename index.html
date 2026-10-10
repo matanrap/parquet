@@ -1647,8 +1647,8 @@ function tabProf(){const p=S.p,t=S.team,a=ea(),o=ovr(),a0=S.season.a0||p.attr,to
  <div class="ring"><svg viewBox="0 0 92 92"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff6a4d"/><stop offset="1" stop-color="#ffc95c"/></linearGradient></defs><circle cx="46" cy="46" r="40" fill="none" stroke="#25233f" stroke-width="7"/><circle cx="46" cy="46" r="40" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C*o/99} ${C}"/></svg><b>${o}</b><span>OVR</span></div></div>
  ${radar(a)}<div class="top3" style="margin-top:6px">${top.map(x=>`<div><b>${Math.floor(x[2])}</b><span>${x[1]}</span></div>`).join('')}</div></section>
  <section class="card" style="margin-top:12px"><div class="lab">סגנון משחק</div><b style="font-family:var(--cond);font-size:24px">${sty().n}</b><p class="mute" style="margin:4px 0 8px;font-size:13.5px">${sty().d}</p><div class="chips">${sty().g.map(k=>`<span class="pill good">${AN[k]} מתפתח מהר</span>`).join('')}${sty().w.map(k=>`<span class="pill">${AN[k]} מתפתח לאט</span>`).join('')}</div></section>
- <div class="sec"><b>כל התכונות</b><span>השינוי מתחילת העונה · הקש כדי לקבוע פוקוס</span></div>
- <section class="card">${Object.keys(CAT).map((c,ci)=>`<div class="lab" style="margin:${ci?'14px':'0'} 0 6px">${CAT[c]} · ${catAvg(c,a)}</div>${AT.filter(x=>x[2]===c).map(([k,n])=>{const d=p.attr[k]-(a0[k]==null?p.attr[k]:a0[k]);return `<div class="attrrow" data-a="focus" data-v="${k}" role="button" style="cursor:pointer"><span>${n}${S.plan.focus===k?' <span class="cyan" style="font-size:11px">● פוקוס</span>':''}</span><div class="bar ${a[k]>=80?'g':a[k]>=60?'':'y'}"><i style="width:${a[k]}%"></i></div><b class="num" style="text-align:left">${Math.floor(a[k])}</b><span class="d ${d>=.1?'good':d<=-.1?'bad':'dim'}">${d>=.1?'+'+f1(d):d<=-.1?f1(d):'·'}</span></div>`}).join('')}`).join('')}</section>
+ ${devCard()}<div class="sec"><b>כל התכונות</b><span>השינוי מתחילת העונה · הקש כדי לקבוע פוקוס</span></div>
+ <section class="card">${Object.keys(CAT).map((c,ci)=>`<div class="lab" style="margin:${ci?'14px':'0'} 0 6px">${CAT[c]} · ${catAvg(c,a)}</div>${AT.filter(x=>x[2]===c).map(([k,n])=>{const d=p.attr[k]-(a0[k]==null?p.attr[k]:a0[k]);return `<div class="attrrow" data-a="focus" data-v="${k}" role="button" style="cursor:pointer"><span>${n}${S.plan.focus===k?' <span class="cyan" style="font-size:11px">● פוקוס</span>':''}${devTag(k)}</span><div class="bar ${a[k]>=80?'g':a[k]>=60?'':'y'}"><i style="width:${a[k]}%"></i></div><b class="num" style="text-align:left">${Math.floor(a[k])}</b><span class="d ${d>=.1?'good':d<=-.1?'bad':'dim'}">${d>=.1?'+'+f1(d):d<=-.1?f1(d):'·'}</span></div>`}).join('')}`).join('')}</section>
  <div class="sec"><b>ארכיטיפ</b><span>מגיעים ל-75 בתכונה, ואז בוחרים (+3)</span></div>
  <div class="archs">${Object.keys(ARCH).map(id=>{const on=p.arch.un.includes(id),act=p.arch.active===id;return `<button class="arch ${on?'on':''} ${act?'act':''}" ${on?`data-a="arch" data-v="${id}"`:'disabled'}>${ARCH[id].n}<small>${AN[ARCH[id].k]} ${on?(act?'· פעיל':'· לבחירה'):'· '+Math.floor(p.attr[ARCH[id].k])+'/75'}</small></button>`}).join('')}</div>
  ${psCard()}<div class="sec"><b>מנטליות</b><span>תארים בונים ביטחון ואגו</span></div>
@@ -2259,6 +2259,36 @@ CARSEC.push(['legacy','מורשת','star','המקום שלך בהיסטוריה,
 {const _s=sign;sign=function(i){const o=S.off&&S.off.offers[i],from=short(S.team.n);if(o&&!o.cur&&S.team.comp!=='YTH')jerseyCheck(from);return _s(i)}}
 {const _ro=renderOver;renderOver=function(){try{jerseyCheck(short(S.team.n));legCheck()}catch(e){}return _ro()}}
 Object.assign(A,{agset:v=>agSet(+v),angbuy:v=>angBuy(v)});
+/* ======== תוכנית התפתחות: מאמן · חוזקות · הבחירה שלך + תקרה יחסית לליגה ======== */
+// השחקן משתפר רק בשלושה ערוצים: מה שהמאמן בוחר לעונה, הדברים שהוא כבר טוב בהם, ומה שאתה בוחר באימון. שאר התכונות כמעט לא זזות
+// תקרה יחסית: ככל שתכונה בורחת מרמת הליגה, ההתקדמות בה נעצרת. עד +8 רגיל, ב-+22 עצירה מלאה
+let GCTX='';
+const DEVR={lo:8,hi:22};
+const lgRef=()=>!S.team||S.team.comp==='YTH'?60:lgOpp();
+const relCap=k=>{if(k==='iq')return 1;const d=S.p.attr[k]-lgRef();return d<=DEVR.lo?1:d>=DEVR.hi?0:(DEVR.hi-d)/(DEVR.hi-DEVR.lo)};
+const devStr=()=>{const A=S.p.attr;return Object.keys(A).filter(k=>k!=='iq').sort((a,b)=>A[b]-A[a]).slice(0,3)};
+function devPlan(force){if(!S.team)return null;if(!force&&S.dev&&S.dev.y===S.year&&S.dev.t===S.team.n)return S.dev;const a=S.p.attr,w=POS[S.p.pos].w,y=sty(),o=ovr(),st=devStr();
+ const C=AT.map(x=>x[0]).filter(k=>k!=='iq'&&!st.includes(k)).map(k=>({k,sc:(w[k]||.5)*(y.g.includes(k)?1.25:1)*Math.max(.5,o+6-a[k])*rnd(.85,1.15)})).sort((p,q)=>q.sc-p.sc);
+ const c=C.slice(0,2).map(x=>x.k);S.dev={y:S.year,t:S.team.n,c,why:`${S.team.coach?S.team.coach.n:'המאמן'}: ״העונה אני רוצה לראות אותך משתפר ב${AN[c[0]]} וב${AN[c[1]]}. שם הקבוצה צריכה אותך.״`};return S.dev}
+function devCh(k){if(k==='iq')return 1;const P=devPlan()||{c:[]},inP=P.c.includes(k),inS=devStr().includes(k),foc=S.plan&&S.plan.focus===k,young=S.p.age<=21&&PHYS[k];
+ if(GCTX==='season'||GCTX==='day')return inP?2.6:inS?1.2:foc?1:young?.4:0;
+ if(GCTX==='game')return inP?1.5:inS?1.1:foc?.6:.15;
+ return inP?1.25:1}
+{const _gr=grow;grow=function(k,g){if(g>0)g*=relCap(k)*devCh(k);return _gr(k,g)}}
+{const _pd=passDay;passDay=function(...a){const c=GCTX;GCTX='day';try{return _pd(...a)}finally{GCTX=c}}}
+{const _gg=gameGrowth;gameGrowth=function(...a){GCTX='game';try{return _gg(...a)}finally{GCTX=''}}}
+{const _go2=goOffseason;goOffseason=function(){GCTX='season';try{_go2()}finally{GCTX=''}}}
+{const _ss=startSeason;startSeason=function(...a){const r=_ss(...a);try{const old=S.dev;devPlan(true);if(S.dev&&(!old||old.c.join()!==S.dev.c.join()))news(S.dev.why,1)}catch(e){}return r}}
+{const _cr=coachRec;coachRec=function(){const fresh=!S.rec||S.rec.wk!==Math.floor(S.date/(7*DAY)),r=_cr();try{const P=devPlan();if(fresh&&P&&!P.c.includes(r.k)&&!(r.k||'').startsWith('cat:')&&R()<.6){r.k=pick(P.c);r.why=`תוכנית העונה: ${AN[r.k]}. ${S.team.coach.n} רוצה לראות שם התקדמות, ואימון בזה שווה יותר.`}}catch(e){}return r}}
+{const _fo=A.focus;A.focus=v=>{_fo(v);try{if(!v.startsWith('cat:')&&relCap(v)===0)toast(`${AN[v]} כבר בתקרת הליגה. אימון שם כמעט לא יקדם`);else if((devPlan()||{c:[]}).c.includes(v))toast(`${AN[v]} בתוכנית של המאמן: אימון שווה יותר`)}catch(e){}}}
+function devTag(k){if(k==='iq')return '';const P=devPlan()||{c:[]},t=[];if(P.c.includes(k))t.push('<span class="pill cyan" style="font-size:10px;padding:1px 6px">מאמן</span>');if(devStr().includes(k))t.push('<span class="pill good" style="font-size:10px;padding:1px 6px">חוזקה</span>');if(relCap(k)===0)t.push('<span class="pill bad" style="font-size:10px;padding:1px 6px">תקרת ליגה</span>');return t.length?' '+t.join(' '):''}
+function devCard(){const P=devPlan();if(!P)return '';const st=devStr(),f=S.plan.focus,L=Math.round(lgRef()),nm=k=>`${AN[k]} <b class="num">${Math.floor(S.p.attr[k])}</b>`;
+ return `<div class="sec"><b>תוכנית ההתפתחות</b><span>3 ערוצים</span></div><section class="card"><div class="stack" style="gap:10px;font-size:14px">
+ <div><div class="lab cyan">המאמן בוחר · כפול בסוף העונה</div><div style="margin-top:4px">${P.c.map(nm).join(' · ')}</div></div>
+ <div><div class="lab good">החוזקות שלך · משתפרות מהמשחקים</div><div style="margin-top:4px">${st.map(nm).join(' · ')}</div></div>
+ <div><div class="lab coral">הבחירה שלך · האימונים</div><div style="margin-top:4px">${f&&!f.startsWith('cat:')?nm(f):esc(focusName(f))}</div></div>
+ <div class="mute" style="font-size:12.5px">רמת ההגנה הממוצעת בליגה: <b class="num">${L}</b>. תכונה שעוברת את ${L+DEVR.lo} מתקדמת לאט יותר, וב-${L+DEVR.hi} נעצרת. אפשר להיות הכי טוב בליגה במשהו, אבל לא מחוץ לסקאלה.</div></div></section>`}
+
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
