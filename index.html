@@ -2380,7 +2380,7 @@ function pgReport(o){const {won,rt,g,dnp,st,min,fx,quote,role}=o,me=G.me,op=G.op
  const tiles=dnp?'':`<div class="mr-tiles">${[[st.pts,'נקודות'],[st.reb,'ריבאונדים'],[st.ast,'אסיסטים'],[min,'דקות']].map(([v,l])=>`<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>`;
  return `<section class="mr ${dnp?'':won?'win':'loss'}"><div class="mr-lab">דו״ח משחק ${compBadge(fx.comp)}${fx.po?` <span>${esc(fx.pol||fx.po)}</span>`:''}</div><div class="mr-res ${won?'w':'l'}">${won?'ניצחון':'הפסד'}</div><h2 class="mr-h">${pgHead(won,rt,g,dnp)}</h2>
  <div class="mr-score"><b class="${won?'w':'l'}">${me}</b><span>–</span><b>${op}</b>${rt!=null?`<div class="mr-stamp" style="--gc:${g[1]}"><b>${g[0]}</b><small>ציון ${f1(rt)}</small></div>`:''}</div>
- <div class="mr-teams">${esc(short(S.team.n))} נגד ${esc(short(fx.opp))}</div>${tiles}<p class="mr-q">״${esc(quote)}״</p><div class="mr-sub">${esc(role)}${!dnp&&st.tov>=3?` · ${st.tov} איבודים`:''}${!dnp&&pmOn()?` · <span dir="ltr">${pmTxt(st.pm)}</span>`:''}</div></section>`}
+ <div class="mr-teams">${esc(short(S.team.n))} נגד ${esc(short(fx.opp))}</div>${tiles}</section>`}
 function pgDev(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv);return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">\u2066+${up}\u2069 ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">רמה ${X.lv} · עוד ${need-X.xp} XP לנקודה הבאה</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
  <div class="row between" style="margin-top:8px;gap:8px;flex-wrap:wrap"><span class="dim" style="font-size:12.5px">${L?L.P.slice().sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>`${x[0]} ${x[1]}`).join(' · '):''}${L&&L.M&&L.M.length?` <b class="cyan" style="font-weight:700">${L.M.map(x=>`\u2066×${x[1]}\u2069 ${x[0]}`).join(' · ')}</b>`:''}</span>${X.pts?`<button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות מוכנות':'נקודה מוכנה'}</button>`:''}</div>
@@ -2481,6 +2481,18 @@ pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),
 {const _ub=upBuy;upBuy=function(k){const v0=S.p.attr[k],pts0=xpS().pts;_ub(k);if(xpS().pts===pts0)return;const v1=S.p.attr[k];requestAnimationFrame(()=>{const r=document.getElementById('ar-'+k);if(!r)return;const i=r.querySelector('.bar i'),nb=r.querySelector('b.num');if(i){i.style.transition='none';i.style.width=v0+'%';void i.offsetWidth;i.style.transition='width .9s cubic-bezier(.2,.8,.2,1)';i.style.width=v1+'%'}
   if(nb){let t0=null;const a=Math.floor(v0),b=Math.floor(v1);const step=ts=>{if(!t0)t0=ts;const p=Math.min(1,(ts-t0)/700);nb.textContent=Math.round(a+(b-a)*p);if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
   const fl=document.createElement('span');fl.className='upfloat';fl.textContent='⁦+'+(Math.floor(v1)-Math.floor(v0))+'⁩';r.appendChild(fl);setTimeout(()=>fl.remove(),1200)})}}
+/* ======== XP פשוט: רק לפי הסטטיסטיקה ======== */
+// כל נקודה 1, ריבאונד 2, אסיסט 2, חטיפה 3, חסימה 3, איבוד מוריד 1. ואז המכפילים (ניצחון, דרבי, גביע, פלייאוף, אירופה, הפתעה)
+const XPW=[['pts','נקודות',1],['reb','ריבאונדים',2],['ast','אסיסטים',2],['stl','חטיפות',3],['blk','חסימות',3],['tov','איבודים',-1]];
+xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const P=XPW.map(([k,n,w])=>[n,(st[k]||0)*w,st[k]||0,w]).filter(x=>x[2]);const M=xpMults(won,fx);if(has('trainer'))M.push(['מאמן אישי',1.15]);
+ const base=Math.max(1,P.reduce((a,x)=>a+x[1],0)),mm=M.reduce((a,x)=>a*x[1],1);return {P,M,base,tot:Math.max(1,Math.round(base*mm))}};
+pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),iso=t=>`⁦${t}⁩`;
+ const parts=L?L.P.map(x=>`<span>${x[2]} ${x[0]} <b class="${x[1]<0?'bad':''}">${iso((x[1]>0?'+':'')+x[1])}</b></span>`).join(''):'';
+ const mult=L&&L.M&&L.M.length?L.M.map(x=>`<span class="cyan">${iso('×'+x[1])} ${x[0]}</span>`).join(''):'';
+ return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">רמה ${X.lv} · עוד ${need-X.xp} XP לנקודה הבאה</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
+ <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
+ ${L?`<div class="dv-parts">${parts}</div><div class="dv-sum">סה״כ <b>${L.base}</b>${mult?` ${mult}`:''}${mult?` = <b>${n} XP</b>`:''}</div>`:''}
+ ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
