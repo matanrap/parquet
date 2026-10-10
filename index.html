@@ -854,10 +854,10 @@ const dayRegen=()=>5+(has('nutri')?1.5:0)+(has('cryo')?2:0)+(S.staff.jet?3:0)+sp
 // תקרת הכושר תלויה בסיבולת
 const fitCap=()=>clamp(62+ea().sta*.4,70,100);
 const peakAge=()=>{if(!S.p.peak)S.p.peak=ri(26,31);return S.p.peak};
-const ageCeil=()=>S.p.pot-Math.max(0,peakAge()-S.p.age)*1.9;
+const devPk=()=>clamp(peakAge()-4,23,26);const ageCeil=()=>S.p.pot-Math.max(0,devPk()-S.p.age)*2.2;// השחקן יכול להגיע לפוטנציאל כבר בגיל 23–26
 const PHYS={spd:1,jmp:1,sta:1};
 // קצב התפתחות (מוגבר כדי שתורגש התקדמות): צעירים קופצים מהר, ליד השיא מאט
-const DEVX=2.0;function growth(){const a=S.p.age,pk=peakAge(),af=a<=18?1.3:a<=21?2.2:a<pk-2?1.4:a<=pk?.75:a<=pk+2?.3:.1;return DEVX*af*clamp((ageCeil()-ovr())/18,.02,1)}
+const DEVX=2.0;function growth(){const a=S.p.age,pk=peakAge(),af=a<=18?1.3:a<=21?2.2:a<devPk()?1.4:a<=pk?.75:a<=pk+2?.3:.1;return DEVX*af*clamp((ageCeil()-ovr())/18,.02,1)}
 function iqBoost(v,why){const b=S.p.attr.iq;S.p.attr.iq=clamp(b+v,20,99);const d=S.p.attr.iq-b;if(d>.05)news(`הבנת המשחק עולה: IQ כדורסל +${f1(d)} (${why})`);return d}
 const // תקרה לכל תכונה לפי גיל ופוטנציאל: אי אפשר להגיע ל-90 בשלשות בגיל 17. התכונות החזקות של הסגנון מקבלות 3 נקודות מרווח
 attrCap=k=>{const c=ageCeil()+(PHYS[k]&&S.p.age>=24?3:6)+(sty().g.includes(k)?3:0),v=S.p.attr[k];return v>=c?0:clamp((c-v)/18,.05,1)};
@@ -2259,35 +2259,30 @@ CARSEC.push(['legacy','מורשת','star','המקום שלך בהיסטוריה,
 {const _s=sign;sign=function(i){const o=S.off&&S.off.offers[i],from=short(S.team.n);if(o&&!o.cur&&S.team.comp!=='YTH')jerseyCheck(from);return _s(i)}}
 {const _ro=renderOver;renderOver=function(){try{jerseyCheck(short(S.team.n));legCheck()}catch(e){}return _ro()}}
 Object.assign(A,{agset:v=>agSet(+v),angbuy:v=>angBuy(v)});
-/* ======== תוכנית התפתחות: מאמן · חוזקות · הבחירה שלך + תקרה יחסית לליגה ======== */
-// השחקן משתפר רק בשלושה ערוצים: מה שהמאמן בוחר לעונה, הדברים שהוא כבר טוב בהם, ומה שאתה בוחר באימון. שאר התכונות כמעט לא זזות
-// תקרה יחסית: ככל שתכונה בורחת מרמת הליגה, ההתקדמות בה נעצרת. עד +8 רגיל, ב-+22 עצירה מלאה
+/* ======== התפתחות: כל התכונות משתפרות מעבודה · תוכנית עם מאמן אישי · תקרה יחסית ======== */
+// כל התכונות משתפרות מאימונים, ממשחקים ומסוף העונה. מאמן אישי: בוחרים יחד שתי תכונות שמשתפרות מהר יותר
+// תקרה יחסית: תכונה שבורחת הרבה מעל הרמה שלך מאטה. הרמה = הגבוה מבין: הליגה הנוכחית, הליגה הכי חזקה ששיחקת בה, וה-OVR שלך. ירידת ליגה לא עוצרת אותך
 let GCTX='';
 const DEVR={lo:8,hi:22};
-const lgRef=()=>!S.team||S.team.comp==='YTH'?60:lgOpp();
+const lgRef=()=>{const cur=!S.team||S.team.comp==='YTH'?60:lgOpp();return Math.max(cur,S.lgBest||0,ovr())};
 const relCap=k=>{if(k==='iq')return 1;const d=S.p.attr[k]-lgRef();return d<=DEVR.lo?1:d>=DEVR.hi?0:(DEVR.hi-d)/(DEVR.hi-DEVR.lo)};
-const devStr=()=>{const A=S.p.attr;return Object.keys(A).filter(k=>k!=='iq').sort((a,b)=>A[b]-A[a]).slice(0,3)};
-function devPlan(force){if(!S.team)return null;if(!force&&S.dev&&S.dev.y===S.year&&S.dev.t===S.team.n)return S.dev;const a=S.p.attr,w=POS[S.p.pos].w,y=sty(),o=ovr(),st=devStr();
- const C=AT.map(x=>x[0]).filter(k=>k!=='iq'&&!st.includes(k)).map(k=>({k,sc:(w[k]||.5)*(y.g.includes(k)?1.25:1)*Math.max(.5,o+6-a[k])*rnd(.85,1.15)})).sort((p,q)=>q.sc-p.sc);
- const c=C.slice(0,2).map(x=>x.k);S.dev={y:S.year,t:S.team.n,c,why:`${S.team.coach?S.team.coach.n:'המאמן'}: ״העונה אני רוצה לראות אותך משתפר ב${AN[c[0]]} וב${AN[c[1]]}. שם הקבוצה צריכה אותך.״`};return S.dev}
-function devCh(k){if(k==='iq')return 1;const P=devPlan()||{c:[]},inP=P.c.includes(k),inS=devStr().includes(k),foc=S.plan&&S.plan.focus===k,young=S.p.age<=21&&PHYS[k];
- if(GCTX==='season'||GCTX==='day')return inP?2.6:inS?1.2:foc?1:young?.4:0;
- if(GCTX==='game')return inP?1.5:inS?1.1:foc?.6:.15;
- return inP?1.25:1}
+const tPlan=()=>has('trainer')&&S.tplan&&S.tplan.length?S.tplan:[];
+function devCh(k){if(!tPlan().includes(k))return 1;return GCTX==='season'||GCTX==='day'?1.6:GCTX==='game'?1.4:1.25}
 {const _gr=grow;grow=function(k,g){if(g>0)g*=relCap(k)*devCh(k);return _gr(k,g)}}
 {const _pd=passDay;passDay=function(...a){const c=GCTX;GCTX='day';try{return _pd(...a)}finally{GCTX=c}}}
 {const _gg=gameGrowth;gameGrowth=function(...a){GCTX='game';try{return _gg(...a)}finally{GCTX=''}}}
 {const _go2=goOffseason;goOffseason=function(){GCTX='season';try{_go2()}finally{GCTX=''}}}
-{const _ss=startSeason;startSeason=function(...a){const r=_ss(...a);try{const old=S.dev;devPlan(true);if(S.dev&&(!old||old.c.join()!==S.dev.c.join()))news(S.dev.why,1)}catch(e){}return r}}
-{const _cr=coachRec;coachRec=function(){const fresh=!S.rec||S.rec.wk!==Math.floor(S.date/(7*DAY)),r=_cr();try{const P=devPlan();if(fresh&&P&&!P.c.includes(r.k)&&!(r.k||'').startsWith('cat:')&&R()<.6){r.k=pick(P.c);r.why=`תוכנית העונה: ${AN[r.k]}. ${S.team.coach.n} רוצה לראות שם התקדמות, ואימון בזה שווה יותר.`}}catch(e){}return r}}
-{const _fo=A.focus;A.focus=v=>{_fo(v);try{if(!v.startsWith('cat:')&&relCap(v)===0)toast(`${AN[v]} כבר בתקרת הליגה. אימון שם כמעט לא יקדם`);else if((devPlan()||{c:[]}).c.includes(v))toast(`${AN[v]} בתוכנית של המאמן: אימון שווה יותר`)}catch(e){}}}
-function devTag(k){if(k==='iq')return '';const P=devPlan()||{c:[]},t=[];if(P.c.includes(k))t.push('<span class="pill cyan" style="font-size:10px;padding:1px 6px">מאמן</span>');if(devStr().includes(k))t.push('<span class="pill good" style="font-size:10px;padding:1px 6px">חוזקה</span>');if(relCap(k)===0)t.push('<span class="pill bad" style="font-size:10px;padding:1px 6px">תקרת ליגה</span>');return t.length?' '+t.join(' '):''}
-function devCard(){const P=devPlan();if(!P)return '';const st=devStr(),f=S.plan.focus,L=Math.round(lgRef()),nm=k=>`${AN[k]} <b class="num">${Math.floor(S.p.attr[k])}</b>`;
- return `<div class="sec"><b>תוכנית ההתפתחות</b><span>3 ערוצים</span></div><section class="card"><div class="stack" style="gap:10px;font-size:14px">
- <div><div class="lab cyan">המאמן בוחר · כפול בסוף העונה</div><div style="margin-top:4px">${P.c.map(nm).join(' · ')}</div></div>
- <div><div class="lab good">החוזקות שלך · משתפרות מהמשחקים</div><div style="margin-top:4px">${st.map(nm).join(' · ')}</div></div>
- <div><div class="lab coral">הבחירה שלך · האימונים</div><div style="margin-top:4px">${f&&!f.startsWith('cat:')?nm(f):esc(focusName(f))}</div></div>
- <div class="mute" style="font-size:12.5px">רמת ההגנה הממוצעת בליגה: <b class="num">${L}</b>. תכונה שעוברת את ${L+DEVR.lo} מתקדמת לאט יותר, וב-${L+DEVR.hi} נעצרת. אפשר להיות הכי טוב בליגה במשהו, אבל לא מחוץ לסקאלה.</div></div></section>`}
+{const _ss=startSeason;startSeason=function(...a){const r=_ss(...a);try{if(S.team&&S.team.comp!=='YTH')S.lgBest=Math.max(S.lgBest||0,lgOpp())}catch(e){}return r}}
+{const _fo=A.focus;A.focus=v=>{_fo(v);try{if(!v.startsWith('cat:')&&relCap(v)===0)toast(`${AN[v]} רחוק מאוד מעל הרמה שלך. כדאי לשפר דברים אחרים קודם`)}catch(e){}}}
+function tplanSet(k){S.tplan=S.tplan||[];const i=S.tplan.indexOf(k);if(i>=0)S.tplan.splice(i,1);else{if(S.tplan.length>=2)S.tplan.shift();S.tplan.push(k)}save();openSheet('tplan')}
+function tplanSheet(){const P=S.tplan||[],a=S.p.attr;return `<h3 class="h2">תוכנית עם המאמן האישי</h3><p class="mute" style="margin:6px 0 12px;font-size:13.5px">בוחרים יחד שתי תכונות. הן משתפרות מהר יותר מאימונים, ממשחקים ומסוף העונה. כל השאר ממשיכות להשתפר כרגיל.</p><div class="stack" style="gap:6px">${AT.filter(x=>x[0]!=='iq').map(([k,n])=>`<button class="opt" data-a="tplan" data-v="${k}" aria-pressed="${P.includes(k)}"><span>${n} <b class="num">${Math.floor(a[k])}</b>${relCap(k)<1?`<small>${relCap(k)===0?'רחוק מעל הרמה שלך: כמעט לא יתקדם':'מעל הרמה שלך: מתקדם לאט'}</small>`:''}</span><span class="pill ${P.includes(k)?'good':''}">${P.includes(k)?'בתוכנית':'+'}</span></button>`).join('')}</div>`}
+function devTag(k){if(k==='iq')return '';const t=[];if(tPlan().includes(k))t.push('<span class="pill cyan" style="font-size:10px;padding:1px 6px">תוכנית אישית</span>');if(relCap(k)===0)t.push('<span class="pill bad" style="font-size:10px;padding:1px 6px">תקרה</span>');return t.length?' '+t.join(' '):''}
+function devCard(){const T=has('trainer'),P=tPlan(),L=Math.round(lgRef()),nm=k=>`${AN[k]} <b class="num">${Math.floor(S.p.attr[k])}</b>`;
+ return `<div class="sec"><b>התפתחות</b><span>תקרה: ${L+DEVR.hi}</span></div><section class="card"><div class="stack" style="gap:10px;font-size:14px">
+ ${T?`<div class="row between"><div><div class="lab cyan">תוכנית עם המאמן האישי</div><div style="margin-top:4px">${P.length?P.map(nm).join(' · '):'<span class="mute">עוד לא בחרתם</span>'}</div></div><button class="btn soft sm" data-a="sheet" data-v="tplan">${P.length?'שינוי':'בחירה'}</button></div>`:`<div class="row between"><div class="mute" style="font-size:13px">עם מאמן אישי בוחרים יחד שתי תכונות שמשתפרות מהר יותר.</div><button class="btn soft sm" data-a="sheet" data-v="gear">מאמן אישי</button></div>`}
+ <div class="mute" style="font-size:12.5px">כל התכונות משתפרות מעבודה. מעל ${L+DEVR.lo} ההתקדמות מאטה, ומעל ${L+DEVR.hi} כמעט נעצרת. ירידת ליגה לא עוצרת אותך.</div></div></section>`}
+{const _os2=openSheet;openSheet=function(k,arg){if(k==='tplan'){showModal(`${tplanSheet()}<button class="btn ghost" data-a="close" style="width:100%;margin-top:16px">סגירה</button>`);SHEET='tplan';return}return _os2(k,arg)}}
+Object.assign(A,{tplan:v=>tplanSet(v)});
 
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
