@@ -2509,7 +2509,7 @@ xpNeed=function(lv){return lv<=7?[20,25,30,40,50,65,80][lv-1]:100+(lv-7)*35};
 // בסיכום: רק כמה XP, הרמה, והרגעים המיוחדים. בלי חישוב
 pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),iso=t=>`⁦${t}⁩`,tags=L?[...L.B.map(x=>x[0]),...L.M.filter(x=>x[0]!=='מאמן אישי').map(x=>x[0])]:[];
  return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">רמה ${X.lv} · עוד ${need-X.xp} XP לנקודה הבאה</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
- <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>${tags.length?`<div class="dv-tags">${tags.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
+ <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>${L?`<div class="dv-sum">בסיס <b>${L.base}</b>${L.M.map(x=>` <span class="cyan">${iso('×'+x[1])} ${x[0]}</span>`).join('')}${L.M.length?` = <b>${n} XP</b>`:''}</div>`:''}
  ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
 // גם בחלון השדרוג: בלי פירוט החישוב
 {const _us=upSheet;upSheet=function(){const L=S.lastXP;S.lastXP=null;try{return _us()}finally{S.lastXP=L}}}
