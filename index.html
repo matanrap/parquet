@@ -2502,7 +2502,7 @@ xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;cons
  const B=[],dd=['pts','reb','ast','stl','blk'].filter(k=>(st[k]||0)>=10).length;
  if(st.pts>=40)B.push(['40 נקודות',12]);else if(st.pts>=30)B.push(['30 נקודות',8]);else if(st.pts>=20)B.push(['20 נקודות',4]);
  if(dd>=3)B.push(['טריפל-דאבל',20]);else if(dd===2)B.push(['דאבל-דאבל',8]);if(st.stl+st.blk>=5)B.push(['הגנה ענקית',5]);if(st.fga>=8&&st.fgm/st.fga>=.7)B.push(['יעילות מושלמת',5]);
- if(potg)B.push(['שחקן המשחק',6]);if(st.pts>=12&&st.pts>(S.xpHi||0)){B.push(['שיא אישי',10]);S.xpHi=st.pts}
+ if(potg)B.push(['שחקן המשחק',6]);S.xpN=(S.xpN||0)+1;if(S.xpHi==null||S.xpN<6){S.xpHi=Math.max(S.xpHi||0,st.pts)}else if(st.pts>S.xpHi&&st.pts>=12){B.push(['שיא אישי',10]);S.xpHi=st.pts}
  base=Math.max(1,Math.round(base+B.reduce((a,x)=>a+x[1],0)));const M=xpMults(won,fx);if(has('trainer'))M.push(['מאמן אישי',1.15]);const mm=M.reduce((a,x)=>a*x[1],1);
  return {P:[],B,M,base,tot:Math.max(1,Math.round(base*mm))}};
 xpNeed=function(lv){return lv<=7?[20,25,30,40,50,65,80][lv-1]:100+(lv-7)*35};
