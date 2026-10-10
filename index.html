@@ -245,6 +245,7 @@ tr.rel td{color:var(--bad)}
 /* modal */
 #modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,4,12,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #modal[hidden]{display:none!important}
+.dv-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.dv-tags span{font-size:12px;font-weight:700;color:var(--cyan);border:1px solid rgba(94,179,216,.4);border-radius:8px;padding:2px 8px}
 .mr.win{border-color:rgba(60,207,142,.55);box-shadow:0 0 0 1px rgba(60,207,142,.25),0 10px 40px -12px rgba(60,207,142,.45);background:radial-gradient(120% 60% at 50% 0%,rgba(60,207,142,.16),transparent 70%),#0f0d0c}.mr.loss{border-color:rgba(255,84,112,.3)}
 .mr-res{margin-top:10px;font-family:var(--cond);font-weight:800;font-size:26px;letter-spacing:.12em}.mr-res.w{color:var(--good)}.mr-res.l{color:var(--bad);font-size:20px}
 .dv-parts{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--mute);margin-top:10px}.dv-parts b{color:var(--text);font-weight:700}.dv-sum{font-size:13px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
@@ -2493,6 +2494,25 @@ pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
  ${L?`<div class="dv-parts">${parts}</div><div class="dv-sum">סה״כ <b>${L.base}</b>${mult?` ${mult}`:''}${mult?` = <b>${n} XP</b>`:''}</div>`:''}
  ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
+/* ======== XP חכם ======== */
+// נקודות שוות לפי היעילות (כמה זריקות לקח), ובתשואה פוחתת. ריבאונדים ואסיסטים בתשואה פוחתת, חטיפות וחסימות שוות הרבה, איבודים ועבירות שוות מינוס.
+// השפעה על המשחק (+/-) נותנת קצת. בונוסים על רגעים: 20/30/40 נקודות, דאבל-דאבל, טריפל-דאבל, יעילות מושלמת, שיא אישי. ואז המכפילים
+xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const tsa=st.fga+.44*st.fta,ts=tsa>0?st.pts/(2*tsa):.55,eff=clamp(ts/.55,.6,1.35);
+ let base=Math.pow(st.pts,.85)*eff+Math.pow(st.reb,.9)*1.6+Math.pow(st.ast,.9)*2+st.stl*3+st.blk*3-st.tov*1.5+clamp((st.pm||0)*.25,-4,8)-(st.pf>=(S.team.comp==='NBA'?6:5)?5:0);
+ const B=[],dd=['pts','reb','ast','stl','blk'].filter(k=>(st[k]||0)>=10).length;
+ if(st.pts>=40)B.push(['40 נקודות',12]);else if(st.pts>=30)B.push(['30 נקודות',8]);else if(st.pts>=20)B.push(['20 נקודות',4]);
+ if(dd>=3)B.push(['טריפל-דאבל',20]);else if(dd===2)B.push(['דאבל-דאבל',8]);if(st.stl+st.blk>=5)B.push(['הגנה ענקית',5]);if(st.fga>=8&&st.fgm/st.fga>=.7)B.push(['יעילות מושלמת',5]);
+ if(potg)B.push(['שחקן המשחק',6]);if(st.pts>=12&&st.pts>(S.xpHi||0)){B.push(['שיא אישי',10]);S.xpHi=st.pts}
+ base=Math.max(1,Math.round(base+B.reduce((a,x)=>a+x[1],0)));const M=xpMults(won,fx);if(has('trainer'))M.push(['מאמן אישי',1.15]);const mm=M.reduce((a,x)=>a*x[1],1);
+ return {P:[],B,M,base,tot:Math.max(1,Math.round(base*mm))}};
+xpNeed=function(lv){return lv<=7?[20,25,30,40,50,65,80][lv-1]:100+(lv-7)*35};
+// בסיכום: רק כמה XP, הרמה, והרגעים המיוחדים. בלי חישוב
+pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),iso=t=>`⁦${t}⁩`,tags=L?[...L.B.map(x=>x[0]),...L.M.filter(x=>x[0]!=='מאמן אישי').map(x=>x[0])]:[];
+ return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">רמה ${X.lv} · עוד ${need-X.xp} XP לנקודה הבאה</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
+ <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>${tags.length?`<div class="dv-tags">${tags.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
+ ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
+// גם בחלון השדרוג: בלי פירוט החישוב
+{const _us=upSheet;upSheet=function(){const L=S.lastXP;S.lastXP=null;try{return _us()}finally{S.lastXP=L}}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
