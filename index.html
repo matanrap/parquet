@@ -22,6 +22,10 @@
   --cond:'Oswald','Karantina','Secular One',sans-serif;
   color-scheme:dark;
 }
+*,*::before,*::after{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+input,select,textarea{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:16px 50%,21px 50%;background-size:5px 5px;background-repeat:no-repeat;padding-left:32px}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent;
  background-image:radial-gradient(90% 40% at 100% 0%,rgba(255,106,77,.10),rgba(255,106,77,0) 70%),radial-gradient(80% 40% at 0% 10%,rgba(76,201,240,.08),rgba(76,201,240,0) 70%);background-attachment:fixed}
@@ -327,6 +331,10 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 .tip b{display:block;font-size:14px;line-height:1.25}.tip small{display:block;font-size:12px;color:var(--mute);margin-top:2px}
 .tip-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(255,201,92,.12);flex:none}
 .tip-x{background:none;border:0;color:var(--dim);font-size:20px;line-height:1;padding:4px 2px;cursor:pointer}
+.sgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px 4px;padding:12px 10px;text-align:center}
+.sgrid div{display:flex;flex-direction:column;gap:2px;min-width:0}.sgrid .num{font-size:17px;font-weight:700;white-space:nowrap}.sgrid small{font-size:11px;color:var(--mute);font-weight:700}
+.hero .eb{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hero{min-height:136px!important}
+.phero{grid-template-columns:auto minmax(0,1fr) auto!important;gap:12px!important}.phero .h2{font-size:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.phero .row{flex-wrap:wrap}.phero .ring,.phero .ring svg{width:78px;height:78px}.phero .ring b{font-size:27px;padding-bottom:8px}.phero .ring span{bottom:16px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -583,7 +591,7 @@ const compName=c=>c&&c.includes('|')?(([b,p,g])=>EU[b].n+(g?' · בית '+g:''))
 const statusWord=o=>o>=90?'סופרסטאר':o>=82?'כוכב':o>=74?'שחקן מוביל':o>=66?'שחקן רוטציה':o>=58?'פרוספקט':'לא מוכח';
 const rtCol=r=>gradeOf(r)[1];
 const rtChip=r=>r==null?'<span class="dim">—</span>':`<span class="rt" style="background:${rtCol(r)}">${Number.isInteger(r)?r:f1(r)}</span>`;
-const pmTxt=v=>v==null?'—':(v>0?'+':'')+(Number.isInteger(v)?v:f1(v));
+const pmTxt=v=>v==null?'—':'\u2066'+(v>0?'+':'')+(Number.isInteger(v)?v:f1(v))+'\u2069';
 
 /* ======== graphics ======== */
 function lum(hex){const h=hex.replace('#','');const f=h.length===3?h.split('').map(x=>x+x).join(''):h;const r=parseInt(f.slice(0,2),16),g=parseInt(f.slice(2,4),16),b=parseInt(f.slice(4,6),16);return (0.299*r+0.587*g+0.114*b)/255}
@@ -1135,7 +1143,7 @@ function finishGame(){const sea=S.season,fx=sea.fx[sea.i],st={...G.st},p=S.p,min
  showModal(`<div class="stack"><div class="row between" style="align-items:flex-start"><div><div class="row" style="gap:8px;flex-wrap:wrap">${compBadge(fx.comp)}${fx.po?`<span class="lab">${esc(fx.po)}</span>`:''}</div><h3 class="h1" style="color:${won?'var(--good)':'var(--bad)'};margin-top:4px">${won?'ניצחון':'הפסד'} <span class="num" style="font-size:.7em">${G.me}–${G.op}</span></h3><div class="mute">מול ${esc(short(fx.opp))}</div></div>
  ${rt!=null?`<div style="text-align:center"><div class="grade" style="color:${g[1]}">${g[0]}</div><div class="num" style="margin-top:4px;font-size:18px;color:${rtCol(rt)}">ציון ${f1(rt)}</div><div class="num ${st.pm>=0?'good':'bad'}" style="font-size:14px">${pmTxt(st.pm)}</div></div>`:''}</div>
  ${potg?`<div class="card" style="border-color:var(--gold);background:radial-gradient(100% 120% at 50% 0%,rgba(255,201,92,.2),transparent 70%),var(--s1)"><div class="row">${ico('star','#ffc95c',26)}<div><b class="gold">אתה מצטיין המשחק</b><div class="mute" style="font-size:13px">הציון הגבוה במשחק בקבוצה המנצחת (${f1(rt)}) · פעם ה-${S.potg} בקריירה</div></div></div></div>`:mvp?`<div class="card" style="padding:10px 12px"><div class="row between"><div class="row" style="gap:10px">${ico('star','#ffc95c',22)}<div><div class="lab">מצטיין המשחק${pre?' · הכנה':''}</div><b>${esc(mvp.n)}</b> <span class="mute" style="font-size:12.5px">${won?esc(short(S.team.n)):esc(short(fx.opp))}</span></div></div><div style="text-align:center"><b class="num gold" style="font-size:22px">${f1(mvp.rt)}</b><div class="mute" style="font-size:11px">ציון</div></div></div></div>`:''}
- ${dnp?`<div class="card">${G.dnp?'לא שיחקת בגלל פציעה.':'לא נכנסת למשחק.'}</div>`:`<div class="card" style="padding:8px 12px"><div class="tw"><table><thead><tr><th class="n">דק׳</th><th class="n">נק׳</th><th class="n">ריב׳</th><th class="n">אס׳</th><th class="n">חט׳</th><th class="n">חס׳</th><th class="n">איב׳</th><th class="n">2</th><th class="n">3</th><th class="n">עונ׳</th><th class="n">ע׳</th><th class="n">ס״ע</th><th class="n">+/-</th><th class="n">ציון</th></tr></thead><tbody><tr><td class="n">${min}</td><td class="n"><b>${st.pts}</b></td><td class="n">${st.reb}</td><td class="n">${st.ast}</td><td class="n">${st.stl}</td><td class="n">${st.blk}</td><td class="n">${st.tov}</td><td class="n">${st.fgm-st.tpm}/${st.fga-st.tpa}</td><td class="n">${st.tpm}/${st.tpa}</td><td class="n">${st.ftm}/${st.fta}</td><td class="n">${st.pf}</td><td class="n">${st.fd}</td><td class="n">${pmTxt(st.pm)}</td><td class="n"><b>${rt!=null?f1(rt):'—'}</b></td></tr></tbody></table></div></div>
+ ${dnp?`<div class="card">${G.dnp?'לא שיחקת בגלל פציעה.':'לא נכנסת למשחק.'}</div>`:`<div class="card sgrid">${[[min,"דק׳"],[`<b>${st.pts}</b>`,"נק׳"],[st.reb,"ריב׳"],[st.ast,"אס׳"],[st.stl,"חט׳"],[st.blk,"חס׳"],[st.tov,"איב׳"],[`${st.fgm-st.tpm}/${st.fga-st.tpa}`,"2"],[`${st.tpm}/${st.tpa}`,"3"],[`${st.ftm}/${st.fta}`,"עונ׳"],[st.pf,"עב׳"],[st.fd,"ס״ע"],[`<span class="${st.pm>=0?"good":"bad"}">${pmTxt(st.pm)}</span>`,"+/-"],[rt!=null?`<b style="color:${rtCol(rt)}">${f1(rt)}</b>`:"—","ציון"]].map(([v,l])=>`<div><span class="num">${v}</span><small>${l}</small></div>`).join("")}</div>
  <div class="mute" style="font-size:12.5px">יעד הציון העונה: ${f1(sea.expect)}</div>`}
  ${boxTable(BX.A,mvp,`בוקסקור · ${esc(short(S.team.n))} <span class="num">${G.me}</span>`,true)}${boxTable(BX.B,mvp,`בוקסקור · ${esc(short(fx.opp))} <span class="num">${G.op}</span>`,false)}
  ${km>1?`<div class="card" style="border-color:var(--coral);padding:10px 12px"><b class="coral">משחק מפתח ×${km}</b> <span class="mute" style="font-size:13px">${KI.why.join(' · ')}: ההתפתחות, המומנטום והאמון של המאמן הוכפלו</span></div>`:''}${pre?'':`<div class="row between" style="font-size:13.5px"><span>מומנטום <b class="${(S.mom||0)>=m0?'good':'bad'}">${(S.mom||0)>=0?'+':''}${f1(S.mom||0)}</b></span><span>צפי דקות במשחק הבא <b class="${min1>=min0?'good':'bad'}">${min1}</b>${min1!==min0?` (${min1>min0?'+':''}${min1-min0})`:''}</span></div>`}<div class="chips">${ch('מוניטין',dF)}${ch('ביטחון',dK)}${ch('מאמן',dC)}${ch('מורל',dM)}${ch('אנרגיה',Math.round(p.energy-e0))}${ch('כושר',p.fit-f0)}</div>
@@ -1434,7 +1442,7 @@ function radar(a){const c=[['sc','קליעה'],['pm','יצירה'],['df','הגנ
  return `<svg class="radar" viewBox="0 0 340 300" width="340" height="300" role="img" aria-label="מכ״ם יכולות">${grid}${[0,1,2,3].map(i=>`<line x1="${cx}" y1="${cy}" x2="${pt(i,100)[0]}" y2="${pt(i,100)[1]}" stroke="#3a3760"/>`).join('')}<polygon points="${poly}" fill="rgba(255,106,77,.25)" stroke="#ff6a4d" stroke-width="3" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${pt(i,v)[0]}" cy="${pt(i,v)[1]}" r="5" fill="#ff6a4d" stroke="#0c0b17" stroke-width="2"/>`).join('')}${lab}</svg>`}
 const stars=pot=>{const f=Math.round(clamp((pot-62)/7.2,.5,5));return '★'.repeat(f)+'☆'.repeat(5-f)};
 function tabProf(){const p=S.p,t=S.team,a=ea(),o=ovr(),a0=S.season.a0||p.attr,top=AT.map(x=>[x[0],x[1],a[x[0]]]).sort((x,y)=>y[2]-x[2]).slice(0,3),C=2*Math.PI*40;
- return `<section class="card arc" style="background:radial-gradient(120% 80% at 90% 0%,rgba(255,106,77,.16),transparent 60%),var(--s1)"><div class="phero"><div class="avw">${avatar(t.c,p.num,80)}</div>
+ return `<section class="card arc" style="background:radial-gradient(120% 80% at 90% 0%,rgba(255,106,77,.16),transparent 60%),var(--s1)"><div class="phero"><div class="avw">${avatar(t.c,p.num,62)}</div>
  <div style="min-width:0"><h2 class="h2">${esc(p.name)}</h2><div class="row" style="gap:8px;margin-top:6px"><span class="pill coral">${POS[p.pos].n} · ${sty().n}</span><span class="mute" style="font-weight:700;font-size:13.5px">${statusWord(o)}</span></div><div class="mute" style="font-size:13px;margin-top:6px">${esc(short(t.n))} · גיל ${p.age} · ${p.h} ס״מ</div></div>
  <div class="ring"><svg viewBox="0 0 92 92"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff6a4d"/><stop offset="1" stop-color="#ffc95c"/></linearGradient></defs><circle cx="46" cy="46" r="40" fill="none" stroke="#25233f" stroke-width="7"/><circle cx="46" cy="46" r="40" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C*o/99} ${C}"/></svg><b>${o}</b><span>OVR</span></div></div>
  ${radar(a)}<div class="top3" style="margin-top:6px">${top.map(x=>`<div><b>${Math.floor(x[2])}</b><span>${x[1]}</span></div>`).join('')}</div></section>
