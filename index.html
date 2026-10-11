@@ -245,6 +245,8 @@ tr.rel td{color:var(--bad)}
 /* modal */
 #modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,4,12,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #modal[hidden]{display:none!important}
+/* אייפון במסך הבית: לא להיכנס מתחת לשעון ולאי הדינמי */
+#app{padding-top:env(safe-area-inset-top,0px)}#modal{padding-top:env(safe-area-inset-top,0px)}.celeb{padding-top:env(safe-area-inset-top,0px)}
 .cx{position:relative;overflow:hidden;color:#231f1a;border-radius:6px;padding:22px 18px 18px;font-family:Georgia,'Frank Ruhl Libre','David',serif;background:linear-gradient(180deg,#fbf8f1,#f1eadb);background-image:repeating-linear-gradient(0deg,rgba(120,100,70,.035) 0 1px,transparent 1px 3px),linear-gradient(180deg,#fbf8f1,#efe7d6);box-shadow:0 18px 50px rgba(0,0,0,.55),inset 0 0 60px rgba(160,130,80,.18)}
 .cx::after{content:'';position:absolute;inset:10px;border:1px solid rgba(35,31,26,.28);outline:1px solid rgba(35,31,26,.12);outline-offset:3px;border-radius:3px;pointer-events:none}
 .cx-band{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--cc),#c9a54a,var(--cc))}
