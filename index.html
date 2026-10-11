@@ -482,6 +482,19 @@ body{background:var(--bg)!important;background-image:linear-gradient(180deg,rgba
 @keyframes perfGlow{50%{box-shadow:0 0 36px rgba(255,224,138,.45)}}@keyframes shine{to{background-position:-200% 0}}
 .rec-pop{position:absolute;left:50%;top:14%;transform:translateX(-50%);padding:6px 14px;border-radius:999px;background:rgba(12,11,23,.92);border:1px solid var(--gold);color:var(--gold);font-weight:800;font-size:13.5px;white-space:nowrap;animation:rtPop 2.6s ease-out forwards;z-index:5}.rec-pop.up{background:var(--gold);color:#1a1405}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.wk-box{min-width:0;max-width:100%}
+.wk-strip{min-width:0;grid-auto-columns:minmax(36px,1fr);overflow-x:auto;scrollbar-width:none;padding-top:6px;scroll-snap-type:x proximity}.wk-strip::-webkit-scrollbar{display:none}
+.wk-card{min-width:0}
+.mr{padding:12px 12px 10px}
+.mr-res{margin-top:6px;font-size:18px;letter-spacing:.1em}.mr-res.l{font-size:16px}
+.mr-h{font-size:21px;margin:2px 0 6px}
+.mr-score{gap:10px}.mr-score>b{font-size:40px}.mr-score>span{font-size:18px}
+.mr-stamp{border-width:2px;border-radius:10px;padding:3px 7px}.mr-stamp b{font-size:22px}.mr-stamp small{font-size:9.5px}
+.mr-teams{margin:6px 0 0;font-size:12.5px}
+.pg-cont{position:sticky;bottom:0;z-index:3;margin:0 -2px;padding:10px 2px calc(4px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(18,20,26,0),var(--s1) 38%)}
+.pg-cont .btn{width:100%}
+.dv{padding:12px}.dv-xp{font-size:32px}.dv-xp small{font-size:15px}.dv-bar{margin-top:9px}
 </style>
 
 <div id="app" dir="rtl" lang="he"></div>
@@ -1356,7 +1369,7 @@ async function weekThen(sim){closeModal();const fx=curFx();if(!fx)return;const d
   const inv=a.startsWith('inv:')?INVT.find(x=>x.k===a.slice(4)):null,A0=ACT[a]||{},lab=inv?inv.n:a==='train'?'אימון קבוצתי':A0.n||'',ic=inv?'mic':A0.ic||'auto',cls=inv?'inv':A0.cls||'',a0={...S.p.attr},m0=log.msgs.length,e0=S.p.energy,f0=S.p.fit??70;
   const dd=S.plan.d[d];delete S.plan.d[d];doDay(dd,log);passDay();
   let best='',bv=0;for(const k in S.p.attr){const v=S.p.attr[k]-a0[k];if(v>bv){bv=v;best=k}}const de=Math.round(S.p.energy-e0),dfit=(S.p.fit??70)-f0,parts=[];if(log.msgs.length>m0)parts.push(log.msgs[log.msgs.length-1]);else if(bv>=.02)parts.push(`${AN[best]} \u2066+${bv>=.1?f1(bv):bv.toFixed(2)}\u2069`);const sg=v=>'\u2066'+(v>0?'+':'')+v+'\u2069';if(de)parts.push(`אנרגיה ${sg(de)}`);if(Math.abs(dfit)>=.3)parts.push(`כושר ${sg(f1(dfit))}`);const note=parts.join(' · ')||(a==='rest'?'הגוף מתאושש':'');
-  ov.querySelectorAll('.wk-strip span').forEach((x,j)=>x.className=j<i?'done':j===i?'cur':(x.classList.contains('g')?'g':''));
+  ov.querySelectorAll('.wk-strip span').forEach((x,j)=>x.className=j<i?'done':j===i?'cur':(x.classList.contains('g')?'g':''));try{const sp=ov.querySelector('.wk-strip'),cu=sp&&sp.children[i];if(cu&&sp.scrollWidth>sp.clientWidth)sp.scrollTo({left:cu.offsetLeft-sp.clientWidth/2+cu.offsetWidth/2,behavior:'smooth'})}catch(e){}
   const c=ov.querySelector('#wkc');c.className='wk-card '+cls;c.innerHTML=`<div class="ic">${ico(ic,null,26)}</div><div><div class="mute" style="font-size:12px">${dfmt(d,{weekday:'long',day:'numeric',month:'long'})}${auto?' · אוטומטי':''}</div><b>${esc(lab)}</b><div class="nt">${esc(note)}</div></div>`;void c.offsetWidth;c.classList.add('in');bars();
   if(!skip)await sleep(per)}
  ov.querySelectorAll('.wk-strip span').forEach(x=>x.className=x.classList.contains('g')?'g cur':'done');const c=ov.querySelector('#wkc');c.className='wk-card game in';c.innerHTML=`<div class="ic">${ico('ball','#fff',26)}</div><div><div class="mute" style="font-size:12px">${dfmt(fx.date,{weekday:'long',day:'numeric',month:'long'})}</div><b>יום משחק!</b><div class="nt">${esc(compName(fx.comp))}${fx.po?' · '+esc(fx.po):''}</div></div>`;
@@ -1398,7 +1411,7 @@ function finishGame(){if(G&&G.fx&&G.fx.k==='nat'){natLiveFinish();return}const s
  
  ${pr.msgs.length?`<div class="mute" style="font-size:13px">השבוע: ${pr.msgs.map(esc).join(' · ')}</div>`:''}
  <p style="margin:0">״${quote}״ <span class="mute">— ${esc(S.team.coach.n)}</span></p>${inj?`<div class="card" style="border-color:var(--bad)">${inj}</div>`:''}
- <button class="btn pri big" data-a="cont">המשך</button></div>`,true);G=null}
+ <div class="pg-cont"><button class="btn pri big" data-a="cont">המשך</button></div></div>`,true);G=null}
 function wireAfterGame(won,st,rt,fx,potg){const fn=S.p.name.split(' ')[0],opp=short(fx.opp);if(fx.k==='pre')return;
  if(st.min===0){if(R()<.5)wirePost('fan',pick([`למה ${fn} לא שיחק? תנו לילד דקות!`,`${fn} על הספסל שוב. חבל.`]));return}
  if(potg||rt>=8.5)wirePost('fan',pick([`${fn} היה בלתי עציר הערב.`,`${st.pts} נקודות?! ${fn} משהו אחר.`,`מישהו שיגיד לסקאוטים על ${fn}.`]));else if(rt!=null&&rt<5.5)wirePost('fan',pick([`${fn} נעלם הערב.`,`${st.fgm}/${st.fga} מהשדה... לא הערב של ${fn}.`]));else if(R()<.5)wirePost('fan',pick([`ערב סביר של ${fn}.`,`${fn} עשה את שלו.`]));
@@ -2464,7 +2477,7 @@ function pgReport(o){const {won,rt,g,dnp,st,min,fx,quote,role}=o,me=G.me,op=G.op
 function pgDev(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv);return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">\u2066+${up}\u2069 ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">עוד ${need-X.xp} XP לנקודה הבאה · מתוך ${need}</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
  <div class="row between" style="margin-top:8px;gap:8px;flex-wrap:wrap"><span class="dim" style="font-size:12.5px">${L?L.P.slice().sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>`${x[0]} ${x[1]}`).join(' · '):''}${L&&L.M&&L.M.length?` <b class="cyan" style="font-weight:700">${L.M.map(x=>`\u2066×${x[1]}\u2069 ${x[0]}`).join(' · ')}</b>`:''}</span>${X.pts?`<button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות מוכנות':'נקודה מוכנה'}</button>`:''}</div>
- ${X.pts?`<div class="mute" style="font-size:12.5px;margin-top:8px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</div>`:''}</section>`}
+ </section>`}
 // עמדות: חמישייה לפי PG, SG, SF, PF, C
 function boxOrder(L){const left=L.slice(),st=[];for(const pos of ['PG','SG','SF','PF','C']){const c=left.filter(x=>x.pos===pos&&(x.min||0)>0).sort((a,b)=>(b.min||0)-(a.min||0))[0];if(c){st.push(c);left.splice(left.indexOf(c),1)}}left.sort((a,b)=>(b.min||0)-(a.min||0));while(st.length<5&&left.length&&(left[0].min||0)>0)st.push(left.shift());const PO=['PG','SG','SF','PF','C'];st.sort((a,b)=>PO.indexOf(a.pos)-PO.indexOf(b.pos));return {st,bn:left}}
 // שדרוג מתוך מסך השחקן
@@ -2555,7 +2568,7 @@ pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),
  return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">עוד ${need-X.xp} XP לנקודה הבאה · מתוך ${need}</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
  ${L?`<div class="dv-parts">${parts}</div><div class="dv-sum">בסיס <b>${L.base}</b>${mult?` ${mult}`:''}${has('trainer')?' <span class="cyan">⁦×1.15⁩ מאמן אישי</span>':''} = <b>${n} XP</b></div>`:''}
- ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
+ ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span></span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
 
 /* ======== אנימציית שדרוג: הפס זז מהערך הקודם לחדש ======== */
 {const _ub=upBuy;upBuy=function(k){const v0=S.p.attr[k],pts0=xpS().pts;_ub(k);if(xpS().pts===pts0)return;const v1=S.p.attr[k];requestAnimationFrame(()=>{const r=document.getElementById('ar-'+k);if(!r)return;const i=r.querySelector('.bar i'),nb=r.querySelector('b.num');if(i){i.style.transition='none';i.style.width=v0+'%';void i.offsetWidth;i.style.transition='width .9s cubic-bezier(.2,.8,.2,1)';i.style.width=v1+'%'}
@@ -2572,7 +2585,7 @@ pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),
  return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">עוד ${need-X.xp} XP לנקודה הבאה · מתוך ${need}</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>
  ${L?`<div class="dv-parts">${parts}</div><div class="dv-sum">סה״כ <b>${L.base}</b>${mult?` ${mult}`:''}${mult?` = <b>${n} XP</b>`:''}</div>`:''}
- ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
+ ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span></span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
 /* ======== XP חכם ======== */
 // נקודות שוות לפי היעילות (כמה זריקות לקח), ובתשואה פוחתת. ריבאונדים ואסיסטים בתשואה פוחתת, חטיפות וחסימות שוות הרבה, איבודים ועבירות שוות מינוס.
 // השפעה על המשחק (+/-) נותנת קצת. בונוסים על רגעים: 20/30/40 נקודות, דאבל-דאבל, טריפל-דאבל, יעילות מושלמת, שיא אישי. ואז המכפילים
@@ -2589,7 +2602,7 @@ xpNeed=function(lv){return lv<=7?[20,25,30,40,50,65,80][lv-1]:100+(lv-7)*35};
 pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),iso=t=>`⁦${t}⁩`,tags=L?[...L.B.map(x=>x[0]),...L.M.filter(x=>x[0]!=='מאמן אישי').map(x=>x[0])]:[];
  return `<section class="dv"><div class="row between" style="align-items:flex-start"><div><div class="dv-lab">ההתפתחות שלך</div>${up?`<div class="dv-up">${iso('+'+up)} ${up>1?'נקודות שדרוג':'נקודת שדרוג'}</div>`:`<div class="dv-lv">עוד ${need-X.xp} XP לנקודה הבאה · מתוך ${need}</div>`}</div><div class="dv-xp">+${n}<small>XP</small></div></div>
  <div class="dv-bar"><i style="width:${Math.max(3,Math.round(X.xp/need*100))}%"></i></div>${L?`<div class="dv-sum">בסיס <b>${L.base}</b>${L.M.map(x=>` <span class="cyan">${iso('×'+x[1])} ${x[0]}</span>`).join('')}${L.M.length?` = <b>${n} XP</b>`:''}</div>`:''}
- ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span class="mute" style="font-size:12.5px">הנקודות נשמרות עד שתשתמש בהן במסך השחקן.</span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
+ ${X.pts?`<div class="row between" style="margin-top:10px;gap:8px"><span></span><button class="dv-sp" data-a="toprof">★ ${X.pts} ${X.pts>1?'נקודות':'נקודה'}</button></div>`:''}</section>`};
 // גם בחלון השדרוג: בלי פירוט החישוב
 {const _us=upSheet;upSheet=function(){const L=S.lastXP;S.lastXP=null;try{return _us()}finally{S.lastXP=L}}}
 /* ======== XP לפי מה שסוכם ======== */
