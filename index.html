@@ -13,9 +13,9 @@
 /* Layout: one phone column. Compact sticky header, content cards, a floating dock at the bottom where the active tab grows into a labelled pill.
    Identity: "courtside at night" — indigo night, coral as the action color (court paint / sneaker), cyan for data, gold only for money and trophies. Single dark look on purpose. */
 :root{
-  --bg:#0c0b17; --s1:#141327; --s2:#1b1a33; --s3:#25233f; --line:#2a2847; --line2:#3a3760;
-  --text:#f2f1fb; --mute:#9d9abb; --dim:#6c6990;
-  --coral:#ff6a4d; --coral-d:#e0472b; --cyan:#4cc9f0; --gold:#ffc95c; --good:#45d39a; --bad:#ff5470; --violet:#a78bfa;
+  --bg:#0f1114; --s1:#161a1f; --s2:#1c2027; --s3:#242932; --line:#242930; --line2:#333944;
+  --text:#ecebe6; --mute:#9ba0a8; --dim:#6b717b;
+  --coral:#d8d2c4; --coral-d:#bfb8aa; --cyan:#4cc9f0; --gold:#ffc95c; --good:#45d39a; --bad:#ff5470; --violet:#a78bfa;
   --f:'Rubik','Heebo','Arial Hebrew',system-ui,sans-serif;
   --disp:'Secular One','Rubik',system-ui,sans-serif;
   --num:'Oswald','Chakra Petch',ui-monospace,monospace;
@@ -29,7 +29,7 @@ input,select,textarea{-webkit-appearance:none;appearance:none;min-width:0;max-wi
 select{background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:16px 50%,21px 50%;background-size:5px 5px;background-repeat:no-repeat;padding-left:32px}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent;
- background-image:radial-gradient(90% 40% at 100% 0%,rgba(255,106,77,.10),rgba(255,106,77,0) 70%),radial-gradient(80% 40% at 0% 10%,rgba(76,201,240,.08),rgba(76,201,240,0) 70%);background-attachment:fixed}
+ background-image:radial-gradient(90% 40% at 100% 0%,rgba(216,210,196,.10),rgba(216,210,196,0) 70%),radial-gradient(80% 40% at 0% 10%,rgba(106,168,207,.08),rgba(106,168,207,0) 70%);background-attachment:fixed}
 #app{max-width:540px;margin:0 auto;padding:0 16px calc(104px + env(safe-area-inset-bottom,0px))}
 #app.bare{padding-bottom:32px}
 button{font-family:inherit;color:inherit}
@@ -49,7 +49,7 @@ button{font-family:inherit;color:inherit}
 .sec span{font-size:12.5px;color:var(--mute)}
 .btn{appearance:none;border:0;border-radius:11px;padding:12px 16px;font-weight:800;font-size:15.5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s}
 .btn:active{transform:scale(.97)}.btn:disabled{opacity:.35;cursor:default}
-.btn.pri{background:linear-gradient(180deg,#ff8466,var(--coral-d));color:#fff;box-shadow:0 10px 24px -12px rgba(255,106,77,.9)}
+.btn.pri{background:linear-gradient(180deg,#ece8df,var(--coral-d));color:#fff;box-shadow:0 10px 24px -12px rgba(216,210,196,.9)}
 .btn.cy{background:linear-gradient(180deg,#6fd6f5,#2aa7d1);color:#04202b}
 .btn.gold{background:linear-gradient(180deg,#ffd885,#d9a23a);color:#2a1a02}
 .btn.soft{background:var(--s3);border:1px solid var(--line2);color:var(--text)}
@@ -58,29 +58,29 @@ button{font-family:inherit;color:inherit}
 .btn.big{width:100%;padding:15px;font-size:17px;border-radius:12px}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--s3);border:1px solid var(--line2);white-space:nowrap}
-.pill.coral{background:rgba(255,106,77,.14);border-color:rgba(255,106,77,.45);color:#ffb3a2}
-.pill.cyan{background:rgba(76,201,240,.12);border-color:rgba(76,201,240,.4);color:#9fe3f7}
+.pill.coral{background:rgba(216,210,196,.14);border-color:rgba(216,210,196,.45);color:#ffb3a2}
+.pill.cyan{background:rgba(106,168,207,.12);border-color:rgba(106,168,207,.4);color:#9fe3f7}
 .pill.gold{background:rgba(255,201,92,.13);border-color:rgba(255,201,92,.45);color:var(--gold)}
 .pill.good{background:rgba(69,211,154,.12);border-color:rgba(69,211,154,.4);color:var(--good)}
 .pill.bad{background:rgba(255,84,112,.12);border-color:rgba(255,84,112,.4);color:var(--bad)}
 .bar{height:7px;background:#08070f;border-radius:5px;overflow:hidden}
 .bar>i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#2aa7d1,var(--cyan));transition:width .5s}
 .bar.c>i{background:linear-gradient(90deg,var(--coral-d),var(--coral))}.bar.g>i{background:linear-gradient(90deg,#24a674,var(--good))}.bar.y>i{background:linear-gradient(90deg,#c48a25,var(--gold))}.bar.r>i{background:linear-gradient(90deg,#b8324a,var(--bad))}.bar.v>i{background:linear-gradient(90deg,#7c5ce0,var(--violet))}
-.rt{display:inline-grid;place-items:center;min-width:38px;padding:2px 6px;border-radius:8px;font-family:var(--num);font-weight:700;font-size:14px;color:#0c0b17}
+.rt{display:inline-grid;place-items:center;min-width:38px;padding:2px 6px;border-radius:8px;font-family:var(--num);font-weight:700;font-size:14px;color:#0f1114}
 /* hero */
-.hero{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line2);min-height:116px;background:#0d0b16;display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;padding:12px 14px;margin:12px 0}
+.hero{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line2);min-height:116px;background:#0f1114;display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;padding:12px 14px;margin:12px 0}
 .hero .tools{position:absolute;top:9px;left:10px;z-index:2;display:flex;gap:6px;align-items:center}
-.hero .tools .cash{font-size:12.5px;padding:4px 8px;background:rgba(12,11,23,.6)}
-.hero .tools .iconbtn{width:32px;height:32px;border-radius:9px;background:rgba(12,11,23,.6)}
+.hero .tools .cash{font-size:12.5px;padding:4px 8px;background:rgba(14,15,18,.6)}
+.hero .tools .iconbtn{width:32px;height:32px;border-radius:9px;background:rgba(14,15,18,.6)}
 .hero svg.bg{position:absolute;inset:0;width:100%;height:100%}
-.hero .shade{position:absolute;inset:0;background:linear-gradient(to left,rgba(12,11,23,.94) 0%,rgba(12,11,23,.62) 42%,rgba(12,11,23,.12) 68%,rgba(12,11,23,.5) 100%)}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(to left,rgba(14,15,18,.94) 0%,rgba(14,15,18,.62) 42%,rgba(14,15,18,.12) 68%,rgba(14,15,18,.5) 100%)}
 .hero .txt{position:relative;z-index:1;min-width:0}
 .hero .eb{font-family:var(--cond);letter-spacing:.14em;font-size:12px;color:var(--gold);font-weight:600}
 .hero .nm{font-family:var(--cond);font-weight:700;font-size:34px;line-height:.95;margin:3px 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.3px}
 .hero .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--cond);font-size:14.5px;font-weight:500}
 .hero .st{color:var(--gold);letter-spacing:1px;font-family:var(--f);font-size:12.5px}
 .hero .role{border:1.5px solid var(--coral);color:var(--coral);letter-spacing:.1em;padding:1px 8px;border-radius:6px;font-size:12.5px;font-weight:600}
-.hero .ovr{position:relative;z-index:1;background:rgba(12,11,23,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:4px 11px 6px;text-align:center}
+.hero .ovr{position:relative;z-index:1;background:rgba(14,15,18,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:4px 11px 6px;text-align:center}
 .hero .ovr b{font-family:var(--cond);font-size:40px;line-height:1;color:var(--coral);display:block;font-weight:700}
 .hero .ovr span{font-family:var(--cond);letter-spacing:.24em;font-size:10.5px;color:var(--mute)}
 /* tryout */
@@ -94,7 +94,7 @@ button{font-family:inherit;color:inherit}
 .pips i{width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line2);display:grid;place-items:center;font-style:normal;font-family:var(--cond);font-size:13px;color:var(--mute)}
 .pips i.mk{background:var(--good);border-color:var(--good);color:#04130c}.pips i.ms{border-color:var(--bad);color:var(--bad)}.pips i.cur{border-color:var(--gold);color:var(--gold)}.pips i.money{border-style:dashed}
 /* header */
-.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;margin-inline:-16px;padding:10px 16px;background:linear-gradient(var(--bg) 80%,rgba(12,11,23,0));display:flex;align-items:center;gap:11px}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;margin-inline:-16px;padding:10px 16px;background:linear-gradient(var(--bg) 80%,rgba(14,15,18,0));display:flex;align-items:center;gap:11px}
 .avw{position:relative;flex:none}
 .ovb{position:absolute;bottom:-3px;inset-inline-start:-5px;background:var(--bg);border:2px solid var(--coral);color:#fff;font-family:var(--num);font-weight:700;font-size:13px;border-radius:9px;padding:0 5px;line-height:19px}
 .hdr .nm{font-weight:900;font-size:17px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -107,7 +107,7 @@ button{font-family:inherit;color:inherit}
 .dock-in{pointer-events:auto;max-width:500px;margin:0 auto;display:flex;justify-content:space-between;gap:4px;background:rgba(20,19,39,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line2);border-radius:22px;padding:7px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
 .dock button{flex:1;background:none;border:0;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 6px;border-radius:15px;color:var(--dim);font-weight:800;font-size:13.5px;cursor:pointer;transition:flex .25s,background .2s}
 .dock button span{display:none}
-.dock button[aria-current="true"]{flex:2.1;background:linear-gradient(180deg,#ff8466,var(--coral-d));color:#fff}
+.dock button[aria-current="true"]{flex:2.1;background:linear-gradient(180deg,#ece8df,var(--coral-d));color:#fff}
 .dock button[aria-current="true"] span{display:inline}
 /* next match */
 .next{padding:18px 16px;background:radial-gradient(120% 90% at 50% -20%,color-mix(in srgb,var(--tc) 30%,transparent),transparent 62%),var(--s1)}
@@ -126,18 +126,18 @@ button{font-family:inherit;color:inherit}
 .day .dn{font-family:var(--num);font-size:17px;line-height:1}
 .day .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;margin-top:3px}
 .day .tx{font-size:9.5px;font-weight:700;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}.day .ic{width:26px!important;height:26px!important}
-.day.train .ic{background:rgba(76,201,240,.16);color:var(--cyan)}.day.rest .ic{background:rgba(69,211,154,.16);color:var(--good)}.day.act .ic{background:rgba(167,139,250,.18);color:var(--violet)}.day.inv .ic{background:rgba(255,201,92,.16);color:var(--gold)}
-.day.game{background:linear-gradient(180deg,rgba(255,106,77,.22),rgba(255,106,77,.06));border-color:rgba(255,106,77,.5)}
+.day.train .ic{background:rgba(106,168,207,.16);color:var(--cyan)}.day.rest .ic{background:rgba(69,211,154,.16);color:var(--good)}.day.act .ic{background:rgba(167,139,250,.18);color:var(--violet)}.day.inv .ic{background:rgba(255,201,92,.16);color:var(--gold)}
+.day.game{background:linear-gradient(180deg,rgba(216,210,196,.22),rgba(216,210,196,.06));border-color:rgba(216,210,196,.5)}
 .day.game .ic{background:var(--coral);color:#fff}
 .catseg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 10px}
 .catseg button{background:var(--s2);border:1px solid var(--line2);border-radius:11px;padding:7px 2px;font-weight:700;font-size:13px;cursor:pointer;color:var(--mute)}
-.catseg button[aria-pressed="true"]{color:var(--text);border-color:var(--cyan);background:rgba(76,201,240,.1)}
+.catseg button[aria-pressed="true"]{color:var(--text);border-color:var(--cyan);background:rgba(106,168,207,.1)}
 .foc{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
 .foc button{background:var(--s2);border:1px solid var(--line2);border-radius:13px;padding:9px 10px;cursor:pointer;text-align:right;display:flex;flex-direction:column;gap:5px}
 .foc button b{font-size:13px;font-weight:700}
 .foc button .row{gap:6px}
 .foc button .bar{flex:1;height:5px}
-.foc button[aria-pressed="true"]{border-color:var(--cyan);background:linear-gradient(180deg,rgba(76,201,240,.16),rgba(76,201,240,.04));box-shadow:0 0 0 1px var(--cyan) inset}
+.foc button[aria-pressed="true"]{border-color:var(--cyan);background:linear-gradient(180deg,rgba(106,168,207,.16),rgba(106,168,207,.04));box-shadow:0 0 0 1px var(--cyan) inset}
 .meters{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
 .mtr .row{justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px}
 .avg5{display:grid;grid-template-columns:repeat(5,1fr);text-align:center}
@@ -174,7 +174,7 @@ button{font-family:inherit;color:inherit}
 .trophy{background:radial-gradient(100% 80% at 50% 0%,rgba(255,201,92,.18),transparent 70%),var(--s2);border:1px solid rgba(255,201,92,.3);border-radius:16px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px}
 .trophy b{font-size:12.5px;line-height:1.2}
 .trophy span{font-size:11px;color:var(--mute)}
-.trophy.aw{background:radial-gradient(100% 80% at 50% 0%,rgba(76,201,240,.16),transparent 70%),var(--s2);border-color:rgba(76,201,240,.3)}
+.trophy.aw{background:radial-gradient(100% 80% at 50% 0%,rgba(106,168,207,.16),transparent 70%),var(--s2);border-color:rgba(106,168,207,.3)}
 .highs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .highs div{background:var(--s2);border:1px solid var(--line2);border-radius:14px;padding:10px 12px}
 .highs b{font-family:var(--num);font-size:24px;display:block}
@@ -208,14 +208,14 @@ button{font-family:inherit;color:inherit}
 .risk{font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:6px;margin-inline-start:6px}
 .r1{background:#12352a;color:#79e2b2}.r2{background:#162c4a;color:#91c8ff}.r3{background:#43341a;color:#ffd27a}.r4{background:#4a2218;color:#ff9f80}.r5{background:#4d1430;color:#ff8ac0}
 .tw{overflow-x:auto;margin-inline:-4px}
-.sttag{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.sttag i{font-style:normal;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:7px}.sttag i.g{background:rgba(69,211,154,.14);color:#7ee6b5}.sttag i.c{background:rgba(76,201,240,.13);color:#8fdcf5}
-.wk-ov{position:fixed;inset:0;z-index:80;background:radial-gradient(120% 80% at 50% 20%,rgba(255,106,77,.14),transparent 60%),rgba(8,7,18,.92);display:grid;place-items:center;padding:20px;animation:fdIn .2s ease-out}
+.sttag{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.sttag i{font-style:normal;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:7px}.sttag i.g{background:rgba(69,211,154,.14);color:#7ee6b5}.sttag i.c{background:rgba(106,168,207,.13);color:#8fdcf5}
+.wk-ov{position:fixed;inset:0;z-index:80;background:radial-gradient(120% 80% at 50% 20%,rgba(216,210,196,.14),transparent 60%),rgba(10,11,13,.92);display:grid;place-items:center;padding:20px;animation:fdIn .2s ease-out}
 .wk-box{width:min(420px,100%);display:flex;flex-direction:column;gap:14px;align-items:stretch}
 .wk-strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:5px}.wk-strip span{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0;border-radius:10px;background:var(--s2);border:1px solid var(--line2);font-size:11px;color:var(--mute);transition:all .25s}.wk-strip b{font-family:var(--num);font-size:15px;color:#fff}
-.wk-strip span.done{opacity:.45}.wk-strip span.cur{background:rgba(76,201,240,.18);border-color:var(--cyan);transform:translateY(-4px)}.wk-strip span.g{background:rgba(255,106,77,.2);border-color:rgba(255,106,77,.6)}.wk-strip span.g.cur{background:var(--coral)}
+.wk-strip span.done{opacity:.45}.wk-strip span.cur{background:rgba(106,168,207,.18);border-color:var(--cyan);transform:translateY(-4px)}.wk-strip span.g{background:rgba(216,210,196,.2);border-color:rgba(216,210,196,.6)}.wk-strip span.g.cur{background:var(--coral)}
 .wk-card{display:flex;gap:14px;align-items:center;padding:16px;border-radius:18px;background:var(--s1);border:1px solid var(--line2);min-height:92px;opacity:0;transform:translateY(10px) scale(.98)}.wk-card.in{opacity:1;transform:none;transition:all .22s cubic-bezier(.2,.8,.2,1)}
 .wk-card b{font-size:18px;display:block;margin-top:2px}.wk-card .nt{font-size:13px;color:var(--cyan);margin-top:4px;min-height:17px}.wk-card .ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06)}
-.wk-card.train .ic{background:rgba(76,201,240,.18);color:var(--cyan)}.wk-card.rest .ic{background:rgba(69,211,154,.18);color:var(--good)}.wk-card.act .ic{background:rgba(167,139,250,.2);color:var(--violet)}.wk-card.inv .ic{background:rgba(255,201,92,.18);color:var(--gold)}.wk-card.game{border-color:var(--coral);background:linear-gradient(180deg,rgba(255,106,77,.22),rgba(255,106,77,.05))}.wk-card.game .ic{background:var(--coral)}
+.wk-card.train .ic{background:rgba(106,168,207,.18);color:var(--cyan)}.wk-card.rest .ic{background:rgba(69,211,154,.18);color:var(--good)}.wk-card.act .ic{background:rgba(167,139,250,.2);color:var(--violet)}.wk-card.inv .ic{background:rgba(255,201,92,.18);color:var(--gold)}.wk-card.game{border-color:var(--coral);background:linear-gradient(180deg,rgba(216,210,196,.22),rgba(216,210,196,.05))}.wk-card.game .ic{background:var(--coral)}
 .wk-bars{display:flex;flex-direction:column;gap:8px}.wk-bars>div{display:grid;grid-template-columns:56px 1fr 30px;gap:8px;align-items:center;font-size:12.5px;color:var(--mute)}.wk-bars .bar i{transition:width .3s}.wk-bars b{font-family:var(--num);color:#fff;text-align:left}
 #wkskip{align-self:center}
 .cnav{display:flex;gap:10px;align-items:center;margin:4px 0 12px}.cnav .seg button{flex:1}
@@ -230,16 +230,16 @@ button{font-family:inherit;color:inherit}
 .cb.cl{background:linear-gradient(90deg,rgba(47,211,179,.22),rgba(47,211,179,.05));border-color:rgba(47,211,179,.55);color:#8ff0dc}.cb.cl i{background:#2fd3b3;color:#03241d}
 .cb.cup{background:linear-gradient(90deg,rgba(255,201,92,.25),rgba(255,201,92,.05));border-color:rgba(255,201,92,.6);color:var(--gold)}.cb.cup i{background:var(--gold);color:#2a1d00}
 .cb.pre{opacity:.75}.cb.big{font-size:14.5px;padding:6px 12px 6px 7px;border-radius:11px}.cb.big img,.cb.big i{width:30px;height:30px;font-size:15px}.cb.sm{font-size:11px;padding:2px 7px 2px 3px;gap:5px}.cb.sm img,.cb.sm i{width:16px;height:16px;font-size:10px}
-.bx td,.bx th{padding:6px 3px;font-size:12.5px}.bx td.nm{max-width:104px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}.bx tr.me td{background:rgba(255,106,77,.13)}.bx tr.me td.nm{color:var(--coral)}.bx tr.mvp td.nm::after{content:' ★';color:var(--gold)}.bx tr.tot td{border-top:1px solid var(--line2);font-weight:800;color:var(--mute)}
+.bx td,.bx th{padding:6px 3px;font-size:12.5px}.bx td.nm{max-width:104px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}.bx tr.me td{background:rgba(216,210,196,.13)}.bx tr.me td.nm{color:var(--coral)}.bx tr.mvp td.nm::after{content:' ★';color:var(--gold)}.bx tr.tot td{border-top:1px solid var(--line2);font-weight:800;color:var(--mute)}
 details.bxd summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-weight:800;padding:4px 0}details.bxd summary::-webkit-details-marker{display:none}details.bxd summary::after{content:'▾';color:var(--mute)}details.bxd[open] summary::after{content:'▴'}
 .lgw{position:relative;display:inline-grid;place-items:center;flex:none}
 .lgw img{width:100%;height:100%;object-fit:contain}
-.lgw b{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;background:#0c0b17;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:0 3px;line-height:12px;white-space:nowrap}
+.lgw b{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;background:#0f1114;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:0 3px;line-height:12px;white-space:nowrap}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
 th{font-size:11px;color:var(--mute);font-weight:800;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line2);white-space:nowrap}
 td{padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
 td.n,th.n{text-align:left;font-variant-numeric:tabular-nums}
-tr.me td{background:rgba(255,106,77,.12);font-weight:800}
+tr.me td{background:rgba(216,210,196,.12);font-weight:800}
 tr.cut td{border-bottom:2px solid var(--cyan)}
 tr.rel td{color:var(--bad)}
 /* modal */
@@ -336,7 +336,7 @@ tr.rel td{color:var(--bad)}
 .dv{border:1px solid var(--line2);border-radius:16px;padding:14px;background:var(--s1)}.dv-lab{font-size:12px;letter-spacing:.16em;color:var(--mute);font-weight:800}.dv-up{color:var(--good);font-weight:800;font-size:17px;margin-top:4px}.dv-lv{color:var(--mute);font-size:13px;margin-top:4px}.dv-xp{font-family:var(--cond);font-size:40px;font-weight:800;color:var(--cyan);line-height:1;direction:ltr}.dv-xp small{font-size:18px;margin-left:3px}.dv-bar{height:8px;border-radius:6px;background:rgba(255,255,255,.1);margin-top:12px;overflow:hidden}.dv-bar i{display:block;height:100%;background:var(--cyan);border-radius:6px}.dv-sp{white-space:nowrap;background:var(--good);color:#06150e;border:0;border-radius:10px;padding:6px 10px;font-weight:800;font-size:13px;font:inherit;font-weight:800;cursor:pointer}
 .lvstrip{display:flex;align-items:center;gap:8px;width:100%;background:var(--s1);border:1px solid var(--line2);border-radius:12px;padding:9px 12px;margin:10px 0 0;color:inherit;font:inherit;cursor:pointer}.lvstrip .xpl{font-weight:800;font-size:13px;white-space:nowrap}.lvstrip .xpb{flex:1;height:6px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden}.lvstrip .xpb i{display:block;height:100%;background:var(--cyan)}.lvstrip .xpn{font-size:11.5px;color:var(--mute);white-space:nowrap}.lvstrip .xpp{font-size:11.5px;font-weight:800;color:#06150e;background:var(--good);border-radius:8px;padding:2px 8px;white-space:nowrap}
 .attrrow.up{grid-template-columns:104px 1fr 28px 36px 40px}.attrrow .bar{position:relative}.attrrow .bar em{position:absolute;top:0;bottom:0;background:rgba(69,211,154,.6);border-radius:4px}.upb{background:var(--good);color:#06150e;border:0;border-radius:8px;font-weight:800;font-size:12.5px;padding:4px 0;cursor:pointer}.upb:disabled{background:transparent;color:var(--dim);border:1px solid var(--line2);font-size:10.5px}
-.xph{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px 10px;margin:6px 0 8px;color:inherit;font:inherit;cursor:pointer;max-width:100%}.xph .xpl{font-weight:800;font-size:13px;white-space:nowrap}.xph .xpb{flex:1;min-width:60px;height:6px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}.xph .xpb i{display:block;height:100%;background:linear-gradient(90deg,#ffc95c,#ff6a4d)}.xph .xpn{font-size:11px;color:var(--mute);white-space:nowrap}.xph .xpp{font-size:11px;font-weight:800;color:#1a1300;background:var(--gold);border-radius:8px;padding:2px 7px;white-space:nowrap}
+.xph{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px 10px;margin:6px 0 8px;color:inherit;font:inherit;cursor:pointer;max-width:100%}.xph .xpl{font-weight:800;font-size:13px;white-space:nowrap}.xph .xpb{flex:1;min-width:60px;height:6px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}.xph .xpb i{display:block;height:100%;background:linear-gradient(90deg,#ffc95c,#d8d2c4)}.xph .xpn{font-size:11px;color:var(--mute);white-space:nowrap}.xph .xpp{font-size:11px;font-weight:800;color:#1a1300;background:var(--gold);border-radius:8px;padding:2px 7px;white-space:nowrap}
 .up-row{transition:background .4s}.upflash{animation:upf 1.1s ease}.upflash .good{animation:upn .6s ease}@keyframes upf{0%{background:rgba(69,211,154,.35)}100%{background:transparent}}@keyframes upn{0%{transform:scale(1.6)}100%{transform:scale(1)}}
 .bx .bxsub td{font-size:11px;font-weight:700;color:var(--mute);letter-spacing:.06em;padding:8px 4px 4px;border-bottom:1px solid var(--line2);background:transparent}
 .sheet{width:100%;max-width:540px;max-height:92vh;overflow:auto;background:linear-gradient(180deg,#1a1932,#121124);border:1px solid var(--line2);border-bottom:0;border-radius:24px 24px 0 0;padding:14px 16px calc(20px + env(safe-area-inset-bottom,0px));animation:up .3s cubic-bezier(.2,.8,.2,1)}
@@ -344,7 +344,7 @@ tr.rel td{color:var(--bad)}
 .grab{width:42px;height:5px;border-radius:3px;background:var(--line2);margin:0 auto 14px}
 .opt{width:100%;text-align:right;background:var(--s3);border:1px solid var(--line2);border-radius:14px;padding:12px 13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:15px;font-weight:700}
 .opt small{display:block;font-weight:500;color:var(--mute);font-size:12.5px;margin-top:2px}
-.opt[aria-pressed="true"]{border-color:var(--cyan);background:rgba(76,201,240,.1)}
+.opt[aria-pressed="true"]{border-color:var(--cyan);background:rgba(106,168,207,.1)}
 .opt:disabled{opacity:.4}
 .grade{direction:ltr;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;font-family:var(--disp);font-size:30px;border:3px solid currentColor;flex:none}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
@@ -381,17 +381,17 @@ tr.rel td{color:var(--bad)}
 .fl.go{animation:fl 1s ease-out}
 @keyframes fl{0%{opacity:0;transform:translateY(8px)}15%{opacity:1}100%{opacity:0;transform:translateY(-46px)}}
 .banner{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-.banner span{font-family:var(--disp);font-size:30px;background:rgba(12,11,23,.86);padding:6px 22px;border-radius:14px;border:1px solid var(--coral);color:#fff}
+.banner span{font-family:var(--disp);font-size:30px;background:rgba(14,15,18,.86);padding:6px 22px;border-radius:14px;border:1px solid var(--coral);color:#fff}
 .pline{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px 12px;background:var(--s1);border:1px solid var(--line);border-radius:15px}
 .pline .st{flex:1;font-size:13px;font-variant-numeric:tabular-nums;color:var(--mute)}
 .pline .st b{color:var(--text);font-size:17px}
 .onc{font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;white-space:nowrap}
 .onc.on{background:rgba(69,211,154,.15);color:var(--good)}.onc.off{background:var(--s3);color:var(--mute)}
 .feed{margin-top:10px;display:flex;flex-direction:column;gap:5px;min-height:170px}
-.feed div{font-size:13.5px;padding:7px 11px;border-radius:11px;background:rgba(27,26,51,.7);display:flex;gap:9px}
+.feed div{font-size:13.5px;padding:7px 11px;border-radius:11px;background:rgba(28,32,39,.7);display:flex;gap:9px}
 .feed .tt{font-family:var(--num);font-size:11px;color:var(--dim);flex:none;padding-top:2px}
-.feed div.mine{background:rgba(255,106,77,.14);border-inline-start:3px solid var(--coral)}
-.feed div.op{color:#b4b1cd}
+.feed div.mine{background:rgba(216,210,196,.14);border-inline-start:3px solid var(--coral)}
+.feed div.op{color:#b3b6bd}
 .ctrl{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
 .spd{display:flex;background:var(--s2);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
 .spd button{background:none;border:0;padding:9px 13px;font-family:var(--num);font-weight:700;cursor:pointer;color:var(--mute)}
@@ -406,12 +406,12 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 .posg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .posg button{background:var(--s3);border:1px solid var(--line2);border-radius:12px;padding:9px 2px;font-weight:800;font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
 .posg button small{font-size:10.5px;color:var(--mute);font-weight:600}
-.posg button[aria-pressed="true"]{background:rgba(255,106,77,.16);border-color:var(--coral)}
+.posg button[aria-pressed="true"]{background:rgba(216,210,196,.16);border-color:var(--coral)}
 .pros{display:grid;grid-template-columns:100px 1fr 44px;gap:8px 10px;align-items:center;font-size:13px}
 .pros b{text-align:left;font-variant-numeric:tabular-nums}
 .drill{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--line)}
 .drill:last-child{border:0}
-.lv-ov{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:radial-gradient(90% 60% at 50% 35%,rgba(255,201,92,.18),transparent 70%),rgba(8,7,18,.9);animation:fdIn .2s ease-out}
+.lv-ov{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:radial-gradient(90% 60% at 50% 35%,rgba(255,201,92,.18),transparent 70%),rgba(10,11,13,.9);animation:fdIn .2s ease-out}
 .lv-ov.out{opacity:0;transition:opacity .2s}
 .lv-box{position:relative;width:min(340px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:24px 18px 18px;border-radius:24px;background:linear-gradient(180deg,#1d1b38,#121124);border:1px solid rgba(255,201,92,.4);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:lvIn .45s cubic-bezier(.2,1.4,.4,1)}
 .lv-ring{position:relative;width:150px;height:150px}.lv-ring svg{width:150px;height:150px;transform:rotate(-90deg)}
@@ -430,8 +430,8 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 .sgrid div{display:flex;flex-direction:column;gap:2px;min-width:0}.sgrid .num{font-size:17px;font-weight:700;white-space:nowrap}.sgrid small{font-size:11px;color:var(--mute);font-weight:700}
 .hero .eb{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hero{min-height:136px!important}
 .phero{grid-template-columns:auto minmax(0,1fr) auto!important;gap:12px!important}.phero .h2{font-size:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.phero .row{flex-wrap:wrap}.phero .ring,.phero .ring svg{width:78px;height:78px}.phero .ring b{font-size:27px;padding-bottom:8px}.phero .ring span{bottom:16px}
-.cl-ov{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(180deg,rgba(8,7,18,.2),rgba(8,7,18,.85) 45%);animation:fdIn .2s}
-.cl-box{width:100%;max-width:540px;background:linear-gradient(180deg,#221b36,#121124);border:1px solid rgba(255,106,77,.5);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 60px rgba(255,106,77,.18);animation:up .3s cubic-bezier(.2,.8,.2,1)}
+.cl-ov{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(180deg,rgba(10,11,13,.2),rgba(10,11,13,.85) 45%);animation:fdIn .2s}
+.cl-box{width:100%;max-width:540px;background:linear-gradient(180deg,#221b36,#121124);border:1px solid rgba(216,210,196,.5);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 60px rgba(216,210,196,.18);animation:up .3s cubic-bezier(.2,.8,.2,1)}
 .cl-top{display:flex;justify-content:space-between;align-items:center}.cl-sit{display:flex;align-items:center;gap:14px;margin:10px 0 6px}.cl-sit>b{font-size:44px;line-height:1;color:var(--gold)}
 .achg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
 .achc{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;opacity:.75}
@@ -450,7 +450,7 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 .qbar{position:fixed;left:0;right:0;bottom:0;z-index:58;max-width:540px;margin:0 auto;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(20,22,30,.98),#0d0f15);border-top:1px solid var(--line2);border-radius:18px 18px 0 0;box-shadow:0 -14px 40px rgba(0,0,0,.5);animation:up .25s cubic-bezier(.2,.8,.2,1)}
 .lv-mini{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 90px);transform:translateX(-50%);z-index:90;min-width:220px;text-align:center;padding:14px 22px;border-radius:18px;background:rgba(20,19,39,.97);border:1px solid var(--line2);box-shadow:0 16px 40px rgba(0,0,0,.5);animation:fdIn .25s}
 .lv-mini.out{opacity:0;transition:opacity .25s}.lv-mini .pop{animation:lvPop .4s}
-.rt-pop{position:absolute;left:50%;top:38%;transform:translate(-50%,0);display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(12,11,23,.88);border:1px solid var(--line2);font-weight:800;font-size:14px;pointer-events:none;animation:rtPop 1.5s ease-out forwards;z-index:4}
+.rt-pop{position:absolute;left:50%;top:38%;transform:translate(-50%,0);display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(14,15,18,.88);border:1px solid var(--line2);font-weight:800;font-size:14px;pointer-events:none;animation:rtPop 1.5s ease-out forwards;z-index:4}
 .rt-pop b{font-family:var(--num);font-size:18px}.rt-pop.up{border-color:rgba(69,211,154,.7)}.rt-pop.up b{color:var(--good)}.rt-pop.dn{border-color:rgba(255,84,112,.7)}.rt-pop.dn b{color:var(--bad)}
 @keyframes rtPop{0%{opacity:0;transform:translate(-50%,10px) scale(.9)}15%{opacity:1;transform:translate(-50%,0) scale(1.05)}25%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-26px)}}
 .rt.flash-up{animation:fUp .9s}.rt.flash-dn{animation:fDn .9s}@keyframes fUp{30%{box-shadow:0 0 0 4px rgba(69,211,154,.55);transform:scale(1.15)}}@keyframes fDn{30%{box-shadow:0 0 0 4px rgba(255,84,112,.55);transform:scale(1.15)}}
@@ -459,9 +459,9 @@ input,select{background:var(--s3);border:1px solid var(--line2);color:var(--text
 
 /* ===== מראה מקצועי: פלטה כהה ומאופקת, פחות עיגולים וזוהר, טיפוגרפיה נקייה ===== */
 :root{--bg:#0b0c10;--s1:#12141a;--s2:#181b23;--s3:#1f232c;--line:#22262f;--line2:#2e333e;--text:#eef0f4;--mute:#9aa0ad;--dim:#636a78;
- --coral:#f26a3d;--coral-d:#d9532a;--cyan:#5eb3d8;--gold:#e8b84a;--good:#3ccf8e;--bad:#ef5468;--violet:#9c8cf0;
+ --coral:#d8d2c4;--coral-d:#bfb8aa;--cyan:#5eb3d8;--gold:#e8b84a;--good:#3ccf8e;--bad:#ef5468;--violet:#9c8cf0;
  --f:'Heebo','Rubik',system-ui,sans-serif;--disp:'Heebo','Rubik',system-ui,sans-serif;--cond:'Heebo','Rubik',system-ui,sans-serif;--num:'Oswald','Heebo',ui-monospace,monospace}
-body{background:var(--bg)!important;background-image:linear-gradient(180deg,rgba(242,106,61,.05),transparent 240px)!important}
+body{background:var(--bg)!important;background-image:linear-gradient(180deg,rgba(216,210,196,.05),transparent 240px)!important}
 .card{border-radius:12px;box-shadow:none;background:var(--s1)}.card.arc:after{display:none}
 .h1{font-weight:900;font-size:36px;letter-spacing:-.5px}.h2{font-weight:800;font-size:24px;letter-spacing:-.3px}.sec b{font-weight:800;font-size:21px;letter-spacing:-.2px}
 .btn{border-radius:10px;font-weight:700}.btn.pri{background:var(--coral);box-shadow:none}.btn.pri:active{background:var(--coral-d)}.btn.gold{background:var(--gold);color:#1d1606}.btn.cy{background:var(--cyan)}
@@ -480,7 +480,7 @@ body{background:var(--bg)!important;background-image:linear-gradient(180deg,rgba
 .perf10{position:relative;overflow:hidden;border-color:#fff;background:radial-gradient(100% 120% at 50% 0%,rgba(255,255,255,.18),transparent 70%),linear-gradient(135deg,#2a2210,#12141a);animation:potgIn .7s cubic-bezier(.2,1.4,.4,1),perfGlow 1.8s .7s ease-in-out infinite}
 .perf10n{font-size:64px;font-weight:700;line-height:1.05;background:linear-gradient(90deg,#fff,#ffe08a,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 2.4s linear infinite}
 @keyframes perfGlow{50%{box-shadow:0 0 36px rgba(255,224,138,.45)}}@keyframes shine{to{background-position:-200% 0}}
-.rec-pop{position:absolute;left:50%;top:14%;transform:translateX(-50%);padding:6px 14px;border-radius:999px;background:rgba(12,11,23,.92);border:1px solid var(--gold);color:var(--gold);font-weight:800;font-size:13.5px;white-space:nowrap;animation:rtPop 2.6s ease-out forwards;z-index:5}.rec-pop.up{background:var(--gold);color:#1a1405}
+.rec-pop{position:absolute;left:50%;top:14%;transform:translateX(-50%);padding:6px 14px;border-radius:999px;background:rgba(14,15,18,.92);border:1px solid var(--gold);color:var(--gold);font-weight:800;font-size:13.5px;white-space:nowrap;animation:rtPop 2.6s ease-out forwards;z-index:5}.rec-pop.up{background:var(--gold);color:#1a1405}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .wk-box{min-width:0;max-width:100%}
@@ -495,6 +495,27 @@ body{background:var(--bg)!important;background-image:linear-gradient(180deg,rgba
 .pg-cont{position:sticky;bottom:0;z-index:3;margin:0 -2px;padding:10px 2px calc(4px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(18,20,26,0),var(--s1) 38%)}
 .pg-cont .btn{width:100%}
 .dv{padding:12px}.dv-xp{font-size:32px}.dv-xp small{font-size:15px}.dv-bar{margin-top:9px}
+
+/* ===== v89 real look ===== */
+:root{--bg:#0f1114;--s1:#161a1f;--s2:#1c2027;--s3:#242932;--line:#242930;--line2:#30363f;--text:#ecebe6;--mute:#9ba0a8;--dim:#6b717b;--gold:#d2aa52;--good:#4cb487;--bad:#df5b5b;--cyan:#6aa8cf;--violet:#9a8fd6;--coral:#e6e1d6;--coral-d:#cfc9bc;--tc:#e6e1d6;--tc0:#888}
+body{background:var(--bg)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#app{position:relative;z-index:1}
+.card,.dv,.mr,.pc,.stf,section.card{border-radius:12px}
+.btn{border-radius:10px;letter-spacing:0}
+.btn.pri{background:#ece8df;color:#121417;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 8px 18px -12px rgba(0,0,0,.9)}
+.btn.pri:active{background:#d9d4c8}
+.btn.pri svg,.btn.pri path{stroke:#121417}
+.pill{border-radius:6px}
+.lab,.mr-lab,.dv-lab,.cb-lab,.bfx-lab,.shop-sec,.mr-eb,.mr-res,.sec span{letter-spacing:0!important}
+.hero .ovr b{color:var(--tc)}
+.hero .role{border-color:var(--tc)!important;color:var(--tc)!important}
+.hero .shade{background:linear-gradient(270deg,rgba(10,9,8,.92) 0%,rgba(10,9,8,.55) 42%,rgba(10,9,8,.1) 70%,rgba(10,9,8,.35) 100%)!important}
+.hero{border-radius:14px!important;border-color:rgba(255,255,255,.08)!important}
+.hero .cash{border-color:rgba(210,170,82,.45)}
+.lvstrip .xpb i,.xpb i{background:linear-gradient(90deg,var(--tc),#ece8df)!important}
+nav [aria-current="true"],.tabs [aria-current="true"]{color:#121417!important}
+.hero{min-height:156px!important;grid-template-columns:minmax(0,60%) 1fr auto!important}.hero .ovr{grid-column:3}.hero .meta{gap:6px}.hero .nm{font-size:32px}
 </style>
 
 <div id="app" dir="rtl" lang="he"></div>
@@ -765,7 +786,7 @@ function compLbl(id){return id==='NAT'?'נבחרת ישראל':id.startsWith('CU
 function compBadge(c,cls){const id=compId(c),lg=LOGOS['§'+id],ty=id.startsWith('CUP')?'cup':id==='EL'?'el':id==='EC'?'ec':id==='CL'?'cl':id==='PRE'?'pre':'lg',L=LG[id.replace('CUP:','')];
  const em=lg?`<img src="${lg}" alt="">`:`<i>${ty==='cup'?ico('cup','currentColor',13):ty==='el'||ty==='ec'||ty==='cl'?'★':ty==='pre'?'·':(L?L.fl:'')}</i>`;return `<span class="cb ${ty} ${cls||''}">${em}<b>${esc(compLbl(id))}</b></span>`}
 const COMPIDS=()=>['EL','EC','CL'].concat(...Object.keys(LG).map(k=>LG[k].cup?[k,'CUP:'+k]:[k]));
-function crest(n,c,sz){sz=sz||56;{const lg=LOGOS[short(n)];if(lg)return `<span class="lgw" style="width:${sz}px;height:${sz}px"><img src="${lg}" alt="" width="${sz}" height="${sz}">${isY(n)&&sz>=30?'<b>נוער</b>':''}</span>`}const h=hash(short(n)),light=lum(c)>.62,c2=light?'#17152e':['#ffffff','#ffd57a','#ffffff'][(h>>4)%3],id='k'+h;
+function crest(n,c,sz){sz=sz||56;{const lg=LOGOS[short(n)];if(lg)return `<span class="lgw" style="width:${sz}px;height:${sz}px"><img src="${lg}" alt="" width="${sz}" height="${sz}">${isY(n)&&sz>=30?'<b>נוער</b>':''}</span>`}const h=hash(short(n)),light=lum(c)>.62,c2=light?'#14161a':['#ffffff','#ffd57a','#ffffff'][(h>>4)%3],id='k'+h;
  const words=short(n).replace(/["״׳']/g,'').split(/[\s/]+/).filter(Boolean),ini=words.length>1?words[0][0]+words[words.length-1][0]:words[0].slice(0,2);
  const shapes=['M32 4l24 8v18c0 15-10 25-24 31C18 55 8 45 8 30V12z','M32 3a29 29 0 1 0 .01 0z','M32 3l25 14.5v29L32 61 7 46.5v-29z','M14 4h36a8 8 0 0 1 8 8v26c0 10-12 17-26 23C18 55 6 48 6 38V12a8 8 0 0 1 8-8z','M32 2l30 30-30 30L2 32z'];
  const em=[`<circle cx="32" cy="24" r="9" fill="none" stroke="${c2}" stroke-width="2.4"/><path d="M23 24h18M32 15v18M26 17c3 4 3 10 0 14M38 17c-3 4-3 10 0 14" fill="none" stroke="${c2}" stroke-width="1.6"/>`,
@@ -775,8 +796,8 @@ function crest(n,c,sz){sz=sz||56;{const lg=LOGOS[short(n)];if(lg)return `<span c
   `<path d="M35 12l-11 14h8l-3 11 12-15h-8z" fill="${c2}"/>`,
   `<path d="M19 22c4-4 9 4 13 0s9 4 13 0M19 29c4-4 9 4 13 0s9 4 13 0" fill="none" stroke="${c2}" stroke-width="3" stroke-linecap="round"/>`,
   `<path d="M22 33V19h4v4h4v-5h4v5h4v-4h4v14z" fill="${c2}"/>`];
- return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true" style="flex:none"><defs><linearGradient id="${id}" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity=".72"/></linearGradient></defs><path d="${shapes[h%5]}" fill="url(#${id})" stroke="${light?'#17152e':'#fff'}" stroke-opacity=".55" stroke-width="2"/>${em[(h>>3)%7]}<text x="32" y="${h%5===4?47:49}" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="900" font-size="12.5" fill="${c2}">${esc(ini)}</text>${isY(n)?`<rect x="15" y="53" width="34" height="10" rx="2" fill="#0c0b17" stroke="#ffc95c" stroke-width="1"/><text x="32" y="60.6" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="800" font-size="7.5" fill="#ffc95c">נוער</text>`:''}</svg>`}
-function avatar(c,num,sz){sz=sz||56;return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true" style="flex:none;display:block"><defs><clipPath id="avc"><circle cx="32" cy="32" r="29"/></clipPath><radialGradient id="avb" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#34305e"/><stop offset="1" stop-color="#15132a"/></radialGradient></defs><circle cx="32" cy="32" r="31" fill="none" stroke="#ff6a4d" stroke-width="2.5"/><g clip-path="url(#avc)"><rect width="64" height="64" fill="url(#avb)"/><path d="M8 66c1-13 10-19 24-19s23 6 24 19z" fill="${c}"/><path d="M22 47l10 9 10-9" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2"/><rect x="28" y="38" width="8" height="10" rx="3" fill="#7a5238"/><ellipse cx="32" cy="27" rx="11" ry="13" fill="#8a5d40"/><path d="M21 24c0-9 5-13 11-13s11 4 11 13c-2-4-6-6-11-6s-9 2-11 6z" fill="#1a1210"/><text x="32" y="62" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="900" font-size="9" fill="#fff">${num}</text></g></svg>`}
+ return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true" style="flex:none"><defs><linearGradient id="${id}" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity=".72"/></linearGradient></defs><path d="${shapes[h%5]}" fill="url(#${id})" stroke="${light?'#14161a':'#fff'}" stroke-opacity=".55" stroke-width="2"/>${em[(h>>3)%7]}<text x="32" y="${h%5===4?47:49}" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="900" font-size="12.5" fill="${c2}">${esc(ini)}</text>${isY(n)?`<rect x="15" y="53" width="34" height="10" rx="2" fill="#0f1114" stroke="#ffc95c" stroke-width="1"/><text x="32" y="60.6" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="800" font-size="7.5" fill="#ffc95c">נוער</text>`:''}</svg>`}
+function avatar(c,num,sz){sz=sz||56;return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true" style="flex:none;display:block"><defs><clipPath id="avc"><circle cx="32" cy="32" r="29"/></clipPath><radialGradient id="avb" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#2b3038"/><stop offset="1" stop-color="#15181c"/></radialGradient></defs><circle cx="32" cy="32" r="31" fill="none" stroke="#d8d2c4" stroke-width="2.5"/><g clip-path="url(#avc)"><rect width="64" height="64" fill="url(#avb)"/><path d="M8 66c1-13 10-19 24-19s23 6 24 19z" fill="${c}"/><path d="M22 47l10 9 10-9" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2"/><rect x="28" y="38" width="8" height="10" rx="3" fill="#7a5238"/><ellipse cx="32" cy="27" rx="11" ry="13" fill="#8a5d40"/><path d="M21 24c0-9 5-13 11-13s11 4 11 13c-2-4-6-6-11-6s-9 2-11 6z" fill="#1a1210"/><text x="32" y="62" text-anchor="middle" font-family="Rubik,sans-serif" font-weight="900" font-size="9" fill="#fff">${num}</text></g></svg>`}
 const ICON={menu:'<path d="M4 7h16M4 12h16M4 17h10"/>',home:'<path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',cup:'<path d="M7 4h10v5a5 5 0 01-10 0z"/><path d="M12 14v4M8 21h8M17 5h3a3 3 0 01-3 4M7 5H4a3 3 0 003 4"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M14.8 8.6c-.6-.9-1.6-1.3-2.8-1.3-1.6 0-2.7.9-2.7 2s1 1.8 2.7 2.2 2.8 1 2.8 2.3-1.2 2.2-2.8 2.2c-1.3 0-2.4-.5-3-1.5M12 5.5v13"/>',chat:'<path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-9l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z"/>',gear:'<circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.8v2.7M12 19.5v2.7M2.8 7l2.4 1.4M18.8 15.6l2.4 1.4M2.8 17l2.4-1.4M18.8 8.4L21.2 7"/>',dumb:'<path d="M2 12h20M5 8v8M8 6v12M16 6v12M19 8v8"/>',bed:'<path d="M3 18V8M3 13h18v5M21 13a3 3 0 00-3-3h-7v3"/><circle cx="7" cy="11" r="1.6"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',ball:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6c3.5 3.5 3.5 9.3 0 12.8M18.4 5.6c-3.5 3.5-3.5 9.3 0 12.8"/>',auto:'<path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/>',bolt:'<path d="M13 2L5 13h6l-1 9 8-11h-6z"/>',play:'<path d="M7 4l13 8-13 8z"/>',fwd:'<path d="M4 5l8 7-8 7zM12 5l8 7-8 7z"/>',heart:'<path d="M12 20s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/>',mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>'};
 const ico=(k,col,sz)=>`<svg viewBox="0 0 24 24" width="${sz||22}" height="${sz||22}" fill="none" stroke="${col||'currentColor'}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
 const BALL=`<svg viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="bg1" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffb066"/><stop offset=".55" stop-color="#ee7424"/><stop offset="1" stop-color="#a8460e"/></radialGradient></defs><circle cx="32" cy="32" r="29" fill="url(#bg1)"/><g fill="none" stroke="#3a1606" stroke-width="2.4"><circle cx="32" cy="32" r="29"/><path d="M3 32h58M32 3v58M11 11c11 11 11 31 0 42M53 11c-11 11-11 31 0 42"/></g></svg>`;
@@ -807,7 +828,7 @@ function genRoster(){const t=S.team,me=S.p.pos,ros=oppRoster(t.n,t.comp).filter(
  t.roster=ros;if(t.trust==null)t.trust=0}
 function depth(){const t=S.team;if(!t.roster)genRoster();const yth=t.comp==='YTH',lim=yth?2:3.5,mod=clamp((t.trust||0)*.35+(t.coach.rel-50)/10+((S.p.fit??70)-70)/12+(S.mom||0)*.3+(S.p.morale-50)/30,-lim,lim),val=ovr()+mod+(S.contract&&S.contract.promise?2:0);
  const others=t.roster.filter(r=>r.pos===S.p.pos).map(r=>r.ovr).sort((a,b)=>b-a),r0=others.filter(v=>v>val).length;let rank=r0,val2=val;if(t.up>0){if(r0===0)t.up=0;else{rank=Math.max(0,r0-t.up);val2=Math.max(val,others[rank]+.5)}}const vals=others.slice();vals.splice(rank,0,val2);let mins=posShares(vals,t.comp==='YTH')[rank];
- if(yth&&rank<=2)mins=Math.max(mins,rank===2?11:15);if(!yth&&S.p.age<=23&&rank>=1&&rank<=3)mins=Math.min(30,Math.max(mins+(S.p.age<=21?7:5),S.p.age<=21?14:12));if(t.comp==='NBA')mins*=1.2;return {rank:Math.min(3,rank),mins:Math.round(mins),val:val2,base:r0}}
+ if(yth&&rank<=2)mins=Math.max(mins,rank===2?11:15);if(!yth&&S.p.age<=23&&rank>=1&&rank<=3)mins=Math.min(30,Math.max(mins+(S.p.age<=21?7:5),S.p.age<=21?14:12));if(!yth&&rank===0)mins=Math.max(mins,Math.min(34,26+clamp((val2-(others[0]??val2-6))*.8,0,8)));if(t.comp==='NBA')mins=Math.min(38,mins*1.2);return {rank:Math.min(3,rank),mins:Math.round(mins),val:val2,base:r0}}
 const roleLabel=()=>`${PNM[S.p.pos]} ${ORD[depth().rank]}`;
 const DERBY=[['מכבי תל אביב','הפועל תל אביב'],['מכבי תל אביב','הפועל ירושלים'],['הפועל תל אביב','הפועל ירושלים'],['ריאל מדריד','ברצלונה'],['אולימפיאקוס','פנאתינייקוס'],['פנאתינייקוס','אא״ק אתונה'],['פאוק','אריס סלוניקי'],['פנרבחצ׳ה','גלאטסראיי'],['פנרבחצ׳ה','בשיקטאש'],['גלאטסראיי','בשיקטאש'],['פנרבחצ׳ה','אנדולו אפס'],['אולימפיה מילאנו','וירטוס בולוניה'],['וירטוס בולוניה','פורטיטודו בולוניה'],['פריז בסקטבול','אסוול'],['באיירן מינכן','אלבה ברלין']];
 const isDerby=(a,b)=>{a=short(a);b=short(b);return DERBY.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a))};
@@ -846,7 +867,7 @@ function standings(c){const tb=S.season.tables[c];return S.season.teams[c].map(n
 const winP=(a,b,h)=>1/(1+Math.exp(-((a-b)+(h?1.5:-1.5))/3.6));
 // נקודות לקבוצה למשחק לפי ליגה (ממוצעי 2021–26: יורוליג 85, ACB 86, ליגת העל 85, ליגות שניות 77–83)
 // חשיבות הציון: רמות לפי ממוצע עונתי ומקדם רמת ליגה (ציון 8 ביורוליג שווה יותר מ-8 בלאומית). מתוקנן = 6.1 + (ציון-6.1) × מקדם
-const PIRB=[[7.75,'רמת MVP','#45d39a'],[7.38,'חמישיית העונה','#8ee06b'],[7.07,'שחקן מוביל','#4cc9f0'],[6.7,'שחקן חמישייה','#c9c6e6'],[6.32,'שחקן רוטציה','#ffc95c'],[-99,'שחקן ספסל','#ff9d7a']];
+const PIRB=[[7.75,'רמת MVP','#45d39a'],[7.38,'חמישיית העונה','#8ee06b'],[7.07,'שחקן מוביל','#4cc9f0'],[6.7,'שחקן חמישייה','#c9cbd0'],[6.32,'שחקן רוטציה','#ffc95c'],[-99,'שחקן ספסל','#ff9d7a']];
 const pirBand=v=>PIRB.find(b=>v>=b[0]);
 const LVL={NBA:1.2,EL:1,ESP1:.95,TUR1:.93,EC:.9,GRE1:.9,ITA1:.9,CL:.87,FRA1:.88,GER1:.88,ISR1:.88,ESP2:.72,ITA2:.72,TUR2:.72,FRA2:.72,GER2:.72,GRE2:.68,ISR2:.7,YTH:.5};
 function pirNow(){const sea=S.season;if(!sea||!sea.ps)return null;let gp=0,rt=0,eq=0;for(const c in sea.ps){const r=sea.ps[c].ME;if(!r||!r.gp)continue;const n=r.rg??r.gp;gp+=n;rt+=r.rt;eq+=5.95*n+(r.rt-5.95*n)*(LVL[c]||.85)}if(!gp)return null;const X=leaders(sea.lg),rk=X?X.q.findIndex(x=>x.me)+1:0;return {gp,avg:rt/gp,eq:eq/gp,rk,n:X?X.q.length:0}}
@@ -971,9 +992,9 @@ const // תקרה לכל תכונה לפי גיל ופוטנציאל: אי אפ�
 attrCap=k=>{const c=ageCeil()+(PHYS[k]&&S.p.age>=24?3:6)+(sty().g.includes(k)?3:0),v=S.p.attr[k];return v>=c?0:clamp((c-v)/18,.05,1)};
 function grow(k,g){const v=S.p.attr[k],y=sty(),af=g>0?(y.g.includes(k)?1.3:y.w.includes(k)?.8:1):1;S.p.attr[k]=clamp(v+g*af*attrCap(k),20,99);return S.p.attr[k]-v}
 const STW=[[58,'פרוספקט'],[66,'שחקן רוטציה'],[74,'שחקן מוביל'],[82,'כוכב'],[90,'סופרסטאר']];
-function ovrCheck(){const o=ovr();if(S.lastOvr==null){S.lastOvr=o;S.lvA={...S.p.attr}}if(o>S.lastOvr){const a0=S.lvA||S.p.attr,g=Object.keys(S.p.attr).map(k=>[k,S.p.attr[k]-(a0[k]??S.p.attr[k])]).filter(x=>x[1]>=.3).sort((a,b)=>b[1]-a[1]).slice(0,3);const pend=S.lvl;S.lvl={from:pend?pend.from:S.lastOvr,to:o,g:pend?pend.g.concat(g).slice(0,3):g};news(`התקדמות: הדירוג שלך עלה ל-${o} (${statusWord(o)}).`,o%5===0);S.lastOvr=o;S.lvA={...S.p.attr}}else if(o<S.lastOvr){S.lastOvr=o;S.lvA={...S.p.attr}}}
+function ovrCheck(){const o=ovr();if(S.lastOvr==null){S.lastOvr=o;S.lvA={...S.p.attr}}if(o>S.lastOvr){const a0=S.lvA||S.p.attr,g=Object.keys(S.p.attr).map(k=>[k,S.p.attr[k]-(a0[k]??S.p.attr[k])]).filter(x=>x[1]>=.3).sort((a,b)=>b[1]-a[1]).slice(0,3);const pend=S.lvl;S.lvl={from:pend?pend.from:S.lastOvr,to:o,g:pend?pend.g.concat(g).slice(0,3):g};news(`התקדמות: הדירוג שלך עלה ל-${o} (${statusWord(o)}).`,o%5===0);S.lastOvr=o;S.lvA={...S.p.attr}}else if(o<S.lastOvr){if(S.lvl&&o<=S.lvl.from)S.lvl=null;else if(S.lvl)S.lvl.to=o;S.lastOvr=o;S.lvA={...S.p.attr}}}
 // חגיגת עליית רמה: מופיעה במסך הבית אחרי כל עלייה ב-OVR
-function showLvl(){if(!S||!S.lvl||!modal.hidden||document.getElementById('wkov')||document.getElementById('lvov'))return;const L=S.lvl;S.lvl=null;save();
+function showLvl(){if(!S||!S.lvl||!modal.hidden||document.getElementById('wkov')||document.getElementById('lvov'))return;const L=S.lvl;S.lvl=null;save();if(!(L.to>L.from))return;
  const d=document.createElement('div');d.id='lvov';d.className='lv-mini';d.dir='rtl';d.innerHTML=`<div class="lab">הדירוג עלה</div><div class="row num" dir="ltr" style="gap:12px;justify-content:center;font-size:40px;font-weight:700;line-height:1;margin-top:6px"><span class="dim">${L.from}</span><span style="font-size:22px;color:var(--mute)">→</span><span id="lvn" style="color:var(--coral)">${L.from}</span></div>`;
  document.body.appendChild(d);const n=d.querySelector('#lvn');setTimeout(()=>{n.textContent=L.to;n.classList.add('pop')},450);const close=()=>{if(!d.isConnected)return;d.classList.add('out');setTimeout(()=>{d.remove();setTimeout(showAch,250)},250)};d.onclick=close;setTimeout(close,2600)}
 function passDay(){const p=S.p,mo0=new Date(S.date).getUTCMonth();S.date+=DAY;try{natWindow();midWindow();allStarCheck()}catch(e){}p.fit=clamp((p.fit??70)-.12-(p.injury>0?1.2:0),20,100);if(S.season&&!S.season.done&&new Date(S.date).getUTCMonth()!==mo0)monthAwards(mo0);S.dc=(S.dc||0)+1;p.energy=clamp(p.energy+dayRegen(),0,100);
@@ -1001,7 +1022,7 @@ function coachRec(){const wk=Math.floor(S.date/(7*DAY));if(S.rec&&S.rec.wk===wk)
 function trainSession(k){const rec=S.rec&&S.rec.k===k;if(k.startsWith('cat:')){const ks=AT.filter(x=>x[2]===k.slice(4)).map(x=>x[0]);let g=rnd(.1,.2)*growth()*teamDev()*5;if(has('trainer'))g*=1.35;if(has('gym'))g*=1.12;if(S.p.energy<25)g*=.5;const out={};ks.forEach(kk=>out[kk]=grow(kk,g/5*1.2/ks.length));S.p.energy=clamp(S.p.energy-12,0,100);if(R()<(rec?.2:.12))coachD(1);return out}
  let g=rnd(.1,.2)*growth()*teamDev()*5;if(has('trainer'))g*=1.35;if(has('gym'))g*=1.12;if(['thr','mid','ft'].includes(k)&&has('machine'))g*=1.25;if(S.p.energy<25)g*=.5;
  const d=grow(k,g/5);S.p.energy=clamp(S.p.energy-12,0,100);if(R()<(rec?.25:.15))coachD(1);return d}
-function doDay(a,log){const p=S.p;let act=a||'auto';if(act==='auto')act=p.energy<40||p.injury>0?'rest':'train';
+function doDay(a,log){const p=S.p;let act=a||'auto';if(act==='auto'){const nf=curFx(),dg=nf?Math.round((nf.date-S.date)/DAY):9;act=p.injury>0||p.energy<50||(dg<=1&&p.energy<78)?'rest':'train'}
  if(act.startsWith('inv:')){acceptInv(act.slice(4),log);return}
  if(act==='train'){if(p.injury>0){act='rest'}else{p.fit=clamp((p.fit??70)+.45,20,fitCap());coachRec();const k=S.plan.focus,d=trainSession(k);if(typeof d==='object'){for(const kk in d)log.tr[kk]=(log.tr[kk]||0)+d[kk]}else log.tr[k]=(log.tr[k]||0)+d;log.n.tr++;checkArch();return}}
  if(act==='rest'){p.energy=clamp(p.energy+18,0,100);p.fit=clamp((p.fit??70)-.35,20,100);p.morale=clamp(p.morale+1,0,100);log.n.rest++;return}
@@ -1110,8 +1131,8 @@ function skillDelta(k,d){const a=ea(),o=S.team?lgOpp():60,M={thr:x=>ADV(x-o),mid
 function focusImpact(){const f=S.plan.focus,T=skillTab(),r=f&&!f.startsWith('cat:')?T.rows.find(x=>x[0]===f):null;if(!r)return '';return `<div class="card" style="padding:10px 12px;margin-top:10px;font-size:13px"><span class="mute">במשחק:</span> <b>${AN[f]} ${Math.floor(r[2])}</b> מול הגנה ממוצעת בליגה (${Math.round(T.o)}) = <b class="cyan">${r[3]}</b>${r[4]?`<span class="mute"> · כל 5 נקודות <span dir="ltr">${skillDelta(f,5)}</span></span>`:''}</div>`}
 function skillView(){const T=skillTab();return `<div class="sec"><b>מה זה נותן במשחק</b><span>מול ממוצע הליגה (${Math.round(T.o)})</span></div><section class="card" style="padding:6px 12px">${T.rows.map(([k,n,v,t,c])=>`<div class="row between" style="padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px"><span>${n} <b class="num">${Math.floor(v)}</b></span><span class="${c?'cyan':'mute'}">${t}</span></div>`).join('')}<div class="dim" style="font-size:12px;padding:8px 0 4px">אותה נוסחה שהמשחק משתמש בה. מול יריבה חזקה או חלשה האחוזים זזים, וכל קבוצה חזקה או חלשה יותר בהגנה על הקשת ובצבע.</div></section>`}
 function pAct(k){const fS=G.fS||0,a0=ea(),om=G.om??G.opStr,a=new Proxy(a0,{get:(t,k)=>typeof t[k]==='number'?om+SOFT(t[k]-om):t[k]}),TD=G.td||{per:0,int:0},o=om,en=(S.p.energy<35?-.05:0)+((S.p.fit??70)-70)/1400+(G.lgAdj||0)*(S.team.comp==='YTH'?.6:.3)+fS+psBig(),mo=clamp((S.p.morale-50)/1200+(S.p.conf-50)/2000+(S.mom||0)*.003,-.04,.04)*(G.fx&&G.fx.k==='po'?2:1)+(G.bm?.008:0)-(G.fd?.008:0)+(G.fx&&G.fx.home&&S.fans&&(S.fans[short(S.team.n)]||0)>=80?.01:0);
- if(k==='3')return clamp(.285+ADV(a.thr-o-TD.per)+en+mo,.14,.58);if(k==='mid')return clamp(.42+ADV(a.mid-o-TD.per*.6)+en+mo,.2,.68);
- if(k==='drive')return clamp(.52+ADV((a.fin*.55+a.spd*.2+a.jmp*.25)-o-TD.int)+en+mo,.26,.8);if(k==='ft')return clamp(.4+a.ft*.0055+mo/2,.4,.93);
+ if(k==='3')return clamp(.285+ADV(a.thr-o-TD.per)+en+mo,.14,.5);if(k==='mid')return clamp(.42+ADV(a.mid-o-TD.per*.6)+en+mo,.2,.6);
+ if(k==='drive')return clamp(.52+ADV((a.fin*.55+a.spd*.2+a.jmp*.25)-o-TD.int)+en+mo,.26,.71);if(k==='ft')return clamp(.4+a.ft*.0055+mo/2,.4,.93);
  return clamp(.5+(G.myStr-G.opStr)*.004+((a.pas+a.iq)/2-o)*.003+.06,.3,.8)}
 // מאץ׳-אפ: הרמה שלך מול השחקן שמולך בעמדה (60%) ומול רמת הקבוצה היריבה (40%). משפיע על אחוזים, נפח זריקות, ריבאונדים, אסיסטים, חטיפות, חסימות ואיבודים
 function matchup(fx,opS){const R0=oppRoster(fx.opp,fx.comp),pos=S.p.pos,c=R0.filter(x=>x.pos===pos).sort((a,b)=>b.ovr-a.ovr)[0]||R0.slice().sort((a,b)=>b.ovr-a.ovr)[0],om=c?c.ovr*.6+opS*.4:opS;return {om,rel:clamp(ovr()-om,-25,25),mu:c?{n:c.n,ovr:c.ovr}:null}}
@@ -1120,14 +1141,14 @@ function gameForm(rel){const r=R(),adv=Math.max(0,rel||0),yb=S.p.age<=22?1:0,pFi
  if(r<pFire)return {fU:1.45,fS:.07,form:'fire'};if(r<pFire+pHot)return {fU:1.18,fS:.035,form:'hot'};if(r<pFire+pHot+pCold)return {fU:.82,fS:-.045,form:'cold'};return {fU:clamp(1+gauss()*.05,.9,1.1),fS:clamp(gauss()*.015,-.025,.025),form:''}}
 const MU=(k,lo,hi)=>clamp(1+((G&&G.rel)||0)*k,lo,hi);
 function makeGame(fx,dnp){const t=S.team,D=depth(),r=D.rank;let m=D.mins+rnd(-3,3),chance=false;if(!dnp&&fx.k!=='pre'&&r>=1&&D.mins<20&&R()<Math.min(.45,(S.p.age<=22?.2:.12)+(S.lowStreak||0)*.035)){m=Math.max(m,r>=2?rnd(10,17):rnd(16,24));chance=true}if(fx.k==='pre')m=Math.max(m,16);if(S.p.energy<30)m*=.8;if((S.p.fit??70)<55)m*=.85;if(!dnp&&fx.k!=='pre'&&S.contract&&S.contract.mg&&t.comp!=='YTH'&&!S.p.injury)m=Math.max(m,24+rnd(0,3));if(dnp)m=0;m=clamp(m,0,t.comp==='NBA'?40:34);if(!dnp&&fx.k!=='pre'&&!chance&&m<5&&r>=2&&!S.p.injury&&R()<(S.p.age<=21?.7:.5))m=rnd(4,r>=3?9:12);if(m>0&&m<4)m=D.mins>=4?4:0;
- const opS=tS(fx.opp),chem=(t.mates.reduce((s,x)=>s+x.rel,0)/4-50)/25,tv=gauss()*2.3,offStr=t.s+chem+(fx.home?(fx.k==='po'?3:1.5):(fx.k==='po'?-3:-1.5))+tv,myStr=offStr+clamp((ovr()-t.s)*.45,-6,12),mySlot=SLOT[S.p.pos],names=[],nums=[],slotMate=[];let mi=0;
+ const opS=tS(fx.opp),chem=(t.mates.reduce((s,x)=>s+x.rel,0)/4-50)/25,tv=gauss()*2.3,offStr=t.s+chem+(fx.home?(fx.k==='po'?3:1.5):(fx.k==='po'?-3:-1.5))+tv,myStr=offStr+clamp((ovr()-t.s)*.5,-6,8)-(window.PCAL??10),mySlot=SLOT[S.p.pos],names=[],nums=[],slotMate=[];let mi=0;
  for(let i=0;i<5;i++){if(i===mySlot){names.push('אתה');nums.push(S.p.num);slotMate.push(-1)}else{const mt=t.mates[mi];names.push(mt.n.split(' ')[0]);nums.push(mt.num);slotMate.push(mi);mi++}}
- return {fx,dnp,q:1,qlen:QL(),clock:QL(),me:0,op:0,poss:R()<.5?'me':'op',plan:Math.round(m),starter:r===0,sec:0,offStr,usage:clamp({PG:.23,SG:.23,SF:.2,PF:.18,C:.18}[S.p.pos]+clamp((ovr()-t.s)*.006,-.09,.09)+(r===0?.02:0)+(sty().us||0),.08,.4),chance,myStr,opStr:opS+gauss()*2.3,...(()=>{const M=matchup(fx,opS);return {...M,...gameForm(M.rel)}})(),lgAdj:((LGE(fx.comp)||LGE(t.comp)||84)-84)*.0045,td:tdef(fx.opp),bm:!!closeMate(),fd:!!feud(),mySlot,names,nums,slotMate,subNum:ri(2,44),
+ return {fx,dnp,q:1,qlen:QL(),clock:QL(),me:0,op:0,poss:R()<.5?'me':'op',plan:Math.round(m),starter:r===0,sec:0,offStr,usage:clamp({PG:.25,SG:.23,SF:.2,PF:.18,C:.18}[S.p.pos]+clamp((ovr()-t.s)*.006,-.09,.09)+(r===0?.02:0)+(sty().us||0),.08,.4),chance,myStr,opStr:opS+gauss()*2.3,...(()=>{const M=matchup(fx,opS);return {...M,...gameForm(M.rel)}})(),lgAdj:((LGE(fx.comp)||LGE(t.comp)||84)-84)*.0045,td:tdef(fx.opp),bm:!!closeMate(),fd:!!feud(),mySlot,names,nums,slotMate,subNum:ri(2,44),
   st:{pts:0,reb:0,oreb:0,ast:0,stl:0,blk:0,tov:0,fgm:0,fga:0,tpm:0,tpa:0,ftm:0,fta:0,pf:0,fd:0,blka:0,pm:0},fouledOut:false,feed:[],over:false,done:false,speed:S.set.speed,auto:false,tok:0,pm:[[0,0],[0,0],[0,0],[0,0],[0,0]],po:[[0,0],[0,0],[0,0],[0,0],[0,0]],ball:[470,250]}}
 function onCourt(){if(G.plan<=0||G.fouledOut)return false;const per=G.plan/4*60,el=G.qlen-G.clock;if(G.q===4&&G.clock<=300&&Math.abs(G.me-G.op)>=22)return !G.starter;if(G.q>4)return G.starter||G.plan>=20;if(G.q===4&&G.clock<=120&&Math.abs(G.me-G.op)<=8&&(G.starter||S.team.coach.rel>=65))return true;if(G.starter)return G.q<4?el<per:G.clock<=per;return G.q<4?G.clock<=per:el<per}
 function mateSlot(on){let s;do{s=ri(0,4)}while(on&&s===G.mySlot);return s}
 const nm=s=>s===G.mySlot&&!onCourt()?'המחליף':G.names[s];
-function chooseAct(){const a=ea(),p=S.p.pos,w={'3':Math.pow(a.thr/50,2)*{PG:1.2,SG:1.4,SF:1,PF:.5,C:.15}[p],mid:Math.pow(a.mid/50,2)*.8,drive:Math.pow((a.fin+a.spd)/100,2)*{PG:1.15,SG:1.1,SF:1.1,PF:1.3,C:1.6}[p],pass:Math.pow(a.pas/50,2)*{PG:1.55,SG:.7,SF:.65,PF:.4,C:.32}[p],to:0};{let o=0;for(const k in w)if(k!=='to')o+=w[k];w.to=o*.085*(1.6-(a.hnd+a.iq)/150)*{PG:1.35,SG:1.05,SF:1,PF:.95,C:.95}[p]*MU(-.02,.55,1.6)*(1+((G.td&&G.td.prs)||0)*.04)}
+function chooseAct(){const a=ea(),p=S.p.pos,w={'3':Math.pow(a.thr/50,2)*{PG:1.2,SG:1.4,SF:1,PF:.5,C:.15}[p],mid:Math.pow(a.mid/50,2)*.8,drive:Math.pow((a.fin+a.spd)/100,2)*{PG:1.15,SG:1.1,SF:1.1,PF:1.3,C:1.6}[p],pass:Math.pow(a.pas/50,2)*{PG:1.25,SG:.7,SF:.65,PF:.4,C:.32}[p],to:0};{let o=0;for(const k in w)if(k!=='to')o+=w[k];w.to=o*.085*(1.6-(a.hnd+a.iq)/150)*{PG:1.35,SG:1.05,SF:1,PF:.95,C:.95}[p]*MU(-.02,.55,1.6)*(1+((G.td&&G.td.prs)||0)*.04)}
  {const y=sty();for(const k in w)w[k]*=(y.act[k]||1)}let s=0;for(const k in w)s+=w[k];let r=R()*s;for(const k in w){r-=w[k];if(r<=0)return k}return 'mid'}
 function rebAfter(ev,on,side){const a=ea(),pm=REBM[S.p.pos]*(sty().reb||1)*MU(.018,.55,1.6),rr=a.reb*.7+a.jmp*.15+a.str*.15;
  if(side==='me'){if(on&&R()<.045*rr/60*pm){G.st.reb++;G.st.oreb++;ev.oreb=true;ev.mine=true;ev.txt+=' · ריבאונד התקפה שלך!'}else if(R()<.24){ev.oreb=true;ev.txt+=' · ריבאונד התקפה'}}
@@ -1157,7 +1178,7 @@ function opPoss(on){const a=ea(),ev={side:'op',slot:ri(0,4)},d=G.opStr-(on?G.myS
  if(on&&R()<.065*(1.35-(a.pdef+a.idef)/200)*psTem()){G.st.pf++;const m=(R()<.74)+(R()<.74);G.op+=m;ev.kind='ft';ev.pts=m;ev.made=m>0;ev.mine=true;const lim=S.team.comp==='NBA'?6:5;ev.txt=`עבירה שלך (${G.st.pf}), ${n} ${m}/2 מהקו`;if(G.st.pf>=lim){G.fouledOut=true;ev.txt+=' · הודחת בעבירות!'}return ev}
  if(R()<.12){ev.kind='to';ev.txt=`איבוד של ${n}`;return ev}
  if(R()<.13){const m=(R()<.76)+(R()<.76);G.op+=m;ev.kind='ft';ev.pts=m;ev.made=m>0;ev.txt=`${n}: ${m}/2 מהקו`;return ev}
- const three=R()<.37,p=(three?.39:.61)+(G.lgAdj||0)+d*(three?.004:.005)-(on?(a.pdef+a.idef-120)*.0008:0);
+ const three=R()<.37,p=(three?.39:.61)+(G.lgAdj||0)+d*(three?.004:.005)-(on?clamp(((a.pdef+a.idef)/2-S.team.s)*.0007,-.012,.02):0);
  if(!three&&on&&R()<.028*(a.idef+a.jmp)/120*BLKM[S.p.pos]*(sty().blk||1)*MU(.018,.55,1.6)){G.st.blk++;ev.kind='2';ev.made=false;ev.blk=true;ev.mine=true;ev.txt='חסימה שלך!!';rebAfter(ev,on,'op');return ev}
  ev.kind=three?'3':'2';ev.made=R()<p;if(ev.made){ev.pts=three?3:2;G.op+=ev.pts;ev.txt=`${n} ${three?'קולעת שלשה':'קולעת'}`}else{ev.txt=`${n} מחטיאה`;rebAfter(ev,on,'op')}return ev}
 function stepPoss(){const on=onCourt(),dur=S.team.comp==='NBA'?rnd(10.5,19):rnd(11,21),b1=G.me,b2=G.op;const ev=G.poss==='me'?myPoss(on):opPoss(on);if(on)G.st.pm+=(G.me-b1)-(G.op-b2);ev.on=on;ev.t=clockStr();ev.q=G.q;
@@ -1240,13 +1261,13 @@ function gradeOf(r){const g=(GRD.find(x=>r>=x[1])||GRD[GRD.length-1])[0];return 
 /* ======== match UI ======== */
 const OFF=[[700,250],[772,98],[772,402],[848,168],[848,332]],DEF=[[748,250],[812,124],[812,376],[872,205],[872,295]];
 const mir=([x,y])=>[940-x,y],jit=([x,y])=>[x+rnd(-10,10),y+rnd(-10,10)];
-function courtSVG(mc,oc){const dots=(t,c,tx)=>[0,1,2,3,4].map(i=>`<g class="dot" id="${t}${i}" style="transform:translate(470px,250px)">${t==='m'&&i===G.mySlot?'<circle class="ring2" r="17" fill="none" stroke="#ffc95c" stroke-width="3"/>':''}<circle class="body" r="17" fill="${c}" stroke="${tx}" stroke-width="2.5"/><text class="dn" y="7" text-anchor="middle" font-family="Chakra Petch,monospace" font-weight="700" font-size="19" fill="${tx}">${t==='m'?G.nums[i]:ri(1,40)}</text></g>`).join(''),ot=lum(oc)>.62?'#17152e':'#fff';
+function courtSVG(mc,oc){const dots=(t,c,tx)=>[0,1,2,3,4].map(i=>`<g class="dot" id="${t}${i}" style="transform:translate(470px,250px)">${t==='m'&&i===G.mySlot?'<circle class="ring2" r="17" fill="none" stroke="#ffc95c" stroke-width="3"/>':''}<circle class="body" r="17" fill="${c}" stroke="${tx}" stroke-width="2.5"/><text class="dn" y="7" text-anchor="middle" font-family="Chakra Petch,monospace" font-weight="700" font-size="19" fill="${tx}">${t==='m'?G.nums[i]:ri(1,40)}</text></g>`).join(''),ot=lum(oc)>.62?'#14161a':'#fff';
  return `<svg viewBox="0 0 940 500" role="img" aria-label="המגרש"><defs><linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4a06a"/><stop offset="1" stop-color="#b07845"/></linearGradient><pattern id="pl" width="47" height="500" patternUnits="userSpaceOnUse"><rect width="47" height="500" fill="url(#wd)"/><line x1="0" y1="0" x2="0" y2="500" stroke="#7d4b25" stroke-opacity=".25" stroke-width="2"/></pattern><radialGradient id="sp" cx=".5" cy=".5" r=".62"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient></defs>
  <rect width="940" height="500" fill="url(#pl)"/><rect width="940" height="500" fill="url(#sp)"/><g fill="${mc}" fill-opacity=".42"><rect x="0" y="170" width="190" height="160"/><rect x="750" y="170" width="190" height="160"/><circle cx="470" cy="250" r="60"/></g>
  <g fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3"><rect x="4" y="4" width="932" height="492" rx="4"/><line x1="470" y1="4" x2="470" y2="496"/><circle cx="470" cy="250" r="60"/><rect x="0" y="170" width="190" height="160"/><rect x="750" y="170" width="190" height="160"/><circle cx="190" cy="250" r="60"/><circle cx="750" cy="250" r="60"/><path d="M0 28 L99 28 A227 227 0 0 1 99 472 L0 472"/><path d="M940 28 L841 28 A227 227 0 0 0 841 472 L940 472"/></g>
  <g stroke="#fff" stroke-width="5"><line x1="38" y1="222" x2="38" y2="278"/><line x1="902" y1="222" x2="902" y2="278"/></g><circle id="rimL" cx="52" cy="250" r="10" fill="none" stroke="#ff6a1a" stroke-width="4"/><circle id="rimR" cx="888" cy="250" r="10" fill="none" stroke="#ff6a1a" stroke-width="4"/>
- ${dots('o',oc,ot)}${dots('m',mc,lum(mc)>.62?'#17152e':'#fff')}<ellipse id="bsh" cx="470" cy="262" rx="8" ry="3" fill="#000" fill-opacity=".3"/><circle id="ball" cx="470" cy="250" r="8" fill="#f07c1c" stroke="#5a2a08" stroke-width="2"/>
- <text id="fl" class="fl" x="470" y="200" text-anchor="middle" fill="#ffc95c" stroke="#0c0b17" stroke-width="2" paint-order="stroke"></text></svg><div class="banner" id="banner" hidden><span></span></div>`}
+ ${dots('o',oc,ot)}${dots('m',mc,lum(mc)>.62?'#14161a':'#fff')}<ellipse id="bsh" cx="470" cy="262" rx="8" ry="3" fill="#000" fill-opacity=".3"/><circle id="ball" cx="470" cy="250" r="8" fill="#f07c1c" stroke="#5a2a08" stroke-width="2"/>
+ <text id="fl" class="fl" x="470" y="200" text-anchor="middle" fill="#ffc95c" stroke="#0f1114" stroke-width="2" paint-order="stroke"></text></svg><div class="banner" id="banner" hidden><span></span></div>`}
 function renderGame(){const fx=G.fx,t=S.team,oc=tC(fx.opp);let mc=t.c;if(Math.abs(lum(mc)-lum(oc))<.08)mc='#f4f4f8';app.className='bare';
  app.innerHTML=`<div class="gtop"><div class="cmpl">${compBadge(fx.comp,'sm')} ${fx.k==='po'?'<span class="pill bad" style="font-size:11px">🔥 פלייאוף</span> ':''}${fx.po?esc(fx.pol||fx.po)+' · ':''} · ${fx.home?'בית':'חוץ'}</div>
  <div class="board"><div class="tm">${crest(t.n,t.c,34)}<div style="min-width:0"><div class="tn2">${esc(short(t.n))}</div><b class="led" id="sMe">0</b></div></div>
@@ -1437,7 +1458,7 @@ const nSwap=c=>W().lg[c].length>=16?2:1;
 const lgAvg=L=>{const a=W().lg[L];return a.reduce((s,n)=>s+W().teams[n].s,0)/a.length};
 // שכר: לפי תקציב השכר של הקבוצה ולפי המקום הצפוי שלך בסגל (כוכב מקבל 13–17% מהתקציב, ספסל 1.5–3%)
 const PAYSH=[.16,.13,.1,.08,.07,.06,.05,.04,.033,.026,.02,.015,.012];
-function marketSal(t,eff){if(t.lg==='NBA')return clamp(1.35e6*Math.pow(1.22,eff-80),1.35e6,57.7e6);const L=LG[t.lg];if(t.pay==null)initPay(W());
+function marketSal(t,eff){if(t.lg==='NBA')return clamp(2e6*Math.pow(1.25,eff-91),1.2e6,57.7e6);const L=LG[t.lg];if(t.pay==null)initPay(W());
  const ros=oppRoster(t.n,t.lg).map(x=>x.ovr).sort((a,b)=>b-a),rk=ros.filter(v=>v>eff).length;return clamp(t.pay*1e6*(PAYSH[rk]??.01),L.lo,Math.max(L.lo*2,t.pay*1e6*.18))}
 function mkOffer(t,eff,cur){const sal=Math.round(marketSal(t,eff)*rnd(.9,1.12)*(1+(S.agent.rel-50)/400)*agT().sal/1000)*1000,age=S.p.age,yrs=age<22?ri(2,3):age<30?ri(1,4):ri(1,2),nbaFirst=t.lg==='NBA'&&!S.history.some(h=>h.comp==='NBA')&&age<=22;
  const dp=nbaFirst?clamp(Math.round(60-(ovr()-74)*5-(22-age)*3+ri(-5,5)),1,60):0,rs=dp?(dp<=30?Math.round(Math.max(2.2e6,13e6*Math.pow(.93,dp-1))/1000)*1000:1300000):0;// חוזה רוקי לפי מקום בדראפט
@@ -1654,7 +1675,7 @@ function afterLogos(){if(S&&S.view==='hub')renderHub();openSheet('logos')}
 
 function minutesChart(){const gs=S.season.games.filter(g=>g.k!=='pre');if(gs.length<2)return '';const W2=300,H2=74,n=gs.length,mx=S.team.comp==='NBA'?44:38,x=i=>8+i*(W2-16)/Math.max(1,n-1),y=m=>H2-10-(m/mx)*(H2-20);
  const pts=gs.map((g,i)=>`${x(i).toFixed(1)},${y(g.min).toFixed(1)}`).join(' ');
- return `<div style="margin-top:16px"><div class="row between"><span class="lab">דקות לאורך העונה</span><span class="dim" style="font-size:11.5px">הצבע: הציון במשחק · מסגרת: משחק מפתח</span></div><svg viewBox="0 0 ${W2} ${H2}" width="100%" style="display:block;margin-top:6px" role="img" aria-label="דקות משחק לאורך העונה">${[10,20,30].map(m=>`<line x1="0" x2="${W2}" y1="${y(m)}" y2="${y(m)}" stroke="#2a2847"/><text x="${W2-2}" y="${y(m)-2}" text-anchor="end" font-size="8" fill="#6c6990" font-family="Oswald">${m}</text>`).join('')}<polyline points="${pts}" fill="none" stroke="#9d9abb" stroke-width="1.5" stroke-linejoin="round"/>${gs.map((g,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(g.min).toFixed(1)}" r="${g.km>1?4:3}" fill="${g.rt!=null?rtCol(g.rt):'#3a3760'}" stroke="${g.km>1?'#ff6a4d':'none'}" stroke-width="1.5"/>`).join('')}</svg></div>`}
+ return `<div style="margin-top:16px"><div class="row between"><span class="lab">דקות לאורך העונה</span><span class="dim" style="font-size:11.5px">הצבע: הציון במשחק · מסגרת: משחק מפתח</span></div><svg viewBox="0 0 ${W2} ${H2}" width="100%" style="display:block;margin-top:6px" role="img" aria-label="דקות משחק לאורך העונה">${[10,20,30].map(m=>`<line x1="0" x2="${W2}" y1="${y(m)}" y2="${y(m)}" stroke="#242930"/><text x="${W2-2}" y="${y(m)-2}" text-anchor="end" font-size="8" fill="#6b717b" font-family="Oswald">${m}</text>`).join('')}<polyline points="${pts}" fill="none" stroke="#9ba0a8" stroke-width="1.5" stroke-linejoin="round"/>${gs.map((g,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(g.min).toFixed(1)}" r="${g.km>1?4:3}" fill="${g.rt!=null?rtCol(g.rt):'#333944'}" stroke="${g.km>1?'#d8d2c4':'none'}" stroke-width="1.5"/>`).join('')}</svg></div>`}
 function momRow(){const m=S.mom||0;return `<div class="mtr" style="margin-top:12px"><div class="row"><span>מומנטום</span><b class="tn ${m>=0?'good':'bad'}">${m>=0?'+':''}${f1(m)}</b></div><div class="bar" style="position:relative"><i style="position:absolute;height:100%;${m>=0?'right:50%':'left:50%'};width:${Math.abs(m)*5}%;background:${m>=0?'var(--good)':'var(--bad)'}"></i><span style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:#fff;opacity:.4"></span></div></div>`}
 
 // הדרך לחמישייה: לא מספיק להיות טוב יותר ב-OVR. רצף משחקים מעל היעד, אמון ויחסים עם המאמן וכימיה עם החברים פותחים הזדמנות. בחמישייה יש תקופת ניסיון של 5 משחקים
@@ -1685,21 +1706,21 @@ function rosterView(){const t=S.team,D=depth(),scale=t.comp==='NBA'?48/40:1,DEF=
 /* ======== views ======== */
 function header(){const p=S.p,t=S.team;return `<header class="hdr"><div class="avw">${avatar(t.c,p.num,48)}<span class="ovb">${ovr()}</span></div>
  <div style="flex:1;min-width:0"><div class="nm">${esc(p.name)} <span class="pill coral" style="font-size:11px;padding:1px 7px;vertical-align:2px">${POS[p.pos].e}</span></div><div class="sub">${crest(t.n,t.c,16)}<span>${esc(short(t.n))}${t.comp==='YTH'?' נוער':''} · ${dshort(S.date)}</span></div></div>
- <span class="cash">${money(p.cash)}</span><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9c6e6',20)}</button></header>`}
+ <span class="cash">${money(p.cash)}</span><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9cbd0',20)}</button></header>`}
 function dock(){const b=(k,n,i)=>`<button data-a="tab" data-v="${k}" aria-current="${S.tab===k}" aria-label="${n}">${ico(i,null,21)}<span>${n}</span></button>`;return `<nav class="dock"><div class="dock-in">${b('home','בית','home')}${b('prof','שחקן','user')}${b('car','קריירה','cup')}${b('money','כסף','coin')}${b('soc','חברתי','chat')}</div></nav>`}
 const meterRow=(n,v,cls)=>`<div class="mtr"><div class="row"><span>${n}</span><b class="tn">${Math.round(v)}</b></div><div class="bar ${cls||''}"><i style="width:${clamp(v,0,100)}%"></i></div></div>`;
 const rec=(n,k)=>{const sea=S.season;k=k||sea.lg;const T=sea.tables[k],t=T&&T[n];if(!t)return '';const L=Object.entries(T).sort(([,a],[,b])=>b.w-a.w||a.l-b.l||((b.pf||0)-(b.pa||0))-((a.pf||0)-(a.pa||0))),pos=L.findIndex(x=>x[0]===n)+1,any=L.some(([,r])=>r.w+r.l>0);const r=`<span dir="ltr">${t.w}-${t.l}</span>`;return any?`<b style="color:var(--text);display:block">מקום ${pos}</b>${r}`:r};
 function avgs(f){const gs=S.season.games.filter(g=>!g.dnp&&g.k!=='pre'&&(f==='all'||(f==='po'?g.k==='po':f==='cup'?g.k==='cup':f==='eu'?(EU[g.comp]&&(g.k==='g'||g.k==='eu')):(g.k==='g'&&g.comp===S.season.lg))));const n=gs.length||1,s=k=>gs.reduce((a,g)=>a+(g[k]||0),0),rg=gs.filter(g=>g.rt!=null);
  return {n:gs.length,pts:s('pts')/n,reb:s('reb')/n,ast:s('ast')/n,stl:s('stl')/n,blk:s('blk')/n,rt:rg.length?rg.reduce((a,g)=>a+g.rt,0)/rg.length:null,pm:gs.length?gs.reduce((a,g)=>a+(g.pm||0),0)/gs.length:null,list:gs.slice(-10)}}
 function seeded(seed){let x=seed%2147483647||7;return()=>(x=x*16807%2147483647)/2147483647}
-function heroArt(c,num){const rr=seeded(hash(S.p.name)+num),light=lum(c)>.62,tx=light?'#17152e':'#fff';let crowd='';for(let i=0;i<150;i++){const x=rr()*400,y=8+rr()*92,r=.8+rr()*1.8;crowd+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${rr()<.12?'#ffd28a':'#9b8fb8'}" fill-opacity="${(.12+rr()*.35).toFixed(2)}"/>`}
- return `<svg class="bg" viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="hg" cx=".35" cy=".1" r=".9"><stop offset="0" stop-color="#5a3a26"/><stop offset=".45" stop-color="#241a2c"/><stop offset="1" stop-color="#0d0b16"/></radialGradient><linearGradient id="hf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4a26" stop-opacity=".0"/><stop offset=".25" stop-color="#8a5530" stop-opacity=".55"/><stop offset="1" stop-color="#2a1a12"/></linearGradient><linearGradient id="hb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity=".55"/></linearGradient></defs>
+function heroArt(c,num){const rr=seeded(hash(S.p.name)+num),light=lum(c)>.62,tx=light?'#14161a':'#fff';let crowd='';for(let i=0;i<150;i++){const x=rr()*400,y=8+rr()*92,r=.8+rr()*1.8;crowd+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${rr()<.12?'#ffd28a':'#9aa0a8'}" fill-opacity="${(.12+rr()*.35).toFixed(2)}"/>`}
+ return `<svg class="bg" viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="hg" cx=".35" cy=".1" r=".9"><stop offset="0" stop-color="#5a3a26"/><stop offset=".45" stop-color="#241a2c"/><stop offset="1" stop-color="#0f1114"/></radialGradient><linearGradient id="hf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4a26" stop-opacity=".0"/><stop offset=".25" stop-color="#8a5530" stop-opacity=".55"/><stop offset="1" stop-color="#2a1a12"/></linearGradient><linearGradient id="hb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity=".55"/></linearGradient></defs>
  <rect width="400" height="170" fill="url(#hg)"/>${crowd}<polygon points="70,0 110,0 175,135 95,135" fill="url(#hb)"/><polygon points="250,0 280,0 300,135 220,135" fill="url(#hb)" opacity=".6"/>
  <rect y="118" width="400" height="52" fill="url(#hf)"/><ellipse cx="150" cy="160" rx="46" ry="7" fill="#000" fill-opacity=".45"/>
  <g transform="translate(150 0)"><path d="M-14 116 L-17 160 L-6 160 L-3 120 Z M14 116 L17 160 L6 160 L3 120 Z" fill="#1a1210"/><path d="M-26 92 h52 l3 28 h-58 z" fill="url(#hs)"/><path d="M-30 46 q30-9 60 0 l4 50 h-68 z" fill="url(#hs)"/><path d="M-30 46 l-9 46 l9 2 z M30 46 l9 46 l-9 2 z" fill="#3b2418"/><circle cx="44" cy="100" r="11" fill="#d8742a"/><path d="M33 100 h22 M44 89 v22" stroke="#3a1606" stroke-width="1.2"/><rect x="-5" y="33" width="10" height="12" fill="#3b2418"/><circle cx="0" cy="25" r="12" fill="#22150f"/><text x="0" y="82" text-anchor="middle" font-family="Oswald,sans-serif" font-weight="700" font-size="28" fill="${tx}" fill-opacity=".9">${num}</text></g>
  </svg>`}
 function heroCard(){const p=S.p,t=S.team,o=ovr(),lgN=LG[t.comp]?LG[t.comp].n:'',yr=t.comp==='YTH'?(p.age<=16?'שנה א׳':'שנה ב׳'):`עונה ${S.history.filter(h=>h.comp!=='YTH').length+1}`;
- return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9c6e6',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="eb">${esc(lgN)} · ${yr} · ${dshort(S.date)}</div><div class="nm">${esc(p.name)}</div><div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>`}
+ return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9cbd0',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="eb">${esc(lgN)} · ${yr} · ${dshort(S.date)}</div><div class="nm">${esc(p.name)}</div><div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>`}
 
 // העוזר האישי: עד 3 הצעות שמנצלות את כל הכלים לשיפור הדמות, כל אחת בלחיצה אחת
 let TIPS=[];
@@ -1737,18 +1758,18 @@ function tabHome(){const sea=S.season,fx=curFx(),t=S.team,p=S.p;
  <div class="sec"><b>העונה שלך</b><span>${roleLabel()} · צפי ${depth().mins} דק׳ · יעד ציון ${f1(roleExp(depth().rank))}</span></div>
  <section class="card"><div class="seg">${segs.map(([k,n])=>`<button data-a="seg" data-v="avg|${k}" aria-pressed="${S.seg.avg===k}">${n}</button>`).join('')}</div>
  <div class="row between" style="margin-bottom:14px"><div><div class="lab">ציון ממוצע${pmOn()?' · +/-':''}</div><b class="num" style="font-size:40px;line-height:1;color:${A.rt!=null?rtCol(A.rt):'var(--dim)'}">${A.rt!=null?f1(A.rt):'—'}</b> ${pmOn()?`<b class="num ${(A.pm||0)>=0?'good':'bad'}" style="font-size:18px">${A.pm!=null?pmTxt(Math.round(A.pm*10)/10):''}</b>`:''}<div class="mute" style="font-size:12px">${A.n} משחקים</div></div>
- <div style="flex:1;max-width:190px"><div class="lab" style="margin-bottom:6px">10 אחרונים</div><div class="spark">${A.list.map(g=>`<i style="height:${g.rt!=null?clamp((g.rt-4)/6*100,6,100):6}%;background:${g.rt!=null?rtCol(g.rt):'#3a3760'}" title="${g.rt!=null?f1(g.rt):''}"></i>`).join('')||'<span class="dim" style="font-size:12px">עוד אין משחקים</span>'}</div></div></div>
+ <div style="flex:1;max-width:190px"><div class="lab" style="margin-bottom:6px">10 אחרונים</div><div class="spark">${A.list.map(g=>`<i style="height:${g.rt!=null?clamp((g.rt-4)/6*100,6,100):6}%;background:${g.rt!=null?rtCol(g.rt):'#333944'}" title="${g.rt!=null?f1(g.rt):''}"></i>`).join('')||'<span class="dim" style="font-size:12px">עוד אין משחקים</span>'}</div></div></div>
  <div class="avg5">${[['pts','נק׳'],['reb','ריב׳'],['ast','אס׳'],['stl','חט׳'],['blk','חס׳']].map(([k,l])=>`<div><b>${A.n?f1(A[k]):'—'}</b><span>${l}</span></div>`).join('')}</div>${minutesChart()}</section>
  <div class="sec"><b>עדכונים</b><span>מה קרה לאחרונה</span></div><section class="card news">${S.news.slice(0,6).map(n=>`<div class="${n.hot?'hot':''}">${esc(n.t)}</div>`).join('')||'<div class="mute">עוד אין עדכונים.</div>'}</section>`}
 function radar(a){const c=[['sc','קליעה'],['pm','יצירה'],['df','הגנה'],['at','אתלטיות']],cx=170,cy=150,R0=100,ang=i=>-Math.PI/2+i*Math.PI/2,pt=(i,v)=>[cx+Math.cos(ang(i))*R0*v/100,cy+Math.sin(ang(i))*R0*v/100];
- const grid=[25,50,75,100].map(v=>`<polygon points="${[0,1,2,3].map(i=>pt(i,v).join(',')).join(' ')}" fill="none" stroke="#3a3760" stroke-width="1"/>`).join(''),vals=c.map(x=>catAvg(x[0],a)),poly=vals.map((v,i)=>pt(i,v).join(',')).join(' ');
- const lab=c.map((x,i)=>{const [lx,ly]=pt(i,130);return `<text x="${lx}" y="${ly-6}" text-anchor="middle" fill="#9d9abb" font-size="13" font-weight="700" font-family="Rubik">${x[1]}</text><text x="${lx}" y="${ly+14}" text-anchor="middle" fill="#f2f1fb" font-size="19" font-weight="700" font-family="Chakra Petch">${vals[i]}</text>`}).join('');
- return `<svg class="radar" viewBox="0 0 340 300" width="340" height="300" role="img" aria-label="מכ״ם יכולות">${grid}${[0,1,2,3].map(i=>`<line x1="${cx}" y1="${cy}" x2="${pt(i,100)[0]}" y2="${pt(i,100)[1]}" stroke="#3a3760"/>`).join('')}<polygon points="${poly}" fill="rgba(255,106,77,.25)" stroke="#ff6a4d" stroke-width="3" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${pt(i,v)[0]}" cy="${pt(i,v)[1]}" r="5" fill="#ff6a4d" stroke="#0c0b17" stroke-width="2"/>`).join('')}${lab}</svg>`}
+ const grid=[25,50,75,100].map(v=>`<polygon points="${[0,1,2,3].map(i=>pt(i,v).join(',')).join(' ')}" fill="none" stroke="#333944" stroke-width="1"/>`).join(''),vals=c.map(x=>catAvg(x[0],a)),poly=vals.map((v,i)=>pt(i,v).join(',')).join(' ');
+ const lab=c.map((x,i)=>{const [lx,ly]=pt(i,130);return `<text x="${lx}" y="${ly-6}" text-anchor="middle" fill="#9ba0a8" font-size="13" font-weight="700" font-family="Rubik">${x[1]}</text><text x="${lx}" y="${ly+14}" text-anchor="middle" fill="#ecebe6" font-size="19" font-weight="700" font-family="Chakra Petch">${vals[i]}</text>`}).join('');
+ return `<svg class="radar" viewBox="0 0 340 300" width="340" height="300" role="img" aria-label="מכ״ם יכולות">${grid}${[0,1,2,3].map(i=>`<line x1="${cx}" y1="${cy}" x2="${pt(i,100)[0]}" y2="${pt(i,100)[1]}" stroke="#333944"/>`).join('')}<polygon points="${poly}" fill="rgba(216,210,196,.25)" stroke="#d8d2c4" stroke-width="3" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${pt(i,v)[0]}" cy="${pt(i,v)[1]}" r="5" fill="#d8d2c4" stroke="#0f1114" stroke-width="2"/>`).join('')}${lab}</svg>`}
 const stars=pot=>{const f=Math.round(clamp((pot-62)/7.2,.5,5));return '★'.repeat(f)+'☆'.repeat(5-f)};
 function tabProf(){const p=S.p,t=S.team,a=ea(),o=ovr(),a0=S.season.a0||p.attr,top=AT.map(x=>[x[0],x[1],a[x[0]]]).sort((x,y)=>y[2]-x[2]).slice(0,3),C=2*Math.PI*40;
- return `<section class="card arc" style="background:radial-gradient(120% 80% at 90% 0%,rgba(255,106,77,.16),transparent 60%),var(--s1)"><div class="phero"><div class="avw">${avatar(t.c,p.num,62)}</div>
+ return `<section class="card arc" style="background:radial-gradient(120% 80% at 90% 0%,rgba(216,210,196,.16),transparent 60%),var(--s1)"><div class="phero"><div class="avw">${avatar(t.c,p.num,62)}</div>
  <div style="min-width:0"><h2 class="h2">${esc(p.name)}</h2><div class="row" style="gap:8px;margin-top:6px"><span class="pill coral">${POS[p.pos].n} · ${sty().n}</span><span class="mute" style="font-weight:700;font-size:13.5px">${statusWord(o)}</span>${poTag()?`<span class="pill ${poTag().c}">${poTag().t}</span>`:''}</div><div class="mute" style="font-size:13px;margin-top:6px">${esc(short(t.n))} · גיל ${p.age} · ${p.h} ס״מ</div></div>
- <div class="ring"><svg viewBox="0 0 92 92"><defs><linearGradient id="rg"><stop offset="0" stop-color="#ff6a4d"/><stop offset="1" stop-color="#ffc95c"/></linearGradient></defs><circle cx="46" cy="46" r="40" fill="none" stroke="#25233f" stroke-width="7"/><circle cx="46" cy="46" r="40" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C*o/99} ${C}"/></svg><b>${o}</b><span>OVR</span></div></div>
+ <div class="ring"><svg viewBox="0 0 92 92"><defs><linearGradient id="rg"><stop offset="0" stop-color="#d8d2c4"/><stop offset="1" stop-color="#ffc95c"/></linearGradient></defs><circle cx="46" cy="46" r="40" fill="none" stroke="#242932" stroke-width="7"/><circle cx="46" cy="46" r="40" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C*o/99} ${C}"/></svg><b>${o}</b><span>OVR</span></div></div>
  ${radar(a)}<div class="top3" style="margin-top:6px">${top.map(x=>`<div><b>${Math.floor(x[2])}</b><span>${x[1]}</span></div>`).join('')}</div></section>
  <section class="card" style="margin-top:12px"><div class="lab">סגנון משחק</div><b style="font-family:var(--cond);font-size:24px">${sty().n}</b><p class="mute" style="margin:4px 0 8px;font-size:13.5px">${sty().d}</p><div class="chips">${sty().g.map(k=>`<span class="pill good">${AN[k]} מתפתח מהר</span>`).join('')}${sty().w.map(k=>`<span class="pill">${AN[k]} מתפתח לאט</span>`).join('')}</div></section>
  ${devCard()}<div class="sec"><b>כל התכונות</b><span>השינוי מתחילת העונה</span></div>
@@ -1796,7 +1817,7 @@ function tabCar(){const sea=S.season;if(S.seg.car==='eu'){S.seg.car='table';S.se
  if(k==='lead')body=leadView();
  if(k==='world')body=(S.WR?`<div class="sec" style="margin-top:4px"><b>אלופות ${S.WR.y}/${String(S.WR.y+1).slice(2)}</b><span>כל הליגות שוחקו במקביל</span></div><section class="card" style="padding:6px 12px">${Object.entries(S.WR.ch).filter(([c,n])=>n).map(([c,n])=>`<div class="row between" style="padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px"><span>${compBadge(c)}</span><span class="row" style="gap:6px"><b${n===S.team.n?' class="coral"':''}>${esc(short(n))}</b>${crest(n,tC(n),22)}</span></div>`).join('')}</section>`:'')+['EL','EC','CL'].map(c=>`<div class="sec" style="margin-top:4px"><b>🇪🇺 ${EU[c].n}</b><span>${Object.keys(W().eul[c]).length>1?Object.keys(W().eul[c]).length+' בתים':'ליגה אחת'} · ${[].concat(...Object.values(W().eul[c])).length} קבוצות</span></div><section class="card" style="padding:10px 12px">${Object.entries(W().eul[c]).map(([g,L])=>`${g?`<div class="lab" style="margin:6px 0 4px">בית ${g}</div>`:''}<div class="row wrap" style="gap:8px">${L.map(n=>`<span class="pill" style="padding:3px 8px 3px 4px">${crest(n,tC(n),20)}${esc(n)}</span>`).join('')}</div>`).join('')}</section>`).join('')+Object.keys(LG).filter(x=>LG[x].t===1||LG[x].t===2).map(L=>`<div class="sec" style="margin-top:4px"><b>${LG[L].fl} ${LG[L].n}</b><span>${LG[L].cc} · ${LG[L].t===1?'ליגה בכירה':'ליגה שנייה'}</span></div><section class="card" style="padding:10px 12px"><div class="row wrap" style="gap:8px">${W().lg[L].slice().sort((x,y)=>W().teams[y].s-W().teams[x].s).map(n=>`<span class="pill" style="padding:3px 8px 3px 4px">${crest(n,tC(n),20)}${esc(n)}</span>`).join('')}</div></section>`).join('');
  const sec=CARSEC.find(x=>x[0]===k);
- const top=`<div class="cnav"><div class="seg" style="margin:0;flex:1">${[['table','טבלה'],['fx','משחקים'],['roster','סגל']].map(([x,n])=>`<button data-a="carseg" data-v="${x}" aria-pressed="${k===x}">${n}</button>`).join('')}</div><button class="iconbtn" data-a="cardrawer" aria-label="עוד">${ico('menu','#c9c6e6',18)}</button></div>`;
+ const top=`<div class="cnav"><div class="seg" style="margin:0;flex:1">${[['table','טבלה'],['fx','משחקים'],['roster','סגל']].map(([x,n])=>`<button data-a="carseg" data-v="${x}" aria-pressed="${k===x}">${n}</button>`).join('')}</div><button class="iconbtn" data-a="cardrawer" aria-label="עוד">${ico('menu','#c9cbd0',18)}</button></div>`;
  const sub=k==='table'&&sea.E?`<div class="seg2">${[['lg',LG[sea.lg]?LG[sea.lg].n:'ליגה'],['eu',EU[sea.E.c].n]].map(([x,n])=>`<button data-a="carsub" data-v="${x}" aria-pressed="${(S.seg.tbl||'lg')===x}">${n}</button>`).join('')}</div>`:'';
  const head=sec?`<div class="row between" style="margin:2px 2px 10px"><b style="font-family:var(--cond);font-size:22px">${sec[1]}</b><button class="btn ghost sm" data-a="carseg" data-v="table">חזרה לטבלה</button></div>`:'';
  return `${top}${sub}${head}${body}`}
@@ -1805,12 +1826,12 @@ function openDrawer(){closeDrawer();const k=S.seg.car,d=document.createElement('
  d.innerHTML=`<nav class="drw" aria-label="עוד"><div class="lab" style="margin:0 6px 10px">קריירה</div>${CARSEC.map(([x,n,ic,ds])=>`<button data-a="carsec" data-v="${x}" aria-pressed="${k===x}">${ico(ic,'#ffc95c',20)}<span><b>${n}</b><small>${ds}</small></span></button>`).join('')}</nav>`;
  d.addEventListener('click',e=>{if(e.target===d)closeDrawer()});document.body.appendChild(d)}
 function closeDrawer(){const d=document.getElementById('drw');if(d)d.remove()}
-function ventArt(k){const A={gear:`<rect width="200" height="96" fill="#1c1a38"/><path d="M40 66c10-2 22-14 30-26l12 6c8 4 18 6 30 6h26c10 0 18 6 18 14v4H40z" fill="#ff6a4d"/><path d="M40 70h116v8H40z" fill="#f2f1fb"/><path d="M78 46l6 10M88 50l5 9M98 52l4 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,realestate:`<rect width="200" height="96" fill="#1c1a38"/><g fill="#2f2b5a">${[10,40,70,105,140,170].map((x,i)=>`<rect x="${x}" y="${30+(i%3)*12}" width="26" height="${70-(i%3)*12}"/>`).join('')}</g><g fill="#ffc95c" fill-opacity=".8">${Array.from({length:22},(_,i)=>`<rect x="${14+(i%11)*17}" y="${48+Math.floor(i/11)*16}" width="4" height="5"/>`).join('')}</g>`,
+function ventArt(k){const A={gear:`<rect width="200" height="96" fill="#1c1a38"/><path d="M40 66c10-2 22-14 30-26l12 6c8 4 18 6 30 6h26c10 0 18 6 18 14v4H40z" fill="#d8d2c4"/><path d="M40 70h116v8H40z" fill="#ecebe6"/><path d="M78 46l6 10M88 50l5 9M98 52l4 8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,realestate:`<rect width="200" height="96" fill="#1c1a38"/><g fill="#2f2b5a">${[10,40,70,105,140,170].map((x,i)=>`<rect x="${x}" y="${30+(i%3)*12}" width="26" height="${70-(i%3)*12}"/>`).join('')}</g><g fill="#ffc95c" fill-opacity=".8">${Array.from({length:22},(_,i)=>`<rect x="${14+(i%11)*17}" y="${48+Math.floor(i/11)*16}" width="4" height="5"/>`).join('')}</g>`,
  market:`<rect width="200" height="96" fill="#14203a"/>${Array.from({length:14},(_,i)=>{const y=60-i*2.5+Math.sin(i)*12,up=Math.sin(i*1.7)>0;return `<line x1="${12+i*13}" x2="${12+i*13}" y1="${y-14}" y2="${y+14}" stroke="${up?'#45d39a':'#ff5470'}"/><rect x="${8+i*13}" y="${y-7}" width="8" height="14" fill="${up?'#45d39a':'#ff5470'}"/>`}).join('')}`,
  crypto:`<rect width="200" height="96" fill="#211638"/><circle cx="70" cy="58" r="30" fill="#ffc95c"/><circle cx="70" cy="58" r="22" fill="none" stroke="#9a6d10" stroke-width="3"/><text x="70" y="67" text-anchor="middle" font-size="26" font-weight="900" fill="#9a6d10" font-family="Rubik">₿</text><circle cx="130" cy="48" r="20" fill="#a78bfa"/><circle cx="160" cy="70" r="14" fill="#4cc9f0"/>`,
- store:`<rect width="200" height="96" fill="#26182a"/><path d="M30 70h140l-12-18c-4-6-10-9-17-9H72c-8 0-14 3-19 8z" fill="#ff6a4d" fill-opacity=".75"/><circle cx="62" cy="72" r="10" fill="#0c0b17" stroke="#9d9abb" stroke-width="3"/><circle cx="140" cy="72" r="10" fill="#0c0b17" stroke="#9d9abb" stroke-width="3"/><path d="M78 50h46l8 12H70z" fill="#4cc9f0" fill-opacity=".5"/>`,
+ store:`<rect width="200" height="96" fill="#26182a"/><path d="M30 70h140l-12-18c-4-6-10-9-17-9H72c-8 0-14 3-19 8z" fill="#d8d2c4" fill-opacity=".75"/><circle cx="62" cy="72" r="10" fill="#0f1114" stroke="#9ba0a8" stroke-width="3"/><circle cx="140" cy="72" r="10" fill="#0f1114" stroke="#9ba0a8" stroke-width="3"/><path d="M78 50h46l8 12H70z" fill="#4cc9f0" fill-opacity=".5"/>`,
  brand:`<rect width="200" height="96" fill="#2a1d14"/><path d="M60 72h80l-6-30-14 8-20-18-20 18-14-8z" fill="#ffc95c"/><circle cx="100" cy="30" r="5" fill="#ffc95c"/><circle cx="66" cy="40" r="4" fill="#ffc95c"/><circle cx="134" cy="40" r="4" fill="#ffc95c"/>`};
- return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#141327" stop-opacity=".9"/></linearGradient></defs>${A[k]}<rect width="200" height="96" fill="url(#vg)"/></svg>`}
+ return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="vg" x1="0" y1="0" x2="0" y2="1"><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#161a1f" stop-opacity=".9"/></linearGradient></defs>${A[k]}<rect width="200" height="96" fill="url(#vg)"/></svg>`}
 function tabMoney(){const p=S.p,c=S.team.comp,tax=taxOf(),nb=spNext();const V=[['realestate','נדל״ן','דירות ונכסים מסחריים'],['market','שוק ההון','מניות, קרנות, אג״ח'],['crypto','קריפטו','מסחר במטבעות'],['gear','ציוד וצוות','נעליים, אביזרים, מאמן אישי'],['store','לייף-סטייל','רכבים, בתים, יוקרה'],['brand','מותג אישי','עסקים על השם שלך'],['angel','סטארטאפים','השקעות אנג׳ל: הימור על חברות צעירות']];
  return `<section class="card port arc"><div class="lab">שווי נקי</div><b class="big" style="display:block;margin-top:6px">${money(netWorth())}</b>
  <div class="g3"><div><b class="gold">${money(p.cash)}</b><span>מזומן</span></div><div><b>${money(portVal())}</b><span>השקעות</span></div><div><b>${money(homesVal()+bizVal()+angVal())}</b><span>נכסים ועסקים</span></div></div>
@@ -1824,7 +1845,7 @@ function fansCard(){if(!S.team)return '';const v=fansGet(),b=closeMate(),fe=feud
  <div style="border-top:1px solid var(--line);margin-top:10px;padding-top:8px;font-size:13px">${b?`🤝 חבר קרוב: <b>${esc(b.n)}</b> · מוסר לך יותר, והאחוזים שלך עולים כשאתם יחד`:'אין עדיין חבר קרוב בקבוצה (יחסים 75+).'}${fe?`<div class="bad" style="margin-top:4px">⚡ מתח עם ${esc(fe.n)} · פוגע בכימיה ובקליעה</div>`:''}</div></section>`}
 function tabSoc(){const p=S.p,f=followers(p.fame),d=f-S.fol0,types=[['all','הכל'],['news','חדשות'],['club','מועדון'],['mate','חברים לקבוצה'],['rival','יריבים'],['fan','אוהדים']];
  const Wl=S.wire.filter(w=>S.seg.wf==='all'||w.type===S.seg.wf||(S.seg.wf==='fan'&&w.type==='me'));
- const roleN={fan:'אוהד',news:'חדשות',club:'מועדון',mate:'חבר לקבוצה',rival:'יריב',me:'אתה'},roleC={fan:'#ffc95c',news:'#4cc9f0',club:'#45d39a',mate:'#a78bfa',rival:'#ff5470',me:'#ff6a4d'};
+ const roleN={fan:'אוהד',news:'חדשות',club:'מועדון',mate:'חבר לקבוצה',rival:'יריב',me:'אתה'},roleC={fan:'#ffc95c',news:'#4cc9f0',club:'#45d39a',mate:'#a78bfa',rival:'#ff5470',me:'#d8d2c4'};
  const reach=p.fame<10?'מקומי':p.fame<25?'עירוני':p.fame<45?'ארצי':p.fame<70?'אירופי':'עולמי';
  return `${fansCard()}<section class="card arc" style="background:radial-gradient(120% 90% at 0% 0%,rgba(255,201,92,.12),transparent 55%),var(--s1)"><div class="row between" style="align-items:flex-start"><div class="fol"><b>${kfmt(f)}</b><span class="gold num" style="font-weight:700;margin-inline-start:6px">${d>=0?'↗ +':'↘ '}${kfmt(Math.abs(d))}</span><div class="lab" style="margin-top:6px">עוקבים · מתחילת העונה</div></div><span class="pill gold">HoopGram</span></div>
  <div class="row between" style="margin-top:14px"><span class="lab">טווח הגעה</span><b class="gold" style="font-size:13px">${reach}</b></div><div class="bar y" style="margin-top:7px"><i style="width:${p.fame}%"></i></div>
@@ -1897,7 +1918,7 @@ function natCard(){const o=S.off;if(o.forced)return '';if(!o.nat){const st=natSt
   <div class="mute" style="font-size:13px;margin-top:8px">${f1(T.ppg)} נק׳ · ${f1(T.rpg)} ריב׳ · ${f1(T.apg)} אס׳ למשחק${T.rt!=null?` · ציון ${f1(T.rt)}`:''}</div>${N.aw&&N.aw.length?`<div class="chips" style="margin-top:8px">${N.aw.map(a=>`<span class="pill gold">${ico('star','#ffc95c',13)} ${a}</span>`).join('')}</div>`:''}</section>`}
  if(N.skip)return `<section class="card" style="margin-top:12px"><div class="lab">🇮🇱 ${L.n}</div><div class="mute" style="margin-top:6px">ויתרת על הטורניר הקיץ. הגוף נח.</div></section>`;
  if(N.st!=='sel')return `<section class="card" style="margin-top:12px"><div class="lab">🇮🇱 ${L.n}</div><div style="margin-top:6px">${N.st==='bub'?'אתה ברשימה המורחבת, אבל לא נכנסת לסגל הסופי.':'לא זומנת הקיץ.'}</div><div class="mute" style="font-size:13px;margin-top:4px">דירוג נבחרת ${f1(N.ns)} מתוך ${N.need} שצריך.${N.posRank?` מקום ${N.posRank} בעמדה בין הישראלים (צריך טופ 3).`:''} ${N.L!=='sr'?'':'שחקן בליגה בכירה עם עונה טובה מתקרב מהר יותר.'}</div></section>`;
- return `<section class="card" style="margin-top:12px;border-color:var(--cyan);background:radial-gradient(100% 120% at 50% 0%,rgba(76,201,240,.16),transparent 70%),var(--s1)"><div class="lab cyan">🇮🇱 זימון לנבחרת</div><h3 class="h2" style="margin:4px 0">${L.n} · ${esc(N.nm)}</h3>
+ return `<section class="card" style="margin-top:12px;border-color:var(--cyan);background:radial-gradient(100% 120% at 50% 0%,rgba(106,168,207,.16),transparent 70%),var(--s1)"><div class="lab cyan">🇮🇱 זימון לנבחרת</div><h3 class="h2" style="margin:4px 0">${L.n} · ${esc(N.nm)}</h3>
   <div class="mute" style="font-size:13px">דירוג נבחרת ${f1(N.ns)}. טורניר של 4–6 משחקים מול ${N.L==='sr'?'הנבחרות הבכירות של אירופה':'הדור הבא של אירופה'}. מוניטין, ניסיון ו-IQ, אבל גם עייפות לפני העונה.</div>
   <div class="row" style="margin-top:12px"><button class="btn pri" style="flex:2" data-a="natgo">יוצא לטורניר</button><button class="btn ghost" style="flex:1" data-a="natskip">מוותר</button></div></section>`}
 function natGo(){const N=S.off.nat;if(!N||N.T)return;natRoster(N.L);natRunStart('tour',N.L,null,{nm:N.nm,pool:Object.keys(NATC).sort(()=>R()-.5)})}
@@ -1933,8 +1954,8 @@ const ACH=[
 function achCount(g,won,rt){if(g.dnp||g.k==='pre'||S.team.comp==='YTH')return;const c=S.cnt=S.cnt||{};const tens=['pts','reb','ast','stl','blk'].filter(k=>(g[k]||0)>=10).length;if(tens>=2)c.dd=(c.dd||0)+1;if(tens>=3)c.td=(c.td||0)+1;
  if(rt!=null&&rt>=GRD[0][1])c.ap=(c.ap||0)+1;if(rt!=null&&rt>=10)c.p10=(c.p10||0)+1;if(rt!=null&&rt>=7.15){c.cur=(c.cur||0)+1;c.stB=Math.max(c.stB||0,c.cur)}else if(rt!=null)c.cur=0;if(g.comp==='EL')c.el=(c.el||0)+1}
 function achCheck(){S.ach=S.ach||{};const nw=[];for(const [id,n,d,t,ic,f] of ACH){if(S.ach[id])continue;let v=[0,1];try{v=f()}catch(e){}if(v[0]>=v[1]){S.ach[id]={y:S.year};fameD(t*.6);confD(t);nw.push(id);news(`הישג חדש: ${n} (${ACHT[t][0]}). ${d}.`,t>=3)}}if(nw.length)S.achNew=(S.achNew||[]).concat(nw);return nw}
-function badge(id,on,sz){const a=ACH.find(x=>x[0]===id),T=ACHT[a[3]],c=on?T[1]:'#3a3760';sz=sz||56;
- return `<svg viewBox="0 0 60 60" width="${sz}" height="${sz}" aria-hidden="true"><defs><linearGradient id="bg${id}${on?1:0}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity="${on?.95:.5}"/><stop offset="1" stop-color="${c}" stop-opacity="${on?.45:.25}"/></linearGradient></defs><path d="M30 3l23 13v28L30 57 7 44V16z" fill="url(#bg${id}${on?1:0})" stroke="${c}" stroke-width="2"/><g transform="translate(18 18)" fill="none" stroke="${on?'#140f1f':'#6c6990'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[a[4]]||ICON.star}</g></svg>`}
+function badge(id,on,sz){const a=ACH.find(x=>x[0]===id),T=ACHT[a[3]],c=on?T[1]:'#333944';sz=sz||56;
+ return `<svg viewBox="0 0 60 60" width="${sz}" height="${sz}" aria-hidden="true"><defs><linearGradient id="bg${id}${on?1:0}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity="${on?.95:.5}"/><stop offset="1" stop-color="${c}" stop-opacity="${on?.45:.25}"/></linearGradient></defs><path d="M30 3l23 13v28L30 57 7 44V16z" fill="url(#bg${id}${on?1:0})" stroke="${c}" stroke-width="2"/><g transform="translate(18 18)" fill="none" stroke="${on?'#140f1f':'#6b717b'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[a[4]]||ICON.star}</g></svg>`}
 function showAch(){if(!S||!S.achNew||!S.achNew.length||!modal.hidden||document.getElementById('wkov')||document.getElementById('lvov')||document.getElementById('acov'))return;const L=S.achNew.splice(0,3);save();
  const d=document.createElement('div');d.id='acov';d.className='lv-ov';d.innerHTML=`<div class="lv-box" style="border-color:${ACHT[ACH.find(x=>x[0]===L[0])[3]][1]}"><div class="lab gold" style="letter-spacing:.2em">${L.length>1?L.length+' הישגים חדשים':'הישג חדש'}</div>${L.map(id=>{const a=ACH.find(x=>x[0]===id);return `<div class="row" style="gap:12px;text-align:right;width:100%">${badge(id,true,64)}<div><b style="font-size:17px">${a[1]}</b><div class="mute" style="font-size:13px">${a[2]}</div><div style="font-size:12px;color:${ACHT[a[3]][1]};font-weight:800">${ACHT[a[3]][0]} · +${f1(a[3]*.6)} מוניטין · +${a[3]} ביטחון</div></div></div>`}).join('')}<button class="btn pri big" id="acok">מעולה</button></div>`;
  document.body.appendChild(d);const close=()=>{d.classList.add('out');setTimeout(()=>{d.remove();setTimeout(showAch,200)},220)};d.querySelector('#acok').onclick=close;d.onclick=e=>{if(e.target===d)close()}}
@@ -1944,26 +1965,26 @@ function achView(){S.ach=S.ach||{};const done=ACH.filter(a=>S.ach[a[0]]).length;
 /* ======== כרטיס סיכום עונה ======== */
 function recapCanvas(){const o=S.off,s=o.sum,p=S.p,t=S.team,W0=1080,H0=1350,cv=document.createElement('canvas');cv.width=W0;cv.height=H0;const x=cv.getContext('2d');x.direction='rtl';
  const F=(w,z)=>`${w} ${z}px Rubik, "Secular One", Arial, sans-serif`,txt=(t1,X,Y,f,c,al)=>{x.font=f;x.fillStyle=c;x.textAlign=al||'right';x.fillText(t1,X,Y)};
- const g=x.createLinearGradient(0,0,0,H0);g.addColorStop(0,'#1d1a3a');g.addColorStop(1,'#0c0b17');x.fillStyle=g;x.fillRect(0,0,W0,H0);
- const rg=x.createRadialGradient(W0,0,0,W0,0,900);rg.addColorStop(0,(t.c||'#ff6a4d')+'88');rg.addColorStop(1,'transparent');x.fillStyle=rg;x.fillRect(0,0,W0,H0);
+ const g=x.createLinearGradient(0,0,0,H0);g.addColorStop(0,'#1d1a3a');g.addColorStop(1,'#0f1114');x.fillStyle=g;x.fillRect(0,0,W0,H0);
+ const rg=x.createRadialGradient(W0,0,0,W0,0,900);rg.addColorStop(0,(t.c||'#d8d2c4')+'88');rg.addColorStop(1,'transparent');x.fillStyle=rg;x.fillRect(0,0,W0,H0);
  x.strokeStyle='rgba(255,255,255,.06)';x.lineWidth=3;x.beginPath();x.arc(W0*.85,H0*.12,330,0,7);x.stroke();
  const gs=S.season.games.filter(z=>!z.dnp&&z.k!=='pre'&&z.rt!=null),best=gs.slice().sort((a,b)=>b.rt-a.rt)[0],gw=S.season.games.filter(z=>z.gw).length,gr=gradeOf(s.rt||0);
  txt(`סיכום עונת ${S.year}/${String(S.year+1).slice(2)}`,W0-80,120,F(700,40),'#ffc95c');txt(p.name,W0-80,215,F(900,92),'#ffffff');
- txt(`${short(t.n)} · ${compName(S.season.lg)} · גיל ${p.age-1}`,W0-80,275,F(500,38),'#c9c6e6');
- x.fillStyle=t.c||'#ff6a4d';x.beginPath();x.arc(170,190,95,0,7);x.fill();txt(String(p.num),170,222,F(900,90),'#ffffff','center');
+ txt(`${short(t.n)} · ${compName(S.season.lg)} · גיל ${p.age-1}`,W0-80,275,F(500,38),'#c9cbd0');
+ x.fillStyle=t.c||'#d8d2c4';x.beginPath();x.arc(170,190,95,0,7);x.fill();txt(String(p.num),170,222,F(900,90),'#ffffff','center');
  // grade block
  x.fillStyle='rgba(255,255,255,.05)';x.strokeStyle='rgba(255,255,255,.1)';x.lineWidth=2;const card=(X,Y,w,h)=>{x.fillStyle='rgba(255,255,255,.05)';x.strokeStyle='rgba(255,255,255,.12)';x.lineWidth=2;x.beginPath();x.roundRect(X,Y,w,h,32);x.fill();x.stroke()};card(80,330,920,250);
  x.strokeStyle=gr[1];x.lineWidth=10;x.beginPath();x.arc(250,455,90,0,7);x.stroke();txt(gr[0],250,483,F(900,82),gr[1],'center');
- txt('ציון ממוצע',W0-130,400,F(600,34),'#9d9abb');txt(f1(s.rt||0),W0-130,500,F(900,110),'#ffffff');txt(`דירוג ${o.ovr1}${o.ovr1!==o.ovrA?` (${o.ovr1>o.ovrA?'+':''}${o.ovr1-o.ovrA})`:''}`,W0-130,555,F(700,36),'#ff8466');
- txt(o.diff>=.26?'עונת פריצה':o.diff>=0?'עמד ביעד':'מתחת לציפיות',560,470,F(800,40),o.diff>=0?'#45d39a':'#ff7a6a','center');txt(`מאזן \u2066${s.w}-${s.l}\u2069`,560,525,F(600,32),'#c9c6e6','center');
+ txt('ציון ממוצע',W0-130,400,F(600,34),'#9ba0a8');txt(f1(s.rt||0),W0-130,500,F(900,110),'#ffffff');txt(`דירוג ${o.ovr1}${o.ovr1!==o.ovrA?` (${o.ovr1>o.ovrA?'+':''}${o.ovr1-o.ovrA})`:''}`,W0-130,555,F(700,36),'#ece8df');
+ txt(o.diff>=.26?'עונת פריצה':o.diff>=0?'עמד ביעד':'מתחת לציפיות',560,470,F(800,40),o.diff>=0?'#45d39a':'#ff7a6a','center');txt(`מאזן \u2066${s.w}-${s.l}\u2069`,560,525,F(600,32),'#c9cbd0','center');
  // tiles
- const T=[['נקודות',f1(s.ppg)],['ריבאונדים',f1(s.rpg)],['אסיסטים',f1(s.apg)],['מצטיין',String(s.potg)]];T.forEach(([l,v],i)=>{const X=W0-80-215-i*235;card(X,610,215,190);txt(v,X+107,720,F(900,72),'#ffffff','center');txt(l,X+107,770,F(600,30),'#9d9abb','center')});
- let Y=860;const line=(l,v,c)=>{txt(l,W0-80,Y,F(600,32),'#9d9abb');txt(v,W0-330,Y,F(700,34),c||'#ffffff');Y+=58};
+ const T=[['נקודות',f1(s.ppg)],['ריבאונדים',f1(s.rpg)],['אסיסטים',f1(s.apg)],['מצטיין',String(s.potg)]];T.forEach(([l,v],i)=>{const X=W0-80-215-i*235;card(X,610,215,190);txt(v,X+107,720,F(900,72),'#ffffff','center');txt(l,X+107,770,F(600,30),'#9ba0a8','center')});
+ let Y=860;const line=(l,v,c)=>{txt(l,W0-80,Y,F(600,32),'#9ba0a8');txt(v,W0-330,Y,F(700,34),c||'#ffffff');Y+=58};
  if(best)line('המשחק הגדול',`${best.pts} נק׳, ${best.reb} ריב׳, ${best.ast} אס׳ מול ${short(best.opp)} · ${f1(best.rt)}`);
  if(gw)line('סלי ניצחון',String(gw),'#ffc95c');if(o.res&&o.res[0])line('הקבוצה',o.res[0].replace(/^[^:]*:\s*/,''));
  if(o.nat&&o.nat.T)line('נבחרת',`${o.nat.T.nm}: ${o.nat.T.medal?'מדליית '+o.nat.T.medal:'מקום '+o.nat.T.place}`,'#7fd8ff');
  const aw=(o.awards||[]).concat(o.nat&&o.nat.aw?o.nat.aw:[]).slice(0,4);if(aw.length){Y+=10;aw.forEach(a=>{x.font=F(700,30);const w=x.measureText('★ '+a).width+60;x.fillStyle='rgba(255,201,92,.14)';x.strokeStyle='rgba(255,201,92,.6)';x.lineWidth=2;x.beginPath();x.roundRect(W0-80-w,Y-40,w,58,29);x.fill();x.stroke();txt('★ '+a,W0-110,Y,F(700,30),'#ffc95c');Y+=72})}
- txt('פרקט',80,H0-70,F(900,56),'#ff8466','left');txt('קריירת כדורסל',80,H0-30,F(500,26),'#6c6990','left');return cv}
+ txt('פרקט',80,H0-70,F(900,56),'#ece8df','left');txt('קריירת כדורסל',80,H0-30,F(500,26),'#6b717b','left');return cv}
 function recapOpen(){let url='';try{url=recapCanvas().toDataURL('image/png')}catch(e){toast('לא הצלחתי ליצור תמונה');return}
  showModal(`<div class="stack"><h3 class="h2">כרטיס העונה</h3><img src="${url}" alt="כרטיס סיכום העונה" style="width:100%;border-radius:16px;border:1px solid var(--line2)"><div class="row"><button class="btn pri" style="flex:1" data-a="recapsave">שמור / שתף</button><button class="btn ghost" data-a="close">סגור</button></div><div id="rcmsg" class="mute" style="font-size:13px"></div></div>`)}
 async function recapSave(){const cv=recapCanvas(),fn=`parquet-${S.year}-${(S.p.name||'').replace(/\s+/g,'-')}.png`,blob=await new Promise(r=>cv.toBlob(r,'image/png')),msg=t=>{const e=document.getElementById('rcmsg');if(e)e.textContent=t};
@@ -2184,7 +2205,7 @@ function tryout(cv){const ctx=cv.getContext('2d'),W=cv.width,H=cv.height,sc=S.sh
   dots.forEach(d=>{ctx.globalAlpha=d.o;ctx.fillStyle=d.g?'#ffd28a':'#a99bc8';ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,7);ctx.fill()});ctx.globalAlpha=1;
   ctx.fillStyle='rgba(255,255,255,.05)';ctx.beginPath();ctx.moveTo(W*.3,0);ctx.lineTo(W*.42,0);ctx.lineTo(W*.6,H*.62);ctx.lineTo(W*.22,H*.62);ctx.fill();
   const fy=H*.4;ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(W*.3,fy);ctx.lineTo(W*.18,H);ctx.moveTo(W*.7,fy);ctx.lineTo(W*.82,H);ctx.stroke();
-  ctx.fillStyle=S.team?'rgba(0,0,0,0)':'rgba(255,106,77,.18)';ctx.beginPath();ctx.moveTo(W*.36,fy);ctx.lineTo(W*.64,fy);ctx.lineTo(W*.7,H*.66);ctx.lineTo(W*.3,H*.66);ctx.fill();ctx.stroke();
+  ctx.fillStyle=S.team?'rgba(0,0,0,0)':'rgba(216,210,196,.18)';ctx.beginPath();ctx.moveTo(W*.36,fy);ctx.lineTo(W*.64,fy);ctx.lineTo(W*.7,H*.66);ctx.lineTo(W*.3,H*.66);ctx.fill();ctx.stroke();
   ctx.beginPath();ctx.ellipse(W/2,H*.66,W*.2,40,0,0,Math.PI);ctx.stroke();ctx.beginPath();ctx.ellipse(W/2,fy+10,W*.46,H*.5,0,.15,Math.PI-.15);ctx.stroke();
   ctx.fillStyle='rgba(255,255,255,.1)';ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=4;ctx.fillRect(W/2-120,95,240,150);ctx.strokeRect(W/2-120,95,240,150);ctx.strokeRect(W/2-46,165,92,62);
   ctx.fillStyle='#bbb';ctx.fillRect(W/2-6,245,12,8)}
@@ -2349,7 +2370,7 @@ CARSEC.push(['legacy','מורשת','star','המקום שלך בהיסטוריה,
 {const _np=newPlayer;newPlayer=function(...a){const s=_np(...a);s.agent.t=1;angInit(s);psInit(s);s.jerseys=[];return s}}
 {const _m=migrateGS;migrateGS=function(s){_m(s);if(!s)return;if(s.agent&&s.agent.t==null)s.agent.t=1;angInit(s);if(s.p)psInit(s);s.jerseys=s.jerseys||[]}}
 {const _os=openSheet;openSheet=function(k,arg){if(k==='agentx'||k==='angel'){showModal(`${k==='agentx'?agSheet():angSheet()}<button class="btn ghost" data-a="close" style="width:100%;margin-top:16px">סגירה</button>`);SHEET=S.view==='off'?null:k;return}return _os(k,arg)}}
-{const _va=ventArt;ventArt=function(k){if(k!=='angel')return _va(k);return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="200" height="96" fill="#14213a"/><path d="M30 78L70 58L100 66L140 34L170 22" fill="none" stroke="#6fe3b4" stroke-width="4" stroke-linecap="round"/><path d="M160 18l12 2-4 11" fill="none" stroke="#6fe3b4" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="58" r="4" fill="#ffc95c"/><circle cx="140" cy="34" r="4" fill="#ffc95c"/><path d="M100 30c-6 0-10 8-10 18h20c0-10-4-18-10-18z" fill="#ff6a4d" opacity=".9"/></svg>`}}
+{const _va=ventArt;ventArt=function(k){if(k!=='angel')return _va(k);return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="200" height="96" fill="#14213a"/><path d="M30 78L70 58L100 66L140 34L170 22" fill="none" stroke="#6fe3b4" stroke-width="4" stroke-linecap="round"/><path d="M160 18l12 2-4 11" fill="none" stroke="#6fe3b4" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="58" r="4" fill="#ffc95c"/><circle cx="140" cy="34" r="4" fill="#ffc95c"/><path d="M100 30c-6 0-10 8-10 18h20c0-10-4-18-10-18z" fill="#d8d2c4" opacity=".9"/></svg>`}}
 {const _g=growth;growth=function(){return _g()*(.88+PS().pro*.012)}}
 {const _d=doDay;doDay=function(a,log){const e0=S.p.energy;let act=a||'auto';if(act==='auto')act=S.p.energy<40||S.p.injury>0?'rest':'train';_d(a,log);if(act==='train'&&!S.p.injury)psD('pro',.006);else if(act==='video'||act==='yoga')psD('pro',.012);else if(act==='out')psD('pro',-.3);else if(act==='inv:club'){psD('pro',-.25);psD('tem',-.1)}else if(act==='rest'&&e0>85)psD('pro',-.02)}}
 {const _i=intvAns;intvAns=function(i){const x=S.intv&&S.intv.a[+i];if(x){const e=x[2];if((e.mates||0)<0||(e.coach||0)<0)psD('tem',-.5);else if((e.coach||0)>=3)psD('tem',.25)}return _i(i)}}
@@ -2456,8 +2477,8 @@ upBuy=function(k){const X=xpS();if(X.pts<1)return;const g=upRoom(k);if(g<=0){toa
  toast(`${n} עלתה ל-${Math.floor(S.p.attr[k])} (\u2066+${Math.floor(S.p.attr[k])-v0}\u2069)${eff?' · '+eff:''}`)};
 // פס רמה מתחת לשנה
 function xpHero(){const X=xpS(),need=xpNeed(X.lv);return `<button class="xph" data-a="sheet" data-v="upg"><span class="xpb"><i style="width:${Math.round(X.xp/need*100)}%"></i></span><span class="xpn">${X.xp}/${need}</span>${X.pts?`<span class="xpp">${X.pts} לשדרוג</span>`:''}</button>`}
-heroCard=function(){const p=S.p,t=S.team,o=ovr();return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9c6e6',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="nm">${yearLabel()}</div>${xpHero()}<div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>`};
-header=function(){const p=S.p,t=S.team;return `<header class="hdr"><div class="avw">${avatar(t.c,p.num,48)}<span class="ovb">${ovr()}</span></div><div style="flex:1;min-width:0"><div class="nm">${esc(p.name)} <span class="pill coral" style="font-size:11px;padding:1px 7px;vertical-align:2px">${POS[p.pos].e}</span></div><div class="sub">${crest(t.n,t.c,16)}<span>${esc(short(t.n))} · ${yearLabel()}</span></div></div><span class="cash">${money(p.cash)}</span><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9c6e6',20)}</button></header>`};
+heroCard=function(){const p=S.p,t=S.team,o=ovr();return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9cbd0',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="nm">${yearLabel()}</div>${xpHero()}<div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>`};
+header=function(){const p=S.p,t=S.team;return `<header class="hdr"><div class="avw">${avatar(t.c,p.num,48)}<span class="ovb">${ovr()}</span></div><div style="flex:1;min-width:0"><div class="nm">${esc(p.name)} <span class="pill coral" style="font-size:11px;padding:1px 7px;vertical-align:2px">${POS[p.pos].e}</span></div><div class="sub">${crest(t.n,t.c,16)}<span>${esc(short(t.n))} · ${yearLabel()}</span></div></div><span class="cash">${money(p.cash)}</span><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9cbd0',20)}</button></header>`};
 xpLine=function(n,up){const X=xpS(),L=S.lastXP;return n?`<div style="font-size:13px"><div class="row between"><span><b class="gold">+${n} XP</b>${up?` · <b class="gold">נקודת שדרוג!</b>`:''}</span><span class="bar y" style="width:90px"><i style="width:${Math.round(X.xp/xpNeed(X.lv)*100)}%"></i></span></div>${L?`<div class="dim" style="font-size:11.5px;margin-top:3px">${L.P.map(x=>`${x[0]} ${x[1]>0?'+':''}${x[1]}`).join(' · ')}</div>`:''}</div>`:''};
 {const _xa=xpAdd;xpAdd=function(n){return _xa(n)}}
 // העוזר: פוסט שבועי מתפרסם לבד, והעוזר מדווח כמה עוקבים זה הביא
@@ -2488,7 +2509,7 @@ upBuy=function(k){const X=xpS();if(X.pts<1)return;const g=upRoom(k);if(g<=0){toa
  if(SHEET==='upg'&&!modal.hidden){AT.forEach(([kk,nn])=>{const e=document.getElementById('up-'+kk);if(e)e.outerHTML=upRow(kk,nn)});const e2=document.getElementById('up-'+k);if(e2)e2.classList.add('upflash');const pt=document.getElementById('up-pts');if(pt)pt.textContent=X.pts}
  toast(`${n} עלתה ל-${Math.floor(S.p.attr[k])} (⁦+${Math.floor(S.p.attr[k])-v0}⁩)${eff?' · '+eff:''}`)};
 // כרטיס עליון: שם ואישיות. השנה קטנה. הרמה בפס נפרד
-heroCard=function(){const p=S.p,t=S.team,o=ovr(),X=xpS(),need=xpNeed(X.lv);return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9c6e6',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="eb">${yearLabel()}</div><div class="nm">${esc(p.name)}</div><div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>
+heroCard=function(){const p=S.p,t=S.team,o=ovr(),X=xpS(),need=xpNeed(X.lv);return `<section class="hero">${heroArt(t.c,p.num)}<div class="shade"></div><div class="tools"><button class="iconbtn" data-a="sheet" data-v="settings" aria-label="הגדרות">${ico('gear','#c9cbd0',17)}</button><span class="cash">${money(p.cash)}</span></div><div class="txt"><div class="eb">${yearLabel()}</div><div class="nm">${esc(p.name)}</div><div class="meta"><span>#${p.num} · ${POS[p.pos].e} · ${sty().n}</span><span class="role">${roleLabel()}</span></div></div><div class="ovr"><b>${o}</b><span>OVR</span></div></section>
  <button class="lvstrip" data-a="toprof"><span class="xpb"><i style="width:${Math.round(X.xp/need*100)}%"></i></span><span class="xpn">עוד <b>${need-X.xp}</b> XP · מתוך ${need}</span>${X.pts?`<span class="xpp">${X.pts} לשדרוג</span>`:''}</button>`};
 // פוסטים: בליגה קטנה כמעט לא מביאים עוקבים
 let socF=()=>{const c=S.team?S.team.comp:'YTH';return c==='YTH'?.1:c==='NBA'?1.2:S.team.eu==='EL'?.9:LG[c]&&LG[c].t===1?(LG[c].cc==='ישראל'?.45:.65):.2};
@@ -2716,7 +2737,7 @@ function tgCard(){const sea=S.season;if(!sea||sea.done)return '';const G=teamGoa
  return `<section class="card" style="margin-top:12px;padding:11px 12px"><div class="row between"><div class="lab">יעדי הקבוצה העונה</div><span class="dim" style="font-size:12px">מקום ${rk} בליגה</span></div>${G.map(g=>{const s=goalState(g);return `<div class="row between" style="padding:6px 0;font-size:14px;border-bottom:1px solid var(--line)"><span>${esc(g.n)}</span><b class="${s===true?'good':s===false?'bad':'mute'}">${s===true?'✓ הושג':s===false?'✗ לא הושג':'בתהליך'}</b></div>`}).join('')}</section>`}
 // בסוף העונה: בדיקת היעדים, השפעה על המאמן ועל הצעת ההמשך של הקבוצה
 {const _go3=goOffseason;goOffseason=function(){const sea=S.season,G=sea?teamGoals():[],R0=G.map(g=>({n:g.n,ok:goalState(g,true)===true})),c0=S.contract?{...S.contract}:null,comp0=S.team&&S.team.comp;_go3();try{const o=S.off;if(!o)return;o.tg=R0;const m=R0.length?R0.filter(x=>x.ok).length/R0.length:.5;
-  const ci=o.offers.findIndex(x=>x.cur&&!x.optEx);if(ci>=0&&comp0!=='YTH'&&c0){const f=o.offers[ci],r=clamp(.04+(o.diff||0)*.35+(m-.5)*.3+((o.awards||[]).length?.08:0),-.15,.45);{f.sal=Math.max(LG[f.lg]?LG[f.lg].lo||0:0,Math.round(c0.sal*(1+r)/1000)*1000);f.renew=r}}
+  const ci=o.offers.findIndex(x=>x.cur&&!x.optEx);if(ci>=0&&comp0!=='YTH'&&c0){const f=o.offers[ci],r=clamp(.04+(o.diff||0)*.35+(m-.5)*.3+((o.awards||[]).length?.08:0),-.15,.45);{f.sal=Math.max(LG[f.lg]?LG[f.lg].lo||0:0,Math.round(c0.sal*(1+r)/1000)*1000);try{const tw=W().teams[f.n],mv=tw?marketSal(tw,ovr())*1.15:f.sal;f.sal=Math.round(Math.min(f.sal,Math.max(c0.sal*1.02,mv),salCap(f.lg))/1000)*1000}catch(e){}f.renew=Math.round((f.sal/c0.sal-1)*100)/100}}
   save();renderOff()}catch(e){console.error(e)}}}
 {const _cp2=clPills;clPills=function(f){let pre='';if(f.renew!=null){const r=f.renew,p=Math.round(Math.abs(r)*100);pre=`<div class="row wrap" style="gap:6px"><span class="pill ${r>=.03?'good':r<=-.03?'bad':''}">הצעת המשך: ${r>=.03?`העלאה של ${p}%`:r<=-.03?`קיצוץ של ${p}%`:'אותו שכר'}</span></div>`}return pre+_cp2(f)}}
 function tgOffCard(){const o=S.off;if(!o||!o.tg||!o.tg.length)return '';return `<section class="card" style="margin-top:12px"><div class="lab" style="margin-bottom:6px">יעדי הקבוצה</div>${o.tg.map(x=>`<div class="row between" style="padding:4px 0;font-size:14px"><span>${esc(x.n)}</span><b class="${x.ok?'good':'bad'}">${x.ok?'✓ הושג':'✗ לא הושג'}</b></div>`).join('')}</section>`}
@@ -2943,6 +2964,55 @@ function seasonRescue(){const sea=S&&S.season;if(!sea||sea.done||!S.team||curFx(
  sea.po=null;if(!sea.poStarted){sea.poStarted=true;sea.poQ=[sea.E?null:S.team.eu,S.team.comp].filter(Boolean)}let ok=false;try{ok=sea.poQ&&sea.poQ.length&&nextPoComp()}catch(e){}if(!ok||!curFx())sea.done=true;save();return true}
 {const _r2=render;render=function(...a){try{if(S&&S.view==='hub'&&seasonRescue()&&S.season.done&&!(S.queue&&S.queue.length)){goOffseason();return}}catch(e){}return _r2(...a)}}
 {const _rh=renderHub;renderHub=function(...a){try{if(S&&S.view==='hub'&&seasonRescue()&&S.season.done&&!(S.queue&&S.queue.length)){goOffseason();return}}catch(e){}return _rh(...a)}}
+
+/* ======== v88: איזון אחרי QA של 100 קריירות ======== */
+// תקרת שכר לפי ליגה: NBA עד $57.7M, אירופה וישראל עד פי 1.5 מהשכר הגבוה הרגיל בליגה
+function salCap(lg){if(lg==='NBA')return 57.7e6;const L=LG[lg];return L&&L.hi?L.hi*1.5:2e6}
+{const _mo=mkOffer;mkOffer=function(t,eff,cur){const o=_mo(t,eff,cur);if(o&&o.sal)o.sal=Math.round(Math.min(o.sal,salCap(o.lg))/1000)*1000;if(o&&o.bonus)o.bonus=Math.min(o.bonus,Math.round(o.sal*.1));return o}}
+// הוצאות מחיה לפי השכר: שחקן צעיר בליגה הלאומית לא נכנס למינוס בגלל שכר דירה של שחקן ליגת העל
+{const _ae=annualExp;annualExp=function(){const e=_ae();try{const sal=(S.contract&&S.contract.sal)||0,net=sal*(1-taxOf()),young=S.p.age<=19,cap=Math.max(S.team.comp==='YTH'?3000:6000,net*.42);let lr=e.liv+(young&&S.team.comp!=='NBA'?0:e.rent);if(lr>cap){const f=cap/lr;e.liv=Math.round(e.liv*f);e.rent=Math.round((young?0:e.rent)*f)}else if(young)e.rent=0;e.total=e.liv+e.rent+e.staff+e.maint+e.cars}catch(x){}return e}}
+// NBA: עונה גדולה בליגה בכירה, לא רק לפי נקודות. רכז שמחלק 10 אסיסטים נחשב
+nbaOK=function(){if(S.history.some(h=>h.comp==='NBA'))return true;return S.history.some(h=>h.comp!=='YTH'&&h.gp>=15&&LG[h.comp]&&LG[h.comp].t===1&&(((h.mvpRk&&h.mvpRk<=3)||(h.elRk&&h.elRk<=5))&&(h.ppg>=13||h.ppg+(h.apg||0)>=19||h.ppg+(h.rpg||0)*.8>=19||h.rt>=8.4)||(h.mvpRk==null&&h.rt>=8.3&&h.ppg>=15)))};
+/* ======== v89: נראות אמיתית — חדר הלבשה, צבעי קבוצה, בלי כתום ======== */
+// הכרטיס העליון: התא שלך בחדר ההלבשה. גופייה בצבעי הקבוצה תלויה על קולב, עץ כהה ותאורה מלמעלה
+heroArt=function(c,num){const light=lum(c)>.62,tx=light?'#14161a':'#f4f2ec',trim=light?'#1b1e24':'#f4f2ec',dk=shade(c,-.42),lt=shade(c,.16),n=String(num??0),fs=n.length>1?44:52,g='hj'+(++ARTU);
+ let slats='';for(let i=0;i<9;i++){const x=i*46-6,t=(i*37)%7;slats+=`<rect x="${x}" y="0" width="44" height="170" fill="url(#${g}w)" opacity="${(.82+t*.025).toFixed(2)}"/><rect x="${x+44}" y="0" width="2" height="170" fill="#050506" opacity=".65"/>`}
+ return `<svg class="bg" viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>
+ <linearGradient id="${g}w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1d15"/><stop offset=".5" stop-color="#3a281c"/><stop offset="1" stop-color="#24180f"/></linearGradient>
+ <radialGradient id="${g}l" cx=".42" cy="-.05" r=".75"><stop offset="0" stop-color="#fff3dc" stop-opacity=".42"/><stop offset=".45" stop-color="#ffe2b0" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+ <linearGradient id="${g}v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></linearGradient>
+ <linearGradient id="${g}j" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${dk}"/><stop offset=".22" stop-color="${c}"/><stop offset=".5" stop-color="${lt}"/><stop offset=".78" stop-color="${c}"/><stop offset="1" stop-color="${dk}"/></linearGradient>
+ <linearGradient id="${g}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>
+ <pattern id="${g}m" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".55" fill="#000" fill-opacity=".22"/></pattern>
+ <clipPath id="${g}c"><path d="M128 40 C136 38 141 34 143 28 C150 33 160 35 168 35 C176 35 186 33 193 28 C195 34 200 38 208 40 C206 52 204 62 206 72 L210 160 L126 160 L130 72 C132 62 130 52 128 40 Z"/></clipPath>
+ <filter id="${g}s" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+ <rect width="400" height="170" fill="#140e0a"/>${slats}
+ <rect x="0" y="0" width="400" height="14" fill="#0b0807"/><rect x="0" y="13" width="400" height="2" fill="#5a4330" opacity=".7"/>
+ <rect width="400" height="170" fill="url(#${g}l)"/>
+ <g transform="translate(-26 8) scale(.95)"><path d="M160 16 q8 -2 8 6 q0 5 -5 8" fill="none" stroke="#b9b2a6" stroke-width="2.2" stroke-linecap="round"/>
+ <path d="M168 30 L124 44 q-4 2 0 3 L212 47 q4 -1 0 -3 Z" fill="#6b4a2c" stroke="#3a2715" stroke-width="1"/>
+ <g transform="translate(4 6)" opacity=".55" filter="url(#${g}s)"><path d="M128 40 C136 38 141 34 143 28 C150 33 160 35 168 35 C176 35 186 33 193 28 C195 34 200 38 208 40 C206 52 204 62 206 72 L210 160 L126 160 L130 72 C132 62 130 52 128 40 Z" fill="#000"/></g>
+ <g clip-path="url(#${g}c)"><rect x="120" y="20" width="96" height="150" fill="url(#${g}j)"/><rect x="120" y="20" width="96" height="150" fill="url(#${g}m)"/>
+  <path d="M150 60 C152 90 150 120 146 160 M188 62 C186 95 189 125 192 160" stroke="#000" stroke-opacity=".14" stroke-width="5" fill="none"/>
+  <rect x="120" y="20" width="96" height="150" fill="url(#${g}h)"/>
+  <text x="168" y="${n.length>1?108:112}" text-anchor="middle" font-family="Oswald,'Arial Narrow',Impact,sans-serif" font-weight="700" font-size="${fs}" fill="${tx}" stroke="${shade(c,-.55)}" stroke-width="1.6" paint-order="stroke" letter-spacing="-1">${esc(n)}</text></g>
+ <path d="M143 28 C150 33 160 35 168 35 C176 35 186 33 193 28" fill="none" stroke="${trim}" stroke-width="3.2"/>
+ <path d="M128 40 C136 38 141 34 143 28 M208 40 C200 38 195 34 193 28" fill="none" stroke="${trim}" stroke-width="3"/>
+ <path d="M128 40 C130 52 132 62 130 72 M208 40 C206 52 204 62 206 72" fill="none" stroke="${trim}" stroke-width="2.6" opacity=".9"/></g>
+ <rect width="400" height="170" fill="url(#${g}v)"/></svg>`};
+// אווטאר: טבעת דקה בצבע הקבוצה במקום הכתום
+{const _av=avatar;avatar=function(c,num,sz){return _av(c,num,sz).replace('stroke="#ff6a4d" stroke-width="2.5"',`stroke="${c}" stroke-width="2"`)}}
+// מגרש: פרקט עם קורות בגוונים שונים ותפרים
+{const _cs=courtSVG;courtSVG=function(mc,oc){let h=_cs(mc,oc);let pl='';for(let i=0;i<4;i++){const x=i*24,tone=['#cf9a62','#c48f58','#d6a46c','#c99560'][i];pl+=`<rect x="${x}" y="0" width="24" height="500" fill="${tone}"/><line x1="${x}" y1="0" x2="${x}" y2="500" stroke="#6e4220" stroke-opacity=".35" stroke-width="1.2"/><line x1="${x}" y1="${(i*137)%500}" x2="${x+24}" y2="${(i*137)%500}" stroke="#6e4220" stroke-opacity=".4" stroke-width="1"/><line x1="${x}" y1="${(i*137+250)%500}" x2="${x+24}" y2="${(i*137+250)%500}" stroke="#6e4220" stroke-opacity=".3" stroke-width="1"/>`}
+ h=h.replace(/<pattern id="pl"[\s\S]*?<\/pattern>/,`<pattern id="pl" width="96" height="500" patternUnits="userSpaceOnUse">${pl}</pattern><linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".14"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>`).replace('<rect width="940" height="500" fill="url(#sp)"/>','<rect width="940" height="500" fill="url(#gl)"/><rect width="940" height="500" fill="url(#sp)"/>').replace('fill-opacity=".42"','fill-opacity=".55"');return h}}
+
+// צבע הקבוצה כמשתנה CSS, בגרסה קריאה על רקע כהה
+function tcSet(){try{const c=S&&S.team&&S.team.c;if(!c)return;let v=c;const L=lum(c);if(L<.22)v=shade(c,.45);else if(L<.32)v=shade(c,.25);document.documentElement.style.setProperty('--tc',v);document.documentElement.style.setProperty('--tc0',c)}catch(e){}}
+{const _rr=render;render=function(...a){tcSet();return _rr(...a)}}
+{const _rh2=renderHub;renderHub=function(...a){tcSet();return _rh2(...a)}}
+
+// כרטיסי המיזמים בעמוד הכסף: אותם איורים של החנות
+{const _va2=ventArt;ventArt=function(k){const art={gear:()=>shoeSVG('k5'),store:()=>carSVG('car3'),realestate:()=>propSVG('h3')}[k];if(!art)return _va2(k);const g='va'+(++ARTU);return `<svg viewBox="0 0 200 96" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="${g}" cx=".5" cy=".2" r=".9"><stop offset="0" stop-color="#3a3f4a"/><stop offset="1" stop-color="#14171c"/></radialGradient></defs><rect width="200" height="96" fill="url(#${g})"/>${art().replace('<svg ','<svg x="50" y="12" width="100" height="74" ').replace(' width="100%"','')}</svg>`}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
