@@ -245,6 +245,12 @@ tr.rel td{color:var(--bad)}
 /* modal */
 #modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,4,12,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #modal[hidden]{display:none!important}
+.cdoc{position:relative;background:#f4efe4;color:#1d1a16;border-radius:10px;padding:18px 16px 16px;box-shadow:0 10px 40px rgba(0,0,0,.5);font-family:Georgia,'Frank Ruhl Libre',serif;overflow:hidden}.cdoc::before{content:'';position:absolute;inset:8px;border:1px solid rgba(29,26,22,.25);border-radius:6px;pointer-events:none}
+.cd-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #1d1a16;padding-bottom:10px}.cd-club{font-weight:800;font-size:18px}.cd-sub{font-size:12px;color:#6b6255}.cd-title{text-align:center;font-weight:800;letter-spacing:.12em;font-size:14px;margin:12px 0 8px}.cd-p{font-size:13px;line-height:1.6;margin:0 0 10px}
+.cd-terms{border-top:1px solid rgba(29,26,22,.3)}.cd-row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dotted rgba(29,26,22,.35);font-size:13.5px}.cd-row span{color:#6b6255}.cd-row b{text-align:left}
+.cd-sigs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.cd-sig{width:100%;height:50px}.cd-sig text{font-family:'Brush Script MT','Segoe Script','Snell Roundhand',cursive;font-size:30px;fill:transparent;stroke:#1f3c88;stroke-width:1;stroke-dasharray:900;stroke-dashoffset:900}.cd-sig.done text{stroke-dashoffset:0;fill:#1f3c88;stroke:none}.cd-sig text.draw{animation:sigdraw 1.4s ease forwards}@keyframes sigdraw{70%{stroke-dashoffset:0;fill:transparent}100%{stroke-dashoffset:0;fill:#1f3c88}}
+.cd-line{border-top:1px solid #1d1a16;font-size:11px;color:#6b6255;text-align:center;padding-top:4px}
+.cd-stamp{position:absolute;left:18px;bottom:64px;border:3px solid #b3261e;color:#b3261e;font-weight:900;font-size:22px;letter-spacing:.2em;padding:4px 12px;border-radius:8px;transform:rotate(-14deg) scale(2.2);opacity:0;transition:all .35s cubic-bezier(.2,1.4,.4,1)}.cd-stamp.on{opacity:.85;transform:rotate(-14deg) scale(1)}
 .dv-bar.lvup{animation:lvup .5s ease}@keyframes lvup{0%{box-shadow:0 0 0 0 rgba(94,179,216,.9)}100%{box-shadow:0 0 0 10px rgba(94,179,216,0)}}
 .dv-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.dv-tags span{font-size:12px;font-weight:700;color:var(--cyan);border:1px solid rgba(94,179,216,.4);border-radius:8px;padding:2px 8px}
 .mr.win{border-color:rgba(60,207,142,.55);box-shadow:0 0 0 1px rgba(60,207,142,.25),0 10px 40px -12px rgba(60,207,142,.45);background:radial-gradient(120% 60% at 50% 0%,rgba(60,207,142,.16),transparent 70%),#0f0d0c}.mr.loss{border-color:rgba(255,84,112,.3)}
@@ -1359,9 +1365,9 @@ function makeOffers(under,eff){const cur=S.team,curN=short(cur.n),age=S.p.age,cu
   let pr=.14+(eff-need)*.05;if(t.lg==='NBA'){pr=.08+(eff-need)*.06;if(age>31)pr*=.3}else if(LG[t.lg].cc!=='ישראל')pr*=clamp(.3+S.p.fame/80+(eff-need)*.02,.2,1);if(S.lastPN&&S.lastPN.eq>7.12)pr*=1+(S.lastPN.eq-7.12)/.72;
   {const m=contactAt(t.n);if(m&&m.rel>=60)pr=Math.min(1,pr+.35+(m.rel-60)/100)}if(!isCur){const AG=agT();pr*=(t.lg==='NBA'||LG[t.lg].cc!=='ישראל')?AG.reach:Math.min(1.15,AG.reach);if(under&&t.lg==='NBA'&&!S.contract.nba)pr*=.55}if(isCur&&!under)pr=1;if(R()<pr){const of=mkOffer(t,eff,isCur);const m=contactAt(t.n);if(m&&m.rel>=60){of.pr={...of.pr,role:Math.max(0,of.pr.role-1)};of.coachC=m.n}acc.push(of)}}
  {const cap=abroadCap();let ab=shuffle(acc.filter(o=>!o.cur&&o.lg!=='NBA'&&LG[o.lg].cc!=='ישראל'));const drop=new Set(ab.slice(cap));for(let i=acc.length-1;i>=0;i--)if(drop.has(acc[i]))acc.splice(i,1)}
- {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}acc.sort((a,b)=>prestige(b)-prestige(a));let res=acc.slice(0,[3,4,5][S.agent.t??1]).concat(shuffle(acc.slice([3,4,5][S.agent.t??1])).slice(0,[2,3,3][S.agent.t??1]));const ci=acc.find(o=>o.cur);if(ci&&!res.includes(ci))res.push(ci);
+ {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}let res=agentPick(acc,3);
  if(!under&&!res.length&&!(age>=35&&ovr()<52)){shuffle(W().lg.ISR2).slice(0,2).forEach(n=>res.push(mkOffer(W().teams[n],eff,false)))}
- if(!under&&res.length<4&&!(age>=35&&ovr()<52)){const have=new Set(res.map(o=>o.n)),pool=shuffle(['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(n=>!have.has(n)&&n!==curN&&W().teams[n].s<=eff+2));for(const n of pool){if(res.length>=4)break;res.push(mkOffer(W().teams[n],eff,false))}}
+ if(!under&&res.length<3&&!(age>=35&&ovr()<52)){const have=new Set(res.map(o=>o.n)),pool=shuffle(['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(n=>!have.has(n)&&n!==curN&&W().teams[n].s<=eff+2));for(const n of pool){if(res.length>=3)break;res.push(mkOffer(W().teams[n],eff,false))}}
  {const dr=res.filter(o=>o.draft);if(dr.length>1){const keep=pick(dr);res=res.filter(o=>!o.draft||o===keep)}}// בדראפט רק קבוצה אחת בוחרת אותך
  return res.sort((a,b)=>b.sal-a.sal)}
 function simPick(list,top){const w=list.map(n=>Math.exp((top?1:-1)*W().teams[n].s/3)*rnd(.6,1.4)),t=w.reduce((a,b)=>a+b,0);let r=R()*t;for(let i=0;i<list.length;i++){r-=w[i];if(r<=0)return list[i]}return list[0]}
@@ -1616,7 +1622,6 @@ function tips(){const sea=S.season;if(!sea||sea.done||!S.team)return [];const p=
  const out=[],add=(id,ic,t,s,btn,run)=>{if(!S.tipNo.x.includes(id))out.push({id,ic,t,s,btn,run})},free=upcomingDays().filter(d=>!S.plan.d[d]),dn=d=>dfmt(d,{weekday:'long'}),yth=S.team.comp==='YTH';
  const setDay=(a,txt)=>()=>{const d=free[0];if(d==null)return;S.plan.d[d]=a;toast(txt+' · '+dn(d))};
  const last=(sea.games||[]).filter(g=>!g.dnp&&g.k!=='pre').slice(-1)[0];
- if(xpS().pts>0)add('rec','dumb',`יש לך ${xpS().pts} ${xpS().pts>1?'נקודות':'נקודת'} שדרוג`,'בחר מה לשדרג','לשדרוג',()=>openSheet('upg'));
  const iv=(S.invites||[]).find(v=>!Object.values(S.plan.d).includes('inv:'+v.k));if(iv&&free.length>=2&&p.energy>=45){const d2=INVT.find(x=>x.k===iv.k);add('inv','star',`הזמנה: ${d2.n}`,`${iv.pay?money(iv.pay)+' · ':''}+מוניטין · ב${dn(free[0])}`,'קבל',setDay('inv:'+iv.k,'ההזמנה שובצה'))}
  if(S.team.coach&&S.team.coach.rel<45&&free.length)add('talk','mic','היחסים עם המאמן חלשים',`שיחה איתו ב${dn(free[0])} משפרת יחסים ודקות`,'קבע שיחה',setDay('talk','נקבעה שיחה עם המאמן'));
  const mi=(S.team.mates||[]).findIndex(m=>m.rel<35),gc=yth?50:500;if(mi>=0&&p.cash>=gc*4){const m=S.team.mates[mi];add('gift','heart',`כימיה נמוכה עם ${m.n}`,`מתנה ב-${money(gc)} משפרת את היחסים`,'שלח מתנה',()=>{p.cash-=gc;m.rel=clamp(m.rel+6,0,100);toast(`${m.n} שמח מהמתנה`)})}
@@ -2186,7 +2191,7 @@ const AGT=[{n:'חבר מהשכונה',fee:.02,reach:.75,sal:.95,pat:0,miss:.22,d
  {n:'סוכנות ישראלית',fee:.05,reach:1,sal:1,pat:0,miss:0,d:'לוקח 5%. קשרים טובים בישראל ובאירופה.'},
  {n:'סוכן-על בינלאומי',fee:.1,reach:1.4,sal:1.1,pat:1,miss:0,d:'לוקח 10%. פותח דלתות בחו״ל וב-NBA, מוציא חוזים גבוהים יותר ונותן עוד סיבוב במשא ומתן.',need:()=>S.p.fame>=30||ovr()>=74,needT:'מייצג רק שחקנים עם 30+ מוניטין או OVR 74+'}];
 const agT=()=>AGT[S.agent.t??1];
-const agFee=()=>S.team&&S.team.comp==='YTH'?0:agT().fee;
+const agFee=()=>S.team&&S.team.comp==='YTH'?0:(S.agent.fee??agT().fee);
 function agSheet(){const cur=S.agent.t??1,lock=S.agent.chg===S.year;
  return `<h3 class="h2">הסוכן</h3><p class="mute" style="margin:6px 0 12px;font-size:13.5px">הסוכן קובע כמה הצעות מגיעות, מאיפה, וכמה כסף יוציאו לך. בנוער הוא לא לוקח כלום. אפשר להחליף סוכן פעם בעונה.</p><div class="stack" style="gap:8px">${AGT.map((a,i)=>{const ok=!a.need||a.need(),me=i===cur;return `<div class="card" style="padding:12px;${me?'border-color:var(--coral)':''}"><div class="row between"><b>${a.n}</b>${me?`<span class="pill coral">${esc(S.agent.n)}</span>`:''}</div><div class="mute" style="font-size:13px;margin:6px 0 8px">${a.d}</div><div class="row wrap" style="gap:6px;font-size:12px"><span class="pill">הצעות מחו״ל ×${a.reach}</span><span class="pill">שכר ${a.sal>1?'+':''}${Math.round((a.sal-1)*100)}%</span>${a.miss?'<span class="pill bad">מפספס הצעות</span>':''}</div>${me?'':`<button class="btn ${ok&&!lock?'pri':'ghost'} sm" style="margin-top:10px;width:100%" data-a="agset" data-v="${i}" ${ok&&!lock?'':'disabled'}>${!ok?a.needT:lock?'כבר החלפת סוכן העונה':'להחתים'}</button>`}</div>`}).join('')}</div>`}
 function agSet(i){const a=AGT[i];if(!a||(a.need&&!a.need())||S.agent.chg===S.year)return;S.agent={n:genName('il'),rel:50,t:i,chg:S.year};news(`חתמת עם סוכן חדש: ${S.agent.n} (${a.n}).`,1);save();closeModal();if(S.view==='off')renderOff();else reopen();toast('סוכן חדש')}
@@ -2543,6 +2548,49 @@ function folCap(){return [3e3,1e4,6e4,2.5e5,6e5,3e7][bestTier()]}
 function fameTierF(){return [.5,.6,1,1,1,1.1][tierNow()]}
 {const _ss3=startSeason;startSeason=function(...a){const r=_ss3(...a);try{S.bestTier=bestTier()}catch(e){}return r}}
 {const _m4=migrateGS;migrateGS=function(s){_m4(s);try{if(s&&s.p&&s.team){const S0=S;S=s;S.p.fame=Math.min(S.p.fame,fameCap());S=S0}}catch(e){}}}
+/* ======== הסוכן בוחר 3 הצעות ======== */
+// תמיד 3 הצעות. סוכן טוב יותר מביא קבוצות טובות יותר (יוקרה, סיכוי לאליפות), קבוצות מהקשרים שלו, שכר ומענק גבוהים יותר וחשיפה
+function agentPick(acc,n){const t=S.agent.t??1,W0=[{w:.25,z:70},{w:.7,z:30},{w:1,z:12}][t],net=S.agent.net||[];const cur=acc.find(o=>o.cur),rest=acc.filter(o=>!o.cur);
+ rest.forEach(o=>{o.via=net.includes(o.n)||(net.includes('NBA')&&o.lg==='NBA');o._sc=prestige(o)*W0.w+((o.pr&&o.pr.title)||0)*60*W0.w+(o.via?30:0)+R()*W0.z;if(o.via&&!o.draft)o.sal=Math.round(o.sal*1.08/1000)*1000;if(o.bonus)o.bonus=Math.round(o.bonus*[.5,1,1.6][t])});
+ rest.sort((a,b)=>b._sc-a._sc);const out=cur?[cur]:[];for(const o of rest){if(out.length>=n)break;out.push(o)}return out}
+const agFeeOf=()=>S.agent.fee??agT().fee;
+/* ======== בחירת סוכן ======== */
+const AGV=['שחקן ליגה לאומית','שחקן ליגת העל','שחקן בליגה בכירה באירופה','שחקן יורוליג','שחקן NBA'];
+function agEst(){const e=S.p.pot*.65+ovr()*.35;return e<66?0:e<73?1:e<79?2:e<85?3:4}
+function genAgents(){const est=agEst(),cityClub=(Object.values(W().teams).find(t=>t.city===S.p.city&&t.lg&&LG[t.lg]&&LG[t.lg].cc==='ישראל')||{}).n,isr1=W().lg.ISR1.slice(),isr2=W().lg.ISR2.slice(),big=isr1.filter(n=>W().teams[n].eu),eu=Object.values(W().teams).filter(t=>t.lg&&t.lg!=='NBA'&&LG[t.lg].cc!=='ישראל'&&LG[t.lg].t===1).map(t=>t.n),el=Object.values(W().teams).filter(t=>t.eu==='EL'&&LG[t.lg]&&LG[t.lg].cc!=='ישראל').map(t=>t.n);
+ const L=[{n:genName('il'),t:0,fee:pick([.02,.025,.03]),net:[cityClub,...shuffle(isr2).slice(0,1),...shuffle(isr1.filter(n=>!W().teams[n].eu)).slice(0,1)].filter(Boolean),view:Math.min(4,est+1),q:'אני מכיר אותך מגיל עשר. אצלי אתה לא עוד מספר ברשימה.'},
+  {n:genName('il'),t:1,fee:pick([.04,.05,.06]),net:[...shuffle(big).slice(0,1),...shuffle(isr1.filter(n=>!W().teams[n].eu)).slice(0,2),...shuffle(eu).slice(0,1)],view:est,q:'יש לנו שחקנים בכל קבוצה בליגת העל. נבנה לך קריירה צעד אחרי צעד.'}];
+ if(S.p.pot>=84||S.p.fame>=30||ovr()>=72)L.push({n:genName('eu'),t:2,fee:pick([.08,.09,.1]),net:[...shuffle(big).slice(0,1),...shuffle(el).slice(0,2),'NBA'],view:Math.max(est,3),q:'אני לא חותם עם כל אחד. אצלך אני רואה משהו שאחרים עוד לא רואים.'});
+ else L.push({n:genName('il'),t:1,fee:pick([.045,.055]),net:[...shuffle(isr1).slice(0,3),...shuffle(eu).slice(0,1)],view:Math.max(0,est-1),q:'בוא נהיה מציאותיים. קודם מבססים אותך בארץ, אחר כך חושבים על חו״ל.'});
+ return L}
+function agPickSheet(){const y=S.year;if(!S.agC||S.agC.y!==y)S.agC={y,L:genAgents()};const L=S.agC.L,lock=S.agent.picked&&S.agent.chg===y,TN=['סוכן עצמאי','סוכנות ישראלית','סוכן בינלאומי'];
+ return `<h3 class="h2">בחירת סוכן</h3><p class="mute" style="margin:6px 0 12px;font-size:13.5px">הסוכן מביא 3 הצעות בכל קיץ. סוכן טוב יותר מביא קבוצות טובות יותר, שכר ומענק גבוהים יותר וחשיפה, ולוקח עמלה גבוהה יותר.</p>
+ ${S.agent.picked?`<div class="card" style="padding:12px;border-color:var(--coral);margin-bottom:10px"><div class="row between"><b>${esc(S.agent.n)}</b><span class="pill coral">הסוכן שלך</span></div><div class="mute" style="font-size:12.5px;margin-top:4px">${TN[S.agent.t??1]} · עמלה ${Math.round(agFeeOf()*1000)/10}%</div></div>`:''}
+ <div class="stack" style="gap:10px">${L.map((a,i)=>`<div class="card agc" style="padding:12px"><div class="row between"><b style="font-size:16px">${esc(a.n)}</b><span class="pill">${TN[a.t]}</span></div>
+  <div class="row between" style="margin-top:8px;font-size:13px"><span class="mute">עמלה</span><b>${Math.round(a.fee*1000)/10}%</b></div>
+  <div class="row between" style="margin-top:4px;font-size:13px;gap:10px"><span class="mute">מכיר את</span><span style="text-align:left">${a.net.map(n=>n==='NBA'?'NBA':esc(short(n))).join(' · ')}</span></div>
+  <div class="row between" style="margin-top:4px;font-size:13px"><span class="mute">רואה בך</span><b class="cyan">${AGV[a.view]}</b></div>
+  <div style="font-size:13px;margin-top:8px">״${esc(a.q)}״</div>
+  <button class="btn ${lock?'ghost':'pri'} sm" style="margin-top:10px;width:100%" data-a="aghire" data-v="${i}" ${lock?'disabled':''}>${lock?'כבר החלפת סוכן העונה':'לחתום עם '+esc(a.n.split(' ')[0])}</button></div>`).join('')}</div>`}
+function agHire(i){const a=S.agC&&S.agC.L[+i];if(!a)return;S.agent={n:a.n,t:a.t,fee:a.fee,net:a.net,view:a.view,rel:55,chg:S.year,picked:true};news(`חתמת עם הסוכן ${a.n} (עמלה ${Math.round(a.fee*1000)/10}%).`,1);
+ const o=S.off;if(S.view==='off'&&o&&!o.forced&&!S.pre&&!o.offers.some(x=>x.done&&!x.cur)){o.offers=makeOffers(o.under,o.eff)}save();closeModal();if(S.view==='off')renderOff();else reopen();toast(`הסוכן החדש: ${a.n}`)}
+{const _os4=openSheet;openSheet=function(k,arg){if(k==='agentx'){showModal(`${agPickSheet()}${S.agent.picked?'<button class="btn ghost" data-a="close" style="width:100%;margin-top:16px">סגירה</button>':''}`,!S.agent.picked);SHEET=S.view==='off'?null:k;return}return _os4(k,arg)}}
+{const _ro2=renderOff;renderOff=function(){_ro2();try{if(!S.agent.picked&&!S.off.forced&&S.p.age>=17&&modal.hidden)setTimeout(()=>{if(modal.hidden&&S.view==='off')openSheet('agentx')},500)}catch(e){}}}
+{const _cp=clPills;clPills=function(f){const b=_cp(f);return (f.via?`<div class="row wrap" style="gap:6px"><span class="pill cyan">דרך הקשרים של ${esc(S.agent.n.split(' ')[0])}</span></div>`:'')+b}}
+{const _s3=sign;sign=function(i){const o=S.off&&S.off.offers[i];const r=_s3(i);try{if(o&&(S.agent.t??1)===2)fameD(1.5)}catch(e){}return r}}
+
+/* ======== חתימה על חוזה: מסמך אמיתי ======== */
+function contractOpen(i){const o=S.off&&S.off.offers[i];if(!o)return;const b=buyout(o);if(b&&b.me&&S.p.cash<b.me){toast(`צריך ${money(b.me)} מזומן לדמי השחרור`);return}
+ const L=LG[o.lg]||{},end=S.year+1+o.yrs,cl=['promise','exit','nba','mg','opt','tb'].filter(k=>o[k]).map(k=>CLN[k]),fee=Math.round(agFeeOf()*1000)/10,rep=genName(o.lg==='NBA'?'eu':(L.cc==='ישראל'?'il':'eu'));
+ const row=(k,v)=>`<div class="cd-row"><span>${k}</span><b>${v}</b></div>`;
+ showModal(`<div class="cdoc" id="cdoc"><div class="cd-head">${crest(o.n,o.c,46)}<div><div class="cd-club">${esc(o.n)}</div><div class="cd-sub">${esc(L.n||o.lg)} · ${dfmt(S.date,{day:'numeric',month:'long',year:'numeric'})}</div></div></div>
+ <div class="cd-title">חוזה העסקה · שחקן מקצועי</div><p class="cd-p">בין <b>${esc(o.n)}</b> (״המועדון״) לבין <b>${esc(S.p.name)}</b>, ${POS[S.p.pos].n}, מספר ${S.p.num} (״השחקן״). הצדדים מסכימים על התנאים הבאים:</p>
+ <div class="cd-terms">${row('שכר שנתי',money(o.sal))}${row('משך החוזה',`${o.yrs} ${o.yrs>1?'עונות':'עונה'} · עד קיץ ${end}`)}${o.bonus?row('מענק חתימה',money(o.bonus)):''}${row('תפקיד צפוי',ROLES[o.pr.role].n)}${o.draft?row('דראפט',`בחירה מספר ${o.draft}`):''}${cl.length?row('סעיפים',cl.join(' · ')):''}${b&&b.bo?row('דמי שחרור',`${money(b.bo)}${b.me?` (השחקן משלם ${money(b.me)})`:''}`):''}${row('סוכן',`${esc(S.agent.n)} · ${fee}%`)}</div>
+ <div class="cd-sigs"><div><svg viewBox="0 0 220 60" class="cd-sig"><text x="110" y="42" text-anchor="middle" id="sigme">${esc(S.p.name)}</text></svg><div class="cd-line">חתימת השחקן</div></div><div><svg viewBox="0 0 220 60" class="cd-sig done"><text x="110" y="42" text-anchor="middle">${esc(rep)}</text></svg><div class="cd-line">בשם המועדון</div></div></div>
+ <div class="cd-stamp" id="cdstamp">נחתם</div></div>
+ <div class="row" style="margin-top:12px"><button class="btn pri big" style="flex:2" data-a="csign" data-v="${i}" id="cdbtn">✍ חתימה</button><button class="btn ghost" style="flex:1" data-a="close">חזרה</button></div>`,true)}
+function contractSign(i){const t=document.getElementById('sigme'),st=document.getElementById('cdstamp'),bt=document.getElementById('cdbtn');if(!t){sign(i);return}if(bt){bt.disabled=true;bt.textContent='חותם...'}t.classList.add('draw');setTimeout(()=>{if(st)st.classList.add('on')},1500);setTimeout(()=>{closeModal();sign(i)},2600)}
+Object.assign(A,{aghire:v=>agHire(v),sign:v=>contractOpen(+v),csign:v=>contractSign(+v)});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
