@@ -2521,7 +2521,7 @@ const XPG={'A+':40,'A':30,'A-':25,'B+':20,'B':15,'B-':12,'C+':10,'C':8,'C-':6,'D
 xpMults=function(won,fx){const M=[];if(won)M.push(['ניצחון',1.5]);if(!fx)return M;
  if(fx.opp&&fx.k!=='nat'&&S.team&&S.team.comp!=='YTH'||fx.opp&&S.team&&S.team.comp==='YTH'){const d=tS(fx.opp)-S.team.s;if(d>=9)M.push(['יריבה חזקה בהרבה',1.5]);else if(d>=4)M.push(['יריבה חזקה',1.25])}
  if(fx.k==='po')M.push(fx.po==='גמר'?['גמר',1.5]:['פלייאוף',1.3]);else if(fx.k==='cup')M.push(fx.po==='גמר'?['גמר גביע',1.5]:['גביע',1.25]);else if(EU[fx.comp])M.push(['אירופה',1.2]);else if(fx.k==='nat')M.push(['נבחרת',1.3]);return M};
-xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const g=rt!=null?gradeOf(rt)[0]:null,gx=g?XPG[g]||0:0,sx=(st.pts||0)+(st.reb||0)+(st.ast||0)+(st.stl||0)+(st.blk||0);
+xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const g=rt!=null?gradeOf(rt)[0]:null,gx=g?XPG[g]||0:0,sx=Math.round((st.pts||0)*1.5+(st.reb||0)*2+(st.ast||0)*2+(st.stl||0)*2+(st.blk||0)*2);
  const M=xpMults(won,fx),mm=M.reduce((a,x)=>a*x[1],1),base=gx+sx;return {P:[],B:[],M,g,gx,sx,base,tot:Math.max(1,Math.round(base*mm))}};
 xpNeed=function(lv){return lv<=7?[20,25,30,40,50,65,80][lv-1]:100+(lv-7)*30};
 /* ======== אנימציית XP בסיכום: הפס רץ מהמקום הקודם למקום החדש ======== */
