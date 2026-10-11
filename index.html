@@ -1371,9 +1371,9 @@ function makeOffers(under,eff){const cur=S.team,curN=short(cur.n),age=S.p.age,cu
   let pr=.14+(eff-need)*.05;if(t.lg==='NBA'){pr=.08+(eff-need)*.06;if(age>31)pr*=.3}else if(LG[t.lg].cc!=='ישראל')pr*=clamp(.3+S.p.fame/80+(eff-need)*.02,.2,1);if(S.lastPN&&S.lastPN.eq>7.12)pr*=1+(S.lastPN.eq-7.12)/.72;
   {const m=contactAt(t.n);if(m&&m.rel>=60)pr=Math.min(1,pr+.35+(m.rel-60)/100)}if(!isCur){const AG=agT();pr*=(t.lg==='NBA'||LG[t.lg].cc!=='ישראל')?AG.reach:Math.min(1.15,AG.reach);if(under&&t.lg==='NBA'&&!S.contract.nba)pr*=.55}if(isCur&&!under)pr=1;if(R()<pr){const of=mkOffer(t,eff,isCur);const m=contactAt(t.n);if(m&&m.rel>=60){of.pr={...of.pr,role:Math.max(0,of.pr.role-1)};of.coachC=m.n}acc.push(of)}}
  {const cap=abroadCap();let ab=shuffle(acc.filter(o=>!o.cur&&o.lg!=='NBA'&&LG[o.lg].cc!=='ישראל'));const drop=new Set(ab.slice(cap));for(let i=acc.length-1;i>=0;i--)if(drop.has(acc[i]))acc.splice(i,1)}
- {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}let res=agentPick(acc,3);
+ {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}let res=agentPick(acc,3,eff,curN,under);
  if(!under&&!res.length&&!(age>=35&&ovr()<52)){shuffle(W().lg.ISR2).slice(0,2).forEach(n=>res.push(mkOffer(W().teams[n],eff,false)))}
- if(!under&&res.length<3&&!(age>=35&&ovr()<52)){const have=new Set(res.map(o=>o.n)),pool=shuffle(['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(n=>!have.has(n)&&n!==curN&&W().teams[n].s<=eff+2));for(const n of pool){if(res.length>=3)break;res.push(mkOffer(W().teams[n],eff,false))}}
+ if(!under&&res.filter(o=>!o.cur).length<3&&!(age>=35&&ovr()<52)){const have=new Set(res.map(o=>o.n)),pool=shuffle(['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(n=>!have.has(n)&&n!==curN&&W().teams[n].s<=eff+2));for(const n of pool){if(res.filter(o=>!o.cur).length>=3)break;res.push(mkOffer(W().teams[n],eff,false))}}
  {const dr=res.filter(o=>o.draft);if(dr.length>1){const keep=pick(dr);res=res.filter(o=>!o.draft||o===keep)}}// בדראפט רק קבוצה אחת בוחרת אותך
  return res.sort((a,b)=>b.sal-a.sal)}
 function simPick(list,top){const w=list.map(n=>Math.exp((top?1:-1)*W().teams[n].s/3)*rnd(.6,1.4)),t=w.reduce((a,b)=>a+b,0);let r=R()*t;for(let i=0;i<list.length;i++){r-=w[i];if(r<=0)return list[i]}return list[0]}
@@ -2637,7 +2637,7 @@ function tgCard(){const sea=S.season;if(!sea||sea.done)return '';const G=teamGoa
  return `<section class="card" style="margin-top:12px;padding:11px 12px"><div class="row between"><div class="lab">יעדי הקבוצה העונה</div><span class="dim" style="font-size:12px">מקום ${rk} בליגה</span></div>${G.map(g=>{const s=goalState(g);return `<div class="row between" style="padding:6px 0;font-size:14px;border-bottom:1px solid var(--line)"><span>${esc(g.n)}</span><b class="${s===true?'good':s===false?'bad':'mute'}">${s===true?'✓ הושג':s===false?'✗ לא הושג':'בתהליך'}</b></div>`}).join('')}</section>`}
 // בסוף העונה: בדיקת היעדים, השפעה על המאמן ועל הצעת ההמשך של הקבוצה
 {const _go3=goOffseason;goOffseason=function(){const sea=S.season,G=sea?teamGoals():[],R0=G.map(g=>({n:g.n,ok:goalState(g,true)===true})),c0=S.contract?{...S.contract}:null,comp0=S.team&&S.team.comp;_go3();try{const o=S.off;if(!o)return;o.tg=R0;const m=R0.length?R0.filter(x=>x.ok).length/R0.length:.5;
-  const ci=o.offers.findIndex(x=>x.cur&&!x.optEx);if(ci>=0&&comp0!=='YTH'&&c0){const f=o.offers[ci],r=clamp(.04+(o.diff||0)*.35+(m-.5)*.3+((o.awards||[]).length?.08:0),-.15,.45);if((o.diff||0)<-.35&&m<.5&&R()<.5){o.offers.splice(ci,1);o.msg=(o.msg?o.msg+' ':'')+`${short(S.team.n)} לא מציעה לך חוזה חדש.`}else{f.sal=Math.max(LG[f.lg]?LG[f.lg].lo||0:0,Math.round(c0.sal*(1+r)/1000)*1000);f.renew=r}}
+  const ci=o.offers.findIndex(x=>x.cur&&!x.optEx);if(ci>=0&&comp0!=='YTH'&&c0){const f=o.offers[ci],r=clamp(.04+(o.diff||0)*.35+(m-.5)*.3+((o.awards||[]).length?.08:0),-.15,.45);{f.sal=Math.max(LG[f.lg]?LG[f.lg].lo||0:0,Math.round(c0.sal*(1+r)/1000)*1000);f.renew=r}}
   save();renderOff()}catch(e){console.error(e)}}}
 {const _cp2=clPills;clPills=function(f){let pre='';if(f.renew!=null){const r=f.renew,p=Math.round(Math.abs(r)*100);pre=`<div class="row wrap" style="gap:6px"><span class="pill ${r>=.03?'good':r<=-.03?'bad':''}">הצעת המשך: ${r>=.03?`העלאה של ${p}%`:r<=-.03?`קיצוץ של ${p}%`:'אותו שכר'}</span></div>`}return pre+_cp2(f)}}
 function tgOffCard(){const o=S.off;if(!o||!o.tg||!o.tg.length)return '';return `<section class="card" style="margin-top:12px"><div class="lab" style="margin-bottom:6px">יעדי הקבוצה</div>${o.tg.map(x=>`<div class="row between" style="padding:4px 0;font-size:14px"><span>${esc(x.n)}</span><b class="${x.ok?'good':'bad'}">${x.ok?'✓ הושג':'✗ לא הושג'}</b></div>`).join('')}</section>`}
@@ -2653,6 +2653,25 @@ function retireCard(){const o=S.off,p=S.p;if(!o||o.forced||p.age<29)return '';co
  return `<section class="card" style="margin-top:12px;border-color:rgba(255,255,255,.18)"><div class="lab">גיל ${p.age} · ${yrs} עונות בכירות</div><h3 class="h2" style="margin:6px 0 4px">ממשיכים עוד עונה?</h3><div class="mute" style="font-size:13px">${L?`מורשת: ${LEGT[L.ti][1]} · `:''}${S.titles.filter(t=>t.k!=='YTH').length} תארים · ${S.awards.length} פרסים</div><div class="row" style="margin-top:10px"><button class="btn soft" style="flex:1" data-a="keepplay">ממשיך לשחק</button><button class="btn ghost" style="flex:1" data-a="retire">פורש</button></div></section>`}
 {const _ro4=renderOff;renderOff=function(){_ro4();try{if(S.off&&S.off.keepGo)return;const c=retireCard();if(c){const sec=[...document.querySelectorAll('#app .sec')].find(e=>/ההצעות שלך|קבוצות רוצות|הגיע הזמן/.test(e.textContent));if(sec)sec.insertAdjacentHTML('beforebegin',c)}}catch(e){}}}
 Object.assign(A,{keepplay:()=>{S.off.keepGo=true;save();renderOff();toast('ממשיכים!')}});
+
+/* ======== 3 הצעות + הצעת המשך: קפיצה, רוטציה, ותפקיד מוביל ======== */
+// תמיד הצעה להישאר בקבוצה הנוכחית, ועוד 3: אחת שאפתנית (קבוצה גדולה), אחת באמצע, ואחת שבה תהיה ראש לשועלים (קבוצה קטנה יותר או ליגה נמוכה יותר בארץ)
+agentPick=function(acc,n,eff,curN,under){const t=S.agent.t??1,W0=[{w:.25,z:70},{w:.7,z:30},{w:1,z:12}][t],net=S.agent.net||[];let cur=acc.find(o=>o.cur);const rest=acc.filter(o=>!o.cur);
+ rest.forEach(o=>{o.via=net.includes(o.n)||(net.includes('NBA')&&o.lg==='NBA');o._sc=prestige(o)*W0.w+((o.pr&&o.pr.title)||0)*60*W0.w+(o.via?30:0)+R()*W0.z;if(o.via&&!o.draft)o.sal=Math.round(o.sal*1.08/1000)*1000;if(o.bonus)o.bonus=Math.round(o.bonus*[.5,1,1.6][t])});
+ rest.sort((a,b)=>b._sc-a._sc);const out=[];const take=f=>{const o=rest.find(x=>!out.includes(x)&&f(x));if(o){out.push(o);return o}return null};
+ take(()=>true);// שאפתנית
+ if(!take(o=>o.pr&&o.pr.role===0)&&!under&&eff!=null){// אין הצעה לתפקיד מוביל: הסוכן מוצא קבוצה בארץ שבה תהיה פותח
+  const used=new Set(acc.map(o=>o.n).concat(out.map(o=>o.n),[curN])),pool=['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(x=>!used.has(x)&&roleOf(ovr()-(S.p.age<=21&&!topN()?4:0)-W().teams[x].s)===0).sort((a,b)=>prestige(W().teams[b])-prestige(W().teams[a]));if(pool.length){const o=mkOffer(W().teams[pool[0]],eff,false);o.lead=true;out.push(o)}}
+ else if(out[1])out[1].lead=true;
+ take(o=>o.pr&&o.pr.role===1)||take(()=>true);while(out.length<n&&take(()=>true));
+ if(!cur&&!under&&curN&&S.team&&S.team.comp!=='YTH'&&W().teams[curN]){cur=mkOffer(W().teams[curN],eff??ovr(),true)}
+ return (cur?[cur]:[]).concat(out.slice(0,n))};
+{const _cp3=clPills;clPills=function(f){const b=_cp3(f);return f.lead&&!f.cur?`<div class="row wrap" style="gap:6px"><span class="pill good">תפקיד מוביל · ראש לשועלים</span></div>`+b:b}}
+// הצעת המשך תמיד קיימת (לא מבטלים אותה)
+/* ======== הצעת המאמן ליד התכונות ======== */
+// התכונות שהכי חשוב לחזק כדי לקבל יותר דקות ולהיות יעיל יותר: חשובות לעמדה ולסגנון, ונמוכות ביחס לרמת הליגה
+function coachPicks(){const a=S.p.attr,w=POS[S.p.pos].w,y=sty(),L=lgRef();return AT.map(x=>x[0]).filter(k=>k!=='iq'||a.iq<L).map(k=>({k,sc:(w[k]||.5)*(y.g.includes(k)?1.2:1)*Math.max(.3,L+4-a[k])*(relCap(k)>0?1:0)})).sort((p,q)=>q.sc-p.sc).slice(0,3).map(x=>x.k)}
+{const _dt=devTag;devTag=function(k){const b=_dt(k);let cp=[];try{cp=coachPicks()}catch(e){}return (cp.includes(k)?' <span class="pill cyan" style="font-size:10px;padding:1px 6px">הצעת המאמן</span>':'')+b}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
