@@ -646,12 +646,12 @@ const spPerk=k=>S.spons.reduce((s,x)=>s+((BR[x.id].perk||{})[k]||0),0);
 function ea(){const a={...S.p.attr};const b=spPerk('ath')+(S.items.includes('shoes')?1:0);a.spd+=b;a.jmp+=b;const ar=S.p.arch.active;if(ar)a[ARCH[ar].k]+=3;if(S.kit)for(const k in a)a[k]+=kitB(k);for(const k in a)a[k]=Math.min(99,a[k]);return a}
 function ovr(){const a=ea(),w=POS[S.p.pos].w;let s=0;for(const k in w)s+=w[k]*a[k];return Math.round(s)}
 const catAvg=(c,a)=>{a=a||ea();const ks=AT.filter(x=>x[2]===c).map(x=>x[0]);return Math.round(ks.reduce((s,k)=>s+a[k],0)/ks.length)};
-const followers=f=>Math.round(120*Math.pow(1.137,f));
+const followers=f=>{const raw=120*Math.pow(1.137,f),c=folCap();return Math.round(c*(1-Math.exp(-raw/c)))};
 function news(t,hot){S.news.unshift({t,hot:!!hot});S.news.length=Math.min(S.news.length,18)}
 function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
 const coachD=d=>{S.team.coach.rel=clamp(S.team.coach.rel+d,0,100)};
 const matesD=d=>S.team.mates.forEach(m=>m.rel=clamp(m.rel+d+ri(-1,1),0,100));
-const fameD=d=>{S.p.fame=clamp(S.p.fame+d,0,100)};
+const fameD=d=>{S.p.fame=clamp(S.p.fame+(d>0?d*fameTierF():d),0,Math.max(fameCap(),d>0?0:S.p.fame))};
 const confD=d=>{S.p.conf=clamp(S.p.conf+d*(d<0&&S.staff.mental?.6:1),Math.min(70,20+S.titles.length*3),100)};
 const egoD=d=>{S.p.ego=clamp(S.p.ego+d,0,100)};
 const M=()=>pick(S.team.mates);
@@ -2533,6 +2533,16 @@ function animXP(n,lv0,xp0){const bar=document.querySelector('#dvbar i'),num=docu
  if(num){const T=1000,t0=performance.now();const tick=t=>{const p=Math.min(1,(t-t0)/T),e=1-Math.pow(1-p,3);num.textContent='+'+Math.round(n*e);if(p<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)}}
 {const _pd2=pgDev;pgDev=function(n,up){const z=S._xp0||{lv:xpS().lv,xp:xpS().xp};let h=_pd2(n,up);if(!h)return h;const p0=Math.max(2,Math.round(z.xp/xpNeed(z.lv)*100));
  h=h.replace('<div class="dv-bar"><i style="width:','<div class="dv-bar" id="dvbar"><i style="width:'+p0+'%;" data-w="').replace(/<div class="dv-xp">\+(\d+)<small>/,'<div class="dv-xp"><span id="dvxp">+0</span><small>');setTimeout(()=>animXP(n,z.lv,z.xp),30);return h}}
+
+/* ======== מוניטין ועוקבים לפי רמת הקריירה ======== */
+// הרמה הכי גבוהה ששיחקת בה: נוער 0, ליגה שנייה 1, ליגת העל 2, יורוקאפ/ליגה בכירה בחו״ל 3, יורוליג 4, NBA 5
+function tierNow(){const t=S.team;if(!t)return 0;const c=t.comp;if(c==='YTH')return 0;if(c==='NBA')return 5;if(t.eu==='EL')return 4;if(t.eu==='EC'||(LG[c]&&LG[c].t===1&&LG[c].cc!=='ישראל'))return 3;if(LG[c]&&LG[c].t===1)return 2;return 1}
+function bestTier(){const h=(S.history||[]).map(x=>x.comp==='YTH'?0:x.comp==='NBA'?5:LG[x.comp]&&LG[x.comp].t===1?(LG[x.comp].cc==='ישראל'?2:3):1);return Math.max(tierNow(),S.bestTier||0,...h)}
+function fameCap(){return [25,35,55,68,76,100][bestTier()]}
+function folCap(){return [3e3,1e4,6e4,2.5e5,6e5,3e7][bestTier()]}
+function fameTierF(){return [.5,.6,1,1,1,1.1][tierNow()]}
+{const _ss3=startSeason;startSeason=function(...a){const r=_ss3(...a);try{S.bestTier=bestTier()}catch(e){}return r}}
+{const _m4=migrateGS;migrateGS=function(s){_m4(s);try{if(s&&s.p&&s.team){const S0=S;S=s;S.p.fame=Math.min(S.p.fame,fameCap());S=S0}}catch(e){}}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const f=A[b.dataset.a];if(f)f(b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.asset[data-a],.attrrow[data-a]')){e.preventDefault();e.target.click()}});
 (function boot(){const sv=loadSave();if(sv&&sv.p&&sv.view!=='over'&&(sv.team||sv.view==='scout'||sv.view==='acad')){S=sv;migrateGS(S);if(S.view==='game')S.view='hub';render();if(S.queue&&S.queue.length&&S.view==='hub')flush()}else renderStart()})();
