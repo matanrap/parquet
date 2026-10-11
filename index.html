@@ -1310,7 +1310,7 @@ function finishGame(){if(G&&G.fx&&G.fx.k==='nat'){natLiveFinish();return}const s
  const quote=dnp?(G.dnp?'תחלים מהר. אנחנו צריכים אותך.':'תהיה מוכן. ההזדמנות תגיע.'):rt==null?'דקות ספורות. תהיה מוכן לבאות.':({'A+':'ערב ענק. ככה משחקים.','A':'משחק מצוין.','B':'עשית את העבודה.','C':'סביר. אני מצפה ליותר.','D':'זה לא מספיק טוב.','F':'ערב רע. מחר באימון מדברים.'})[g[0]==='A+'?'A+':g[0][0]];
  const ch=(n,v)=>v?`<span class="pill ${v>0?'good':'bad'}">${n} ${v>0?'+':''}${Math.round(v*10)/10}</span>`:'';
  const devs=Object.assign({},pr.tr);for(const k in gg)devs[k]=(devs[k]||0)+gg[k];const devTxt=Object.keys(devs).filter(k=>devs[k]>=.05).sort((a,b)=>devs[b]-devs[a]).slice(0,6).map(k=>`<span class="pill cyan">${AN[k]} +${f1(devs[k])}</span>`).join('');
- const XPR=(pre||dnp)?null:xpParts(st,won,potg,rt,km,fx.comp,fx);S.lastXP=XPR;S._xp0={lv:xpS().lv,xp:xpS().xp};const XPN=XPR?XPR.tot:0,XPU=XPN?xpAdd(XPN):0;
+ const XPR=dnp?null:xpParts(st,won,potg,rt,km,fx.comp,fx);S.lastXP=XPR;S._xp0={lv:xpS().lv,xp:xpS().xp};const XPN=XPR?XPR.tot:0,XPU=XPN?xpAdd(XPN):0;
  showModal(`<div class="stack">${pgReport({won,rt,g,dnp,st,min,fx,quote,role:pre?'משחק הכנה':ROLES[D0.rank].n})}${pgDev(XPN,XPU)}
 
  ${rt!=null&&rt>=10?`<div class="card perf10"><div class="potg-rays"></div><div style="position:relative;text-align:center"><div class="lab" style="letter-spacing:.25em;color:#fff">ציון מושלם</div><div class="num perf10n">10.0</div><div class="mute" style="font-size:13px">משחק שנכנס להיסטוריה של הקריירה שלך</div></div></div>`:''}${potg?`<div class="card potg"><div class="potg-rays"></div><div class="row" style="position:relative"><span class="potg-star">${ico('star','#ffc95c',34)}</span><div><div class="lab gold" style="letter-spacing:.18em">שחקן המשחק</div><b style="font-size:20px">זה אתה!</b><div class="mute" style="font-size:13px">הציון הגבוה בקבוצה המנצחת (${f1(rt)}) · ${S.team.comp==='YTH'?`פעם ה-${S.potgY} בנוער`:`פעם ה-${S.potg} בקריירה`}</div></div></div></div>`:''}
@@ -1359,8 +1359,9 @@ function makeOffers(under,eff){const cur=S.team,curN=short(cur.n),age=S.p.age,cu
   let pr=.14+(eff-need)*.05;if(t.lg==='NBA'){pr=.08+(eff-need)*.06;if(age>31)pr*=.3}else if(LG[t.lg].cc!=='ישראל')pr*=clamp(.3+S.p.fame/80+(eff-need)*.02,.2,1);if(S.lastPN&&S.lastPN.eq>7.12)pr*=1+(S.lastPN.eq-7.12)/.72;
   {const m=contactAt(t.n);if(m&&m.rel>=60)pr=Math.min(1,pr+.35+(m.rel-60)/100)}if(!isCur){const AG=agT();pr*=(t.lg==='NBA'||LG[t.lg].cc!=='ישראל')?AG.reach:Math.min(1.15,AG.reach);if(under&&t.lg==='NBA'&&!S.contract.nba)pr*=.55}if(isCur&&!under)pr=1;if(R()<pr){const of=mkOffer(t,eff,isCur);const m=contactAt(t.n);if(m&&m.rel>=60){of.pr={...of.pr,role:Math.max(0,of.pr.role-1)};of.coachC=m.n}acc.push(of)}}
  {const cap=abroadCap();let ab=shuffle(acc.filter(o=>!o.cur&&o.lg!=='NBA'&&LG[o.lg].cc!=='ישראל'));const drop=new Set(ab.slice(cap));for(let i=acc.length-1;i>=0;i--)if(drop.has(acc[i]))acc.splice(i,1)}
- {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}acc.sort((a,b)=>prestige(b)-prestige(a));let res=acc.slice(0,[2,3,4][S.agent.t??1]).concat(shuffle(acc.slice([2,3,4][S.agent.t??1])).slice(0,[1,3,3][S.agent.t??1]));const ci=acc.find(o=>o.cur);if(ci&&!res.includes(ci))res.push(ci);
+ {const ms=agT().miss;let k=0;if(ms)for(let i=acc.length-1;i>=0;i--)if(!acc[i].cur&&R()<ms){acc.splice(i,1);k++}S.agMiss=k}acc.sort((a,b)=>prestige(b)-prestige(a));let res=acc.slice(0,[3,4,5][S.agent.t??1]).concat(shuffle(acc.slice([3,4,5][S.agent.t??1])).slice(0,[2,3,3][S.agent.t??1]));const ci=acc.find(o=>o.cur);if(ci&&!res.includes(ci))res.push(ci);
  if(!under&&!res.length&&!(age>=35&&ovr()<52)){shuffle(W().lg.ISR2).slice(0,2).forEach(n=>res.push(mkOffer(W().teams[n],eff,false)))}
+ if(!under&&res.length<4&&!(age>=35&&ovr()<52)){const have=new Set(res.map(o=>o.n)),pool=shuffle(['ISR1','ISR2'].flatMap(l=>W().lg[l]).filter(n=>!have.has(n)&&n!==curN&&W().teams[n].s<=eff+2));for(const n of pool){if(res.length>=4)break;res.push(mkOffer(W().teams[n],eff,false))}}
  {const dr=res.filter(o=>o.draft);if(dr.length>1){const keep=pick(dr);res=res.filter(o=>!o.draft||o===keep)}}// בדראפט רק קבוצה אחת בוחרת אותך
  return res.sort((a,b)=>b.sal-a.sal)}
 function simPick(list,top){const w=list.map(n=>Math.exp((top?1:-1)*W().teams[n].s/3)*rnd(.6,1.4)),t=w.reduce((a,b)=>a+b,0);let r=R()*t;for(let i=0;i<list.length;i++){r-=w[i];if(r<=0)return list[i]}return list[0]}
@@ -2518,7 +2519,7 @@ pgDev=function(n,up){if(!n)return '';const X=xpS(),L=S.lastXP,need=xpNeed(X.lv),
 // XP = נקודות לפי הדרגה + נקודות + ריבאונדים + אסיסטים + חטיפות + חסימות (כל אחד 1)
 // ואז מכפילים: ניצחון, רמת היריבה, המפעל (גביע, פלייאוף, אירופה, נבחרת)
 const XPG={'A+':40,'A':30,'A-':25,'B+':20,'B':15,'B-':12,'C+':10,'C':8,'C-':6,'D+':4,'D':3,'D-':2,'F':0};
-xpMults=function(won,fx){const M=[];if(won)M.push(['ניצחון',1.5]);if(!fx)return M;
+xpMults=function(won,fx){const M=[];if(fx&&fx.k==='pre'){M.push(['משחק הכנה',.5]);return M}if(won)M.push(['ניצחון',1.5]);if(!fx)return M;
  if(fx.opp&&fx.k!=='nat'&&S.team&&S.team.comp!=='YTH'||fx.opp&&S.team&&S.team.comp==='YTH'){const d=tS(fx.opp)-S.team.s;if(d>=9)M.push(['יריבה חזקה בהרבה',1.5]);else if(d>=4)M.push(['יריבה חזקה',1.25])}
  if(fx.k==='po')M.push(fx.po==='גמר'?['גמר',1.5]:['פלייאוף',1.3]);else if(fx.k==='cup')M.push(fx.po==='גמר'?['גמר גביע',1.5]:['גביע',1.25]);else if(EU[fx.comp])M.push(['אירופה',1.2]);else if(fx.k==='nat')M.push(['נבחרת',1.3]);return M};
 xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const g=rt!=null?gradeOf(rt)[0]:null,gx=g?XPG[g]||0:0,sx=Math.round((st.pts||0)*1.5+(st.reb||0)*2+(st.ast||0)*2+(st.stl||0)*2+(st.blk||0)*2);
