@@ -2635,7 +2635,7 @@ xpMults=function(won,fx){const M=[];if(fx&&fx.k==='pre'){M.push(['משחק הכ�
  if(fx.k==='po')M.push(fx.po==='גמר'?['גמר',1.5]:['פלייאוף',1.3]);else if(fx.k==='cup')M.push(fx.po==='גמר'?['גמר גביע',1.5]:['גביע',1.25]);else if(EU[fx.comp])M.push(['אירופה',1.2]);else if(fx.k==='nat')M.push(['נבחרת',1.3]);return M};
 xpParts=function(st,won,potg,rt,km,comp,fx){if(!st||!(st.min>0))return null;const g=rt!=null?gradeOf(rt)[0]:null,gx=g?XPG[g]||0:0,sx=Math.round((st.pts||0)*1.5+(st.reb||0)*2+(st.ast||0)*2+(st.stl||0)*2+(st.blk||0)*2);
  const M=xpMults(won,fx),mm=M.reduce((a,x)=>a*x[1],1),base=gx+sx;return {P:[],B:[],M,g,gx,sx,base,tot:Math.max(1,Math.round(base*mm))}};
-xpNeed=function(lv){return Math.min(300,10+lv*10)};// 20, 30, 40 ... עד 300 לכל נקודה, בלי הגבלה על מספר הנקודות
+xpNeed=function(lv){const b=10+lv*10;return b<=200?b:200+(lv-19)};// 20, 30, 40 ... עד 300 לכל נקודה, בלי הגבלה על מספר הנקודות
 /* ======== אנימציית XP בסיכום: הפס רץ מהמקום הקודם למקום החדש ======== */
 function animXP(n,lv0,xp0){const bar=document.querySelector('#dvbar i'),num=document.getElementById('dvxp');if(!bar)return;const X=xpS(),up=X.lv-lv0,pct=(x,l)=>Math.max(2,Math.round(x/xpNeed(l)*100));
  const steps=[];if(up<=0)steps.push([pct(xp0,lv0),pct(X.xp,X.lv)]);else{steps.push([pct(xp0,lv0),100]);for(let i=1;i<up;i++)steps.push([0,100]);steps.push([0,pct(X.xp,X.lv)])}
